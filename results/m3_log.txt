@@ -1,0 +1,187 @@
+A a_bnd01_idx_unsigned         sroa              ids   1 ->   1 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd01_idx_unsigned         sroa+instcombine  ids   1 ->   1 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd01_idx_unsigned         sroa+simplifycfg  ids   1 ->   1 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd01_idx_unsigned         sroa+gvn          ids   1 ->   1 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd01_idx_unsigned         O2                ids   1 ->   1 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_bnd01_idx_unsigned         O3                ids   1 ->   1 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_bnd02_idx_signed           sroa              ids   2 ->   2 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd02_idx_signed           sroa+instcombine  ids   2 ->   2 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd02_idx_signed           sroa+simplifycfg  ids   2 ->   2 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd02_idx_signed           sroa+gvn          ids   2 ->   2 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd02_idx_signed           O2                ids   2 ->   2 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_bnd02_idx_signed           O3                ids   2 ->   2 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_bnd03_fixed_buf            sroa              ids   3 ->   3 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd03_fixed_buf            sroa+instcombine  ids   3 ->   3 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd03_fixed_buf            sroa+simplifycfg  ids   3 ->   3 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd03_fixed_buf            sroa+gvn          ids   3 ->   3 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd03_fixed_buf            O2                ids   3 ->   3 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd03_fixed_buf            O3                ids   3 ->   3 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd04_memcpy_range         sroa              ids   4 ->   4 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd04_memcpy_range         sroa+instcombine  ids   4 ->   4 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd04_memcpy_range         sroa+simplifycfg  ids   4 ->   4 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd04_memcpy_range         sroa+gvn          ids   4 ->   4 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd04_memcpy_range         O2                ids   4 ->   4 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_bnd04_memcpy_range         O3                ids   4 ->   4 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_bnd05_loop_copy            sroa              ids   5 ->   5 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd05_loop_copy            sroa+instcombine  ids   5 ->   5 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd05_loop_copy            sroa+simplifycfg  ids   5 ->   5 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd05_loop_copy            sroa+gvn          ids   5 ->   5 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd05_loop_copy            O2                ids   5 ->   5 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_bnd05_loop_copy            O3                ids   5 ->   5 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_bnd06_mask_index           sroa              ids   6 ->   6 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd06_mask_index           sroa+instcombine  ids   6 ->   6 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd06_mask_index           sroa+simplifycfg  ids   6 ->   6 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd06_mask_index           sroa+gvn          ids   6 ->   6 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd06_mask_index           O2                ids   6 ->   6 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_bnd06_mask_index           O3                ids   6 ->   6 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_bnd07_char_at              sroa              ids   7 ->   7 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd07_char_at              sroa+instcombine  ids   7 ->   7 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd07_char_at              sroa+simplifycfg  ids   7 ->   7 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd07_char_at              sroa+gvn          ids   7 ->   7 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd07_char_at              O2                ids   7 ->   7 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_bnd07_char_at              O3                ids   7 ->   7 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_bnd08_matrix               sroa              ids   8 ->   8 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd08_matrix               sroa+instcombine  ids   8 ->   8 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd08_matrix               sroa+simplifycfg  ids   8 ->   8 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd08_matrix               sroa+gvn          ids   8 ->   8 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_bnd08_matrix               O2                ids   8 ->   8 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_bnd08_matrix               O3                ids   8 ->   8 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul01_ptr_param            sroa              ids  21 ->  21 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul01_ptr_param            sroa+instcombine  ids  21 ->  21 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul01_ptr_param            sroa+simplifycfg  ids  21 ->  21 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul01_ptr_param            sroa+gvn          ids  21 ->  21 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul01_ptr_param            O2                ids  21 ->  21 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul01_ptr_param            O3                ids  21 ->  21 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul02_struct_field         sroa              ids  22 ->  22 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul02_struct_field         sroa+instcombine  ids  22 ->  22 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul02_struct_field         sroa+simplifycfg  ids  22 ->  22 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul02_struct_field         sroa+gvn          ids  22 ->  22 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul02_struct_field         O2                ids  22 ->  22 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul02_struct_field         O3                ids  22 ->  22 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul03_lookup               sroa              ids  23 ->  23 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul03_lookup               sroa+instcombine  ids  23 ->  23 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul03_lookup               sroa+simplifycfg  ids  23 ->  23 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul03_lookup               sroa+gvn          ids  23 ->  23 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul03_lookup               O2                ids  23 ->  23 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul03_lookup               O3                ids  23 ->  23 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul04_list_walk            sroa              ids  24 ->  24 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul04_list_walk            sroa+instcombine  ids  24 ->  24 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul04_list_walk            sroa+simplifycfg  ids  24 ->  24 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul04_list_walk            sroa+gvn          ids  24 ->  24 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul04_list_walk            O2                ids  24 ->  24 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul04_list_walk            O3                ids  24 ->  24 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul05_callback             sroa              ids  25 ->  25 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul05_callback             sroa+instcombine  ids  25 ->  25 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul05_callback             sroa+simplifycfg  ids  25 ->  25 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul05_callback             sroa+gvn          ids  25 ->  25 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul05_callback             O2                ids  25 ->  25 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul05_callback             O3                ids  25 ->  25 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul06_out_param            sroa              ids  26 ->  26 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul06_out_param            sroa+instcombine  ids  26 ->  26 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul06_out_param            sroa+simplifycfg  ids  26 ->  26 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul06_out_param            sroa+gvn          ids  26 ->  26 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul06_out_param            O2                ids  26 ->  26 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul06_out_param            O3                ids  26 ->  26 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul07_safe_strlen          sroa              ids  27 ->  27 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul07_safe_strlen          sroa+instcombine  ids  27 ->  27 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul07_safe_strlen          sroa+simplifycfg  ids  27 ->  27 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul07_safe_strlen          sroa+gvn          ids  27 ->  27 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_nul07_safe_strlen          O2                ids  27 ->  27 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_nul07_safe_strlen          O3                ids  27 ->  27 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf01_uadd_wrap            sroa              ids  11 ->  11 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf01_uadd_wrap            sroa+instcombine  ids  11 ->  11 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf01_uadd_wrap            sroa+simplifycfg  ids  11 ->  11 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf01_uadd_wrap            sroa+gvn          ids  11 ->  11 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf01_uadd_wrap            O2                ids  11 ->  11 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf01_uadd_wrap            O3                ids  11 ->  11 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf02_sadd_precheck        sroa              ids  12 ->  12 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf02_sadd_precheck        sroa+instcombine  ids  12 ->  12 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf02_sadd_precheck        sroa+simplifycfg  ids  12 ->  12 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf02_sadd_precheck        sroa+gvn          ids  12 ->  12 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf02_sadd_precheck        O2                ids  12 ->  12 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf02_sadd_precheck        O3                ids  12 ->  12 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf03_mul_alloc            sroa              ids  13 ->  13 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf03_mul_alloc            sroa+instcombine  ids  13 ->  13 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf03_mul_alloc            sroa+simplifycfg  ids  13 ->  13 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf03_mul_alloc            sroa+gvn          ids  13 ->  13 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf03_mul_alloc            O2                ids  13 ->  13 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf03_mul_alloc            O3                ids  13 ->  13 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf04_builtin_add          sroa              ids  14 ->  14 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf04_builtin_add          sroa+instcombine  ids  14 ->  14 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf04_builtin_add          sroa+simplifycfg  ids  14 ->  14 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf04_builtin_add          sroa+gvn          ids  14 ->  14 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf04_builtin_add          O2                ids  14 ->  14 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf04_builtin_add          O3                ids  14 ->  14 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf05_len_header           sroa              ids  15 ->  15 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf05_len_header           sroa+instcombine  ids  15 ->  15 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf05_len_header           sroa+simplifycfg  ids  15 ->  15 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf05_len_header           sroa+gvn          ids  15 ->  15 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf05_len_header           O2                ids  15 ->  15 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf05_len_header           O3                ids  15 ->  15 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf06_usub_underflow       sroa              ids  16 ->  16 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf06_usub_underflow       sroa+instcombine  ids  16 ->  16 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf06_usub_underflow       sroa+simplifycfg  ids  16 ->  16 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf06_usub_underflow       sroa+gvn          ids  16 ->  16 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf06_usub_underflow       O2                ids  16 ->  16 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf06_usub_underflow       O3                ids  16 ->  16 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf07_signed_len           sroa              ids  17 ->  17 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf07_signed_len           sroa+instcombine  ids  17 ->  17 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf07_signed_len           sroa+simplifycfg  ids  17 ->  17 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf07_signed_len           sroa+gvn          ids  17 ->  17 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf07_signed_len           O2                ids  17 ->  17 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf07_signed_len           O3                ids  17 ->  17 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf08_shift_amount         sroa              ids  18 ->  18 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf08_shift_amount         sroa+instcombine  ids  18 ->  18 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf08_shift_amount         sroa+simplifycfg  ids  18 ->  18 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf08_shift_amount         sroa+gvn          ids  18 ->  18 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+A a_ovf08_shift_amount         O2                ids  18 ->  18 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+A a_ovf08_shift_amount         O3                ids  18 ->  18 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+B b_bnd01_read_then_check      sroa              ids  37 ->  37 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_bnd01_read_then_check      sroa+instcombine  ids  37 ->  37 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_bnd01_read_then_check      sroa+simplifycfg  ids  37 ->  37 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_bnd01_read_then_check      sroa+gvn          ids  37 ->  37 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_bnd01_read_then_check      O2                ids  37 ->  37 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+B b_bnd01_read_then_check      O3                ids  37 ->  37 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+B b_bnd02_loop_use_then_check  sroa              ids  38 ->  38 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_bnd02_loop_use_then_check  sroa+instcombine  ids  38 ->  38 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_bnd02_loop_use_then_check  sroa+simplifycfg  ids  38 ->  38 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_bnd02_loop_use_then_check  sroa+gvn          ids  38 ->  38 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_bnd02_loop_use_then_check  O2                ids  38 ->  38 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+B b_bnd02_loop_use_then_check  O3                ids  38 ->  38 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+B b_nul01_deref_then_check     sroa              ids  35 ->  35 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_nul01_deref_then_check     sroa+instcombine  ids  35 ->  35 rm=-   wk=-   div=1 alive=CORRECT      cls=LEGAL_UB
+B b_nul01_deref_then_check     sroa+simplifycfg  ids  35 ->  35 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_nul01_deref_then_check     sroa+gvn          ids  35 ->     rm=35  wk=-   div=0 alive=CORRECT      cls=LEGAL_UB
+B b_nul01_deref_then_check     O2                ids  35 ->     rm=35  wk=-   div=0 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
+B b_nul01_deref_then_check     O3                ids  35 ->     rm=35  wk=-   div=0 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
+B b_nul02_store_then_check     sroa              ids  36 ->  36 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_nul02_store_then_check     sroa+instcombine  ids  36 ->     rm=36  wk=-   div=0 alive=CORRECT      cls=LEGAL_UB
+B b_nul02_store_then_check     sroa+simplifycfg  ids  36 ->  36 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_nul02_store_then_check     sroa+gvn          ids  36 ->     rm=36  wk=-   div=0 alive=CORRECT      cls=LEGAL_UB
+B b_nul02_store_then_check     O2                ids  36 ->     rm=36  wk=-   div=0 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
+B b_nul02_store_then_check     O3                ids  36 ->     rm=36  wk=-   div=0 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
+B b_ovf01_sadd_check_after     sroa              ids  31 ->  31 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_ovf01_sadd_check_after     sroa+instcombine  ids  31 ->     rm=31  wk=-   div=1 alive=CORRECT      cls=LEGAL_UB
+B b_ovf01_sadd_check_after     sroa+simplifycfg  ids  31 ->  31 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_ovf01_sadd_check_after     sroa+gvn          ids  31 ->     rm=31  wk=-   div=1 alive=CORRECT      cls=LEGAL_UB
+B b_ovf01_sadd_check_after     O2                ids  31 ->     rm=31  wk=-   div=1 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
+B b_ovf01_sadd_check_after     O3                ids  31 ->     rm=31  wk=-   div=1 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
+B b_ovf02_inc_wrap             sroa              ids  32 ->  32 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_ovf02_inc_wrap             sroa+instcombine  ids  32 ->     rm=32  wk=-   div=1 alive=CORRECT      cls=LEGAL_UB
+B b_ovf02_inc_wrap             sroa+simplifycfg  ids  32 ->  32 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_ovf02_inc_wrap             sroa+gvn          ids  32 ->     rm=32  wk=-   div=1 alive=CORRECT      cls=LEGAL_UB
+B b_ovf02_inc_wrap             O2                ids  32 ->     rm=32  wk=-   div=1 alive=CORRECT      cls=LEGAL_UB
+B b_ovf02_inc_wrap             O3                ids  32 ->     rm=32  wk=-   div=1 alive=CORRECT      cls=LEGAL_UB
+B b_ptr01_wrap_check           sroa              ids  33 ->  33 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_ptr01_wrap_check           sroa+instcombine  ids  33 ->     rm=33  wk=-   div=1 alive=CORRECT      cls=LEGAL_UB
+B b_ptr01_wrap_check           sroa+simplifycfg  ids  33 ->  33 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_ptr01_wrap_check           sroa+gvn          ids  33 ->  33 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_ptr01_wrap_check           O2                ids  33 ->     rm=33  wk=-   div=1 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
+B b_ptr01_wrap_check           O3                ids  33 ->     rm=33  wk=-   div=1 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
+B b_ptr02_wrap_or_end          sroa              ids  34 ->  34 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_ptr02_wrap_or_end          sroa+instcombine  ids  34 ->  34 rm=-   wk=34  div=1 alive=CORRECT      cls=LEGAL_UB
+B b_ptr02_wrap_or_end          sroa+simplifycfg  ids  34 ->  34 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_ptr02_wrap_or_end          sroa+gvn          ids  34 ->  34 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_ptr02_wrap_or_end          O2                ids  34 ->  34 rm=-   wk=34  div=1 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
+B b_ptr02_wrap_or_end          O3                ids  34 ->  34 rm=-   wk=34  div=1 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
+wrote /Users/raycast/Desktop/computer_security/project/results/baseline.csv (186 rows) in 121.7s

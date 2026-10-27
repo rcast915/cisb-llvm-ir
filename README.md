@@ -16,13 +16,15 @@ All IR targets `arm64-apple-macosx26.0.0`.
 Notes:
 - `alive-tv --version` prints "LLVM version 23.1.3": that string is compiled into the Homebrew bottle from the headers it was built with. At runtime it loads `/opt/homebrew/Cellar/llvm/23.1.4/lib/libLLVM.23.1.dylib`, the same library `opt` uses (checked with `DYLD_PRINT_LIBRARIES`).
 - Homebrew clang's per-target config (`/opt/homebrew/etc/clang/arm64-apple-macosx26.cfg`) points at a missing SDK, so every clang call uses `$CLANG_SYSFLAGS` (`--no-default-config -isysroot $SDKROOT`).
-- Seed IR is emitted with `$CLANG_IRFLAGS` = `-O1 -Xclang -disable-llvm-passes -fno-strict-aliasing`, so functions carry no `optnone` and passes really run.
+- Seed IR is emitted with `$CLANG_IRFLAGS` = `-O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing`, so functions carry no `optnone` and passes really run.
 - `alive-tv` exits 0 even when a transformation does not verify; the classifier must parse its output text.
 - macOS has no `timeout`; `scripts/env.sh` defines `tmo SECONDS cmd...` (exit 142 on timeout).
 
 ## Limitations (state these in the report)
 
 - **No TBAA (`-fno-strict-aliasing`).** Alive2 v21 rejects `!tbaa` metadata ("Unsupported metadata: 1"), so seeds are compiled without it. Optimizations that rely on type-based alias analysis are not exercised. Any remaining Alive2 failure on unsupported features is labelled `UNKNOWN` with a sub-label (e.g. `UNKNOWN:unsupported-metadata`) and counted separately.
+- **No lifetime markers (`-Xclang -disable-lifetime-markers`).** LLVM 23's one-argument `llvm.lifetime.start/end` is "Unsupported instruction" in Alive2 v21. The markers only describe stack-slot liveness and `sroa` deletes them for promoted locals, but stack-coloring style optimizations are not exercised.
+- **O2/O3 output is mostly not checkable by Alive2 v21.** `default<O2|O3>` infers parameter attributes that Alive2 v21 rejects (`nofree`, `captures(address_is_null)`, `captures(address)`); those rows are `UNKNOWN:unsupported-attribute:<attr>`. Isolated-pass rows are unaffected.
 - **Guard marker.** Each guard's error path calls an external `cisb_guard_fail(id)` so guards can be counted in IR and seen at run time. Real code often just returns an error code; the opaque call can block some transformations (e.g. turning the guard into a `select`).
 - **Loops.** Alive2 checks loops only up to a bounded unroll; each looping seed records its bound in `inputs.json` (`alive2_unroll`), and results are only valid up to that bound.
 - Target is `arm64-apple-macosx26.0.0` only.
@@ -42,8 +44,8 @@ Versions are written to `results/versions.txt`; the full M1 log is `results/m1_l
 |-----------|-----------|--------|
 | M1 toolchain | `scripts/setup.sh` | **done** (2026-10-27) |
 | M2 seed corpus | `scripts/check_seeds.sh` | **done** (2026-10-27): 31 seeds, all checks pass |
-| M3 baseline driver | — | next |
-| M4 mutator (2 ops) + UB filter + first Alive2 run | — | |
+| M3 baseline driver | `scripts/run_baseline.sh` then `python3 driver/summarize_baseline.py` | **done** (2026-10-27); Arm B gate: 2 bounds controls show no change (see below) |
+| M4 mutator (2 ops) + UB filter + first Alive2 run | — | next |
 | M5 remaining ops, ASan/UBSan harness, classification | — | |
 | M6 aggregation + case studies | — | |
 
@@ -105,3 +107,26 @@ Outputs: `results/m2_seeds.csv` (per seed), `results/m2_inputs.csv` (per input: 
 | `b_ovf02_inc_wrap` | B | overflow | 32 | no | 2 (1) | signed_overflow_check_after_add |
 | `b_ptr01_wrap_check` | B | bounds | 33 | no | 2 (1) | pointer_wrap_check |
 | `b_ptr02_wrap_or_end` | B | bounds | 34 | no | 4 (2) | pointer_wrap_check |
+
+## M3 baseline ([driver/run_baseline.py](driver/run_baseline.py))
+
+Pipelines (exact `opt -passes=` strings are in the `opt_passes` column; the CSV's first line documents the setup):
+
+| pipeline | `-passes=` |
+|---|---|
+| `sroa` | `sroa` (the prelude alone, a control) |
+| `sroa+instcombine` | `sroa,instcombine` |
+| `sroa+simplifycfg` | `sroa,simplifycfg` |
+| `sroa+gvn` | `sroa,gvn` |
+| `O2` / `O3` | `default<O2>` / `default<O3>` (no prelude) |
+
+**Prelude:** isolated passes always run after `sroa` and nothing else, because clang's unoptimized IR keeps every local in memory and the three passes are meant to see SSA values.
+
+Per (seed, pipeline) row in `results/baseline.csv`:
+- **Guards:** ids before/after, counted with `driver/irguards.py` exactly as in M2. *Removed* = id no longer a conditional guard (branch gone or constant-folded). *Weakened* = id still in the IR, but an input that printed `GUARD id` at -O0 no longer does (so weakening is only detected on the recorded inputs).
+- **Behavioural differential (plain builds, no sanitizers):** the unoptimized seed IR and the optimized IR are each compiled with `clang -O0` (codegen only, so only the IR pipeline differs) and linked with the same `main` (from `llvm-extract --delete`) and harness. Every input is run on both; exit code and `GUARD` lines are compared.
+- **UB attribution:** a separate `-O0 -fsanitize=address,undefined` build of the source runs the same inputs. A divergence is `ub_attributed` if that build reported anything on the input. It is never used as the divergence oracle.
+- **Alive2:** `alive-tv --smt-to=10000 [--src-unroll=N --tgt-unroll=N] seed.ll <pipeline>.ll`, 300 s process timeout. `alive2_verdict` is CORRECT / INCORRECT / UNKNOWN (with sub-label) / NO_TRANSFORM for every row.
+- **Classification (candidates only, i.e. removed, weakened or divergent):** INCORRECT -> `MISCOMPILE`; UNKNOWN -> `UNKNOWN:<sub-label>`; CORRECT -> `LEGAL_UB` if the seed is `ub_by_construction` or sanitizers flagged an input, else `BENIGN`.
+
+`driver/summarize_baseline.py` prints the per-arm tables to `results/baseline_summary.txt`. Logs/commands: `results/m3_log.txt`, `results/m3_commands.txt`.

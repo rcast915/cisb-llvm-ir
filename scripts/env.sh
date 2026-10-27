@@ -14,5 +14,6 @@ export SDKROOT=${SDKROOT:-$(xcrun --show-sdk-path)}
 # Pass on every clang call: ignore Homebrew's per-target .cfg (its macosx26 cfg names a missing SDK).
 export CLANG_SYSFLAGS="--no-default-config -isysroot $SDKROOT"
 # Standard flags for emitting seed IR: passes not skipped (no optnone), and no !tbaa
-# metadata (Alive2 v21 reports "Unsupported metadata: 1" on !tbaa).
-export CLANG_IRFLAGS="-O1 -Xclang -disable-llvm-passes -fno-strict-aliasing -S -emit-llvm"
+# metadata (Alive2 v21 reports "Unsupported metadata: 1" on !tbaa), and no
+# llvm.lifetime.* calls (LLVM 23 one-argument form is "Unsupported instruction" in Alive2 v21).
+export CLANG_IRFLAGS="-O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm"
