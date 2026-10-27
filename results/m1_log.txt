@@ -1,0 +1,112 @@
+date: 2026-10-27T19:49:14Z
+host: Darwin arm64 26.6.2
+clang: /opt/homebrew/Cellar/llvm/23.1.4/bin/clang-23 | Homebrew clang version 23.1.4
+opt: /opt/homebrew/Cellar/llvm/23.1.4/bin/opt | Homebrew LLVM version 23.1.4
+alive-tv: /opt/homebrew/Cellar/alive2/21.0_9/bin/alive-tv | brew alive2 21.0_9 | Homebrew LLVM version 23.1.3 (banner from build headers)
+alive-tv loads: /opt/homebrew/Cellar/llvm/23.1.4/lib/libLLVM.23.1.dylib
+sdk: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk (27.0)
+z3: z3 5.3.2 5.1.0
+python: Python 3.14.7
+===== alive-tv good.ll (exit 0) =====
+
+----------------------------------------
+define i32 @src(i32 %x) {
+#0:
+  %r = mul i32 %x, 2
+  ret i32 %r
+}
+=>
+define i32 @tgt(i32 %x) {
+#0:
+  %r = shl i32 %x, 1
+  ret i32 %r
+}
+Transformation seems to be correct!
+===== alive-tv bad.ll (exit 0) =====
+
+----------------------------------------
+define i1 @src(i32 %x) {
+#0:
+  %a = add i32 %x, 1
+  %c = icmp sgt i32 %a, %x
+  ret i1 %c
+}
+=>
+define i1 @tgt(i32 %x) {
+#0:
+  ret i1 1
+}
+Transformation doesn't verify!
+
+ERROR: Value mismatch
+
+Example:
+i32 %x = #x7fffffff (2147483647)
+
+Source:
+i32 %a = #x80000000 (2147483648, -2147483648)
+i1 %c = #x0 (0)
+
+Target:
+Source value: #x0 (0)
+Target value: #x1 (1)
+===== alive-tv ub_legal.ll (exit 0) =====
+
+----------------------------------------
+define i1 @src(i32 %x) {
+#0:
+  %a = add nsw i32 %x, 1
+  %c = icmp sgt i32 %a, %x
+  ret i1 %c
+}
+=>
+define i1 @tgt(i32 %x) {
+#0:
+  ret i1 1
+}
+Transformation seems to be correct!
+===== opt -passes=instcombine ub_legal src =====
+; ModuleID = '<stdin>'
+source_filename = "<stdin>"
+
+define i1 @src(i32 %x) {
+  ret i1 true
+}
+===== alive-tv roundtrip before.ll after.ll (exit 0) =====
+=>
+define i32 @get(ptr noundef %#0, i32 noundef %#1, i32 noundef %#2) {
+#3:
+  %.not = icmp ult i32 noundef %#2, noundef %#1
+  br i1 %.not, label %#5, label %#4
+
+#4:
+  br label %#6
+
+#5:
+  %#7 = zext i32 noundef %#2 to i64
+  %#8 = gep inbounds nuw ptr noundef %#0, 4 x i64 %#7
+  %#9 = load i32, ptr %#8, align 4
+  br label %#6
+
+#6:
+  %.0 = phi i32 [ 4294967295, %#4 ], [ %#9, %#5 ]
+  ret i32 %.0
+}
+Transformation seems to be correct!
+
+Summary:
+  1 correct transformations
+  0 incorrect transformations
+  0 failed-to-prove transformations
+  0 Alive2 errors
+M1: PASS
+binary links: 	/opt/homebrew/opt/llvm/lib/clang/23/lib/darwin/libclang_rt.asan_osx_dynamic.dylib 
+===== san_smoke clean (exit 0) =====
+mode=clean y=2
+===== san_smoke asan (exit 134) =====
+==9885==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000000100 at pc 0x0001049e0acc bp 0x00016b41de70 sp 0x00016b41de68
+SUMMARY: AddressSanitizer: heap-buffer-overflow san_smoke.c:10 in main
+===== san_smoke ubsan (exit 134) =====
+san_smoke.c:12:22: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior san_smoke.c:12:22 
+SANITIZERS: PASS
