@@ -1,0 +1,53 @@
+{
+  "id": "a_ovf08_shift_amount",
+  "arm": "A",
+  "class": "overflow",
+  "ub_by_construction": false,
+  "description": "shift amount s >= 32",
+  "functions": [
+    "shl_checked"
+  ],
+  "guard_ids": [
+    18
+  ],
+  "loops": false,
+  "alive2_unroll": 0,
+  "inputs": [
+    {
+      "args": [
+        "1",
+        "0"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "1",
+        "31"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "1",
+        "32"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    },
+    {
+      "args": [
+        "1",
+        "100"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    }
+  ]
+}

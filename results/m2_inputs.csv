@@ -1,0 +1,109 @@
+id,arm,class,input,args,guard,expect_guard_output,observed_guard,expect_reports,observed_reports,exit,stdout,secs,ok
+a_bnd01_idx_unsigned,A,bounds,0,4 0,pass,False,,,,0,ret 1,0.38,True
+a_bnd01_idx_unsigned,A,bounds,1,4 3,pass,False,,,,0,ret 31,0.07,True
+a_bnd01_idx_unsigned,A,bounds,2,4 4,trip,True,1,,,0,GUARD 1 | ret -1,0.07,True
+a_bnd01_idx_unsigned,A,bounds,3,4 4294967295,trip,True,1,,,0,GUARD 1 | ret -1,0.07,True
+a_bnd01_idx_unsigned,A,bounds,4,1 1,trip,True,1,,,0,GUARD 1 | ret -1,0.07,True
+a_bnd02_idx_signed,A,bounds,0,4 0,pass,False,,,,0,ret 1,0.31,True
+a_bnd02_idx_signed,A,bounds,1,4 3,pass,False,,,,0,ret 31,0.07,True
+a_bnd02_idx_signed,A,bounds,2,4 -1,trip,True,2,,,0,GUARD 2 | ret -1,0.07,True
+a_bnd02_idx_signed,A,bounds,3,4 4,trip,True,2,,,0,GUARD 2 | ret -1,0.07,True
+a_bnd02_idx_signed,A,bounds,4,4 -2147483648,trip,True,2,,,0,GUARD 2 | ret -1,0.07,True
+a_bnd03_fixed_buf,A,bounds,0,0,pass,False,,,,0,ret 0 buf0=7 buf15=0,0.31,True
+a_bnd03_fixed_buf,A,bounds,1,15,pass,False,,,,0,ret 0 buf0=0 buf15=7,0.07,True
+a_bnd03_fixed_buf,A,bounds,2,16,trip,True,3,,,0,GUARD 3 | ret -1 buf0=0 buf15=0,0.07,True
+a_bnd03_fixed_buf,A,bounds,3,1000,trip,True,3,,,0,GUARD 3 | ret -1 buf0=0 buf15=0,0.07,True
+a_bnd04_memcpy_range,A,bounds,0,16 0 16,pass,False,,,,0,ret 0 last=120,0.29,True
+a_bnd04_memcpy_range,A,bounds,1,16 8 8,pass,False,,,,0,ret 0 last=120,0.07,True
+a_bnd04_memcpy_range,A,bounds,2,16 8 9,trip,True,4,,,0,GUARD 4 | ret -1 last=0,0.07,True
+a_bnd04_memcpy_range,A,bounds,3,16 17 0,trip,True,4,,,0,GUARD 4 | ret -1 last=0,0.07,True
+a_bnd04_memcpy_range,A,bounds,4,16 8 0xffffffffffffffff,trip,True,4,,,0,GUARD 4 | ret -1 last=0,0.07,True
+a_bnd05_loop_copy,A,bounds,0,4 0,pass,False,,,,0,ret 0,0.30,True
+a_bnd05_loop_copy,A,bounds,1,4 2,pass,False,,,,0,ret 2,0.07,True
+a_bnd05_loop_copy,A,bounds,2,4 4,pass,False,,,,0,ret 4,0.07,True
+a_bnd05_loop_copy,A,bounds,3,4 5,trip,True,5,,,0,GUARD 5 | ret -1,0.07,True
+a_bnd05_loop_copy,A,bounds,4,0 1,trip,True,5,,,0,GUARD 5 | ret -1,0.07,True
+a_bnd06_mask_index,A,bounds,0,7 0,pass,False,,,,0,ret 1,0.28,True
+a_bnd06_mask_index,A,bounds,1,7 7,pass,False,,,,0,ret 71,0.07,True
+a_bnd06_mask_index,A,bounds,2,7 8,trip,True,6,,,0,GUARD 6 | ret -1,0.07,True
+a_bnd06_mask_index,A,bounds,3,7 2147483651,trip,True,6,,,0,GUARD 6 | ret -1,0.07,True
+a_bnd07_char_at,A,bounds,0,hello 0,pass,False,,,,0,ret 104,0.30,True
+a_bnd07_char_at,A,bounds,1,hello 4,pass,False,,,,0,ret 111,0.07,True
+a_bnd07_char_at,A,bounds,2,hello 5,trip,True,7,,,0,GUARD 7 | ret -1,0.07,True
+a_bnd07_char_at,A,bounds,3, 0,trip,True,7,,,0,GUARD 7 | ret -1,0.07,True
+a_bnd08_matrix,A,bounds,0,3 4 0 0,pass,False,,,,0,ret 1,0.31,True
+a_bnd08_matrix,A,bounds,1,3 4 2 3,pass,False,,,,0,ret 111,0.07,True
+a_bnd08_matrix,A,bounds,2,3 4 3 0,trip,True,8,,,0,GUARD 8 | ret -1,0.07,True
+a_bnd08_matrix,A,bounds,3,3 4 0 4,trip,True,8,,,0,GUARD 8 | ret -1,0.07,True
+a_bnd08_matrix,A,bounds,4,3 4 1 7,trip,True,8,,,0,GUARD 8 | ret -1,0.07,True
+a_nul01_ptr_param,A,null,0,ok,pass,False,,,,0,ret 1,0.31,True
+a_nul01_ptr_param,A,null,1,null,trip,True,21,,,0,GUARD 21 | ret -1,0.07,True
+a_nul02_struct_field,A,null,0,ok,pass,False,,,,0,ret 65,0.29,True
+a_nul02_struct_field,A,null,1,null,trip,True,22,,,0,GUARD 22 | ret -1,0.07,True
+a_nul02_struct_field,A,null,2,nodata,trip,True,22,,,0,GUARD 22 | ret -1,0.07,True
+a_nul03_lookup,A,null,0,1,pass,False,,,,0,ret 100,0.30,True
+a_nul03_lookup,A,null,1,3,pass,False,,,,0,ret 300,0.07,True
+a_nul03_lookup,A,null,2,4,trip,True,23,,,0,GUARD 23 | ret -1,0.07,True
+a_nul03_lookup,A,null,3,0,trip,True,23,,,0,GUARD 23 | ret -1,0.07,True
+a_nul04_list_walk,A,null,0,1,pass,False,,,,0,ret 0,0.30,True
+a_nul04_list_walk,A,null,1,4,pass,False,,,,0,ret 3,0.07,True
+a_nul04_list_walk,A,null,2,5,trip,True,24,,,0,GUARD 24 | ret -1,0.07,True
+a_nul04_list_walk,A,null,3,-1,trip,True,24,,,0,GUARD 24 | ret -1,0.07,True
+a_nul05_callback,A,null,0,twice,pass,False,,,,0,ret 42,0.33,True
+a_nul05_callback,A,null,1,null,trip,True,25,,,0,GUARD 25 | ret -1,0.07,True
+a_nul06_out_param,A,null,0,ok,pass,False,,,,0,ret 0 v=42,0.30,True
+a_nul06_out_param,A,null,1,null,trip,True,26,,,0,GUARD 26 | ret -22 v=0,0.07,True
+a_nul07_safe_strlen,A,null,0,hello,pass,False,,,,0,ret 5,0.30,True
+a_nul07_safe_strlen,A,null,1,,pass,False,,,,0,ret 0,0.07,True
+a_nul07_safe_strlen,A,null,2,null,trip,True,27,,,0,GUARD 27 | ret 0,0.07,True
+a_ovf01_uadd_wrap,A,overflow,0,1 2,pass,False,,,,0,ret 0 out=3,0.31,True
+a_ovf01_uadd_wrap,A,overflow,1,2147483648 2147483647,pass,False,,,,0,ret 0 out=4294967295,0.07,True
+a_ovf01_uadd_wrap,A,overflow,2,4294967295 1,trip,True,11,,,0,GUARD 11 | ret -1 out=0,0.07,True
+a_ovf01_uadd_wrap,A,overflow,3,2147483648 2147483648,trip,True,11,,,0,GUARD 11 | ret -1 out=0,0.07,True
+a_ovf02_sadd_precheck,A,overflow,0,100 -200,pass,False,,,,0,ret 0 out=-100,0.31,True
+a_ovf02_sadd_precheck,A,overflow,1,2147483646 1,pass,False,,,,0,ret 0 out=2147483647,0.08,True
+a_ovf02_sadd_precheck,A,overflow,2,2147483647 1,trip,True,12,,,0,GUARD 12 | ret -1 out=0,0.07,True
+a_ovf02_sadd_precheck,A,overflow,3,-2147483648 -1,trip,True,12,,,0,GUARD 12 | ret -1 out=0,0.07,True
+a_ovf03_mul_alloc,A,overflow,0,10 4,pass,False,,,,0,ret ok,0.31,True
+a_ovf03_mul_alloc,A,overflow,1,0 8,pass,False,,,,0,ret ok,0.07,True
+a_ovf03_mul_alloc,A,overflow,2,0x4000000000000000 4,trip,True,13,,,0,GUARD 13 | ret null,0.07,True
+a_ovf03_mul_alloc,A,overflow,3,3 0x8000000000000000,trip,True,13,,,0,GUARD 13 | ret null,0.07,True
+a_ovf04_builtin_add,A,overflow,0,1 2,pass,False,,,,0,ret 0 out=3,0.30,True
+a_ovf04_builtin_add,A,overflow,1,-5 -7,pass,False,,,,0,ret 0 out=-12,0.07,True
+a_ovf04_builtin_add,A,overflow,2,2147483647 1,trip,True,14,,,0,GUARD 14 | ret -1 out=0,0.07,True
+a_ovf04_builtin_add,A,overflow,3,-2147483648 -1,trip,True,14,,,0,GUARD 14 | ret -1 out=0,0.07,True
+a_ovf05_len_header,A,overflow,0,100,pass,False,,,,0,ret 0 out=116,0.30,True
+a_ovf05_len_header,A,overflow,1,4294967279,pass,False,,,,0,ret 0 out=4294967295,0.07,True
+a_ovf05_len_header,A,overflow,2,4294967280,trip,True,15,,,0,GUARD 15 | ret -1 out=0,0.07,True
+a_ovf05_len_header,A,overflow,3,4294967295,trip,True,15,,,0,GUARD 15 | ret -1 out=0,0.07,True
+a_ovf06_usub_underflow,A,overflow,0,10 3,pass,False,,,,0,ret 0 out=7,0.31,True
+a_ovf06_usub_underflow,A,overflow,1,10 10,pass,False,,,,0,ret 0 out=0,0.07,True
+a_ovf06_usub_underflow,A,overflow,2,10 11,trip,True,16,,,0,GUARD 16 | ret -1 out=0,0.07,True
+a_ovf06_usub_underflow,A,overflow,3,0 1,trip,True,16,,,0,GUARD 16 | ret -1 out=0,0.07,True
+a_ovf07_signed_len,A,overflow,0,8,pass,False,,,,0,ret 8,0.30,True
+a_ovf07_signed_len,A,overflow,1,16,pass,False,,,,0,ret 16,0.07,True
+a_ovf07_signed_len,A,overflow,2,-1,trip,True,17,,,0,GUARD 17 | ret -1,0.07,True
+a_ovf07_signed_len,A,overflow,3,17,trip,True,17,,,0,GUARD 17 | ret -1,0.07,True
+a_ovf08_shift_amount,A,overflow,0,1 0,pass,False,,,,0,ret 0 out=1,0.30,True
+a_ovf08_shift_amount,A,overflow,1,1 31,pass,False,,,,0,ret 0 out=2147483648,0.07,True
+a_ovf08_shift_amount,A,overflow,2,1 32,trip,True,18,,,0,GUARD 18 | ret -1 out=0,0.07,True
+a_ovf08_shift_amount,A,overflow,3,1 100,trip,True,18,,,0,GUARD 18 | ret -1 out=0,0.07,True
+b_bnd01_read_then_check,B,bounds,0,4 3,pass,False,,,,0,ret 31,0.30,True
+b_bnd01_read_then_check,B,bounds,1,4 4,trip,False,,asan:heap-buffer-overflow,asan:heap-buffer-overflow,1,,0.15,True
+b_bnd02_loop_use_then_check,B,bounds,0,4 4,pass,False,,,,0,ret 64,0.30,True
+b_bnd02_loop_use_then_check,B,bounds,1,4 0,pass,False,,,,0,ret 0,0.07,True
+b_bnd02_loop_use_then_check,B,bounds,2,4 5,trip,False,,asan:heap-buffer-overflow,asan:heap-buffer-overflow,1,,0.15,True
+b_nul01_deref_then_check,B,null,0,ok,pass,False,,,,0,ret 5,0.31,True
+b_nul01_deref_then_check,B,null,1,null,trip,False,,ubsan:null asan:SEGV,ubsan:null asan:SEGV,1,,0.15,True
+b_nul02_store_then_check,B,null,0,ok,pass,False,,,,0,ret 0 v=9,0.31,True
+b_nul02_store_then_check,B,null,1,null,trip,False,,ubsan:null asan:SEGV,ubsan:null asan:SEGV,1,,0.14,True
+b_ovf01_sadd_check_after,B,overflow,0,1 2,pass,False,,,,0,ret 0 out=3,0.31,True
+b_ovf01_sadd_check_after,B,overflow,1,2147483647 1,trip,True,31,ubsan:signed-integer-overflow,ubsan:signed-integer-overflow,0,GUARD 31 | ret -1 out=0,0.08,True
+b_ovf02_inc_wrap,B,overflow,0,5,pass,False,,,,0,ret 6,0.30,True
+b_ovf02_inc_wrap,B,overflow,1,2147483647,trip,True,32,ubsan:signed-integer-overflow,ubsan:signed-integer-overflow,0,GUARD 32 | ret -1,0.07,True
+b_ptr01_wrap_check,B,bounds,0,8,pass,False,,,,0,ret 0,0.31,True
+b_ptr01_wrap_check,B,bounds,1,0xffffffffffffffff,trip,True,33,ubsan:pointer-overflow,ubsan:pointer-overflow,0,GUARD 33 | ret -1,0.07,True
+b_ptr02_wrap_or_end,B,bounds,0,0 8,pass,False,,,,0,ret 0,0.30,True
+b_ptr02_wrap_or_end,B,bounds,1,8 8,pass,False,,,,0,ret 0,0.07,True
+b_ptr02_wrap_or_end,B,bounds,2,0 0xffffffffffffffff,trip,True,34,ubsan:pointer-overflow,ubsan:pointer-overflow,0,GUARD 34 | ret -1,0.07,True
+b_ptr02_wrap_or_end,B,bounds,3,0 17,trip,True,34,,,0,GUARD 34 | ret -1,0.07,True

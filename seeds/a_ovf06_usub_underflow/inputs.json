@@ -1,0 +1,53 @@
+{
+  "id": "a_ovf06_usub_underflow",
+  "arm": "A",
+  "class": "overflow",
+  "ub_by_construction": false,
+  "description": "unsigned underflow used > total",
+  "functions": [
+    "remaining"
+  ],
+  "guard_ids": [
+    16
+  ],
+  "loops": false,
+  "alive2_unroll": 0,
+  "inputs": [
+    {
+      "args": [
+        "10",
+        "3"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "10",
+        "10"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "10",
+        "11"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    },
+    {
+      "args": [
+        "0",
+        "1"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    }
+  ]
+}

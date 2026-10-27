@@ -1,0 +1,41 @@
+{
+  "id": "a_nul02_struct_field",
+  "arm": "A",
+  "class": "null",
+  "ub_by_construction": false,
+  "description": "!b || !b->data before b->data[0]",
+  "functions": [
+    "buf_first"
+  ],
+  "guard_ids": [
+    22
+  ],
+  "loops": false,
+  "alive2_unroll": 0,
+  "inputs": [
+    {
+      "args": [
+        "ok"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "null"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    },
+    {
+      "args": [
+        "nodata"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    }
+  ]
+}

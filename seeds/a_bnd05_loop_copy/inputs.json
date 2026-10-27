@@ -1,0 +1,62 @@
+{
+  "id": "a_bnd05_loop_copy",
+  "arm": "A",
+  "class": "bounds",
+  "ub_by_construction": false,
+  "description": "in-loop guard i >= dst_len while copying n words",
+  "functions": [
+    "copy_words"
+  ],
+  "guard_ids": [
+    5
+  ],
+  "loops": true,
+  "alive2_unroll": 8,
+  "inputs": [
+    {
+      "args": [
+        "4",
+        "0"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "4",
+        "2"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "4",
+        "4"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "4",
+        "5"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    },
+    {
+      "args": [
+        "0",
+        "1"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    }
+  ]
+}

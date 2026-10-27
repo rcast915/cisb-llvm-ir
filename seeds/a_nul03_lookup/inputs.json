@@ -1,0 +1,50 @@
+{
+  "id": "a_nul03_lookup",
+  "arm": "A",
+  "class": "null",
+  "ub_by_construction": false,
+  "description": "result of table lookup checked for NULL",
+  "functions": [
+    "lookup",
+    "find"
+  ],
+  "guard_ids": [
+    23
+  ],
+  "loops": true,
+  "alive2_unroll": 4,
+  "inputs": [
+    {
+      "args": [
+        "1"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "3"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "4"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    },
+    {
+      "args": [
+        "0"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    }
+  ]
+}

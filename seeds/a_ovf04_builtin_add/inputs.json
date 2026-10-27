@@ -1,0 +1,53 @@
+{
+  "id": "a_ovf04_builtin_add",
+  "arm": "A",
+  "class": "overflow",
+  "ub_by_construction": false,
+  "description": "__builtin_add_overflow (llvm.sadd.with.overflow)",
+  "functions": [
+    "add_checked"
+  ],
+  "guard_ids": [
+    14
+  ],
+  "loops": false,
+  "alive2_unroll": 0,
+  "inputs": [
+    {
+      "args": [
+        "1",
+        "2"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "-5",
+        "-7"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "2147483647",
+        "1"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    },
+    {
+      "args": [
+        "-2147483648",
+        "-1"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    }
+  ]
+}

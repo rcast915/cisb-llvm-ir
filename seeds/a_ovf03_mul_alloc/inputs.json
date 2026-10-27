@@ -1,0 +1,53 @@
+{
+  "id": "a_ovf03_mul_alloc",
+  "arm": "A",
+  "class": "overflow",
+  "ub_by_construction": false,
+  "description": "calloc-style n * sz overflow check n > SIZE_MAX / sz",
+  "functions": [
+    "alloc_array"
+  ],
+  "guard_ids": [
+    13
+  ],
+  "loops": false,
+  "alive2_unroll": 0,
+  "inputs": [
+    {
+      "args": [
+        "10",
+        "4"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "0",
+        "8"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "0x4000000000000000",
+        "4"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    },
+    {
+      "args": [
+        "3",
+        "0x8000000000000000"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    }
+  ]
+}

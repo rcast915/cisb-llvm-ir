@@ -1,0 +1,48 @@
+{
+  "id": "b_bnd02_loop_use_then_check",
+  "arm": "B",
+  "class": "bounds",
+  "ub_by_construction": true,
+  "ub_pattern": "bounds_check_after_use",
+  "description": "loop: s += a[i] before i >= n",
+  "functions": [
+    "sum_then_check"
+  ],
+  "guard_ids": [
+    38
+  ],
+  "loops": true,
+  "alive2_unroll": 6,
+  "inputs": [
+    {
+      "args": [
+        "4",
+        "4"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "4",
+        "0"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "4",
+        "5"
+      ],
+      "guard": "trip",
+      "expect_reports": [
+        "asan:heap-buffer-overflow"
+      ],
+      "expect_guard_output": false,
+      "note": "ASan aborts on a[4] before the check"
+    }
+  ]
+}

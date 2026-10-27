@@ -1,0 +1,49 @@
+{
+  "id": "a_ovf05_len_header",
+  "arm": "A",
+  "class": "overflow",
+  "ub_by_construction": false,
+  "description": "len + HDR fits in uint32: len > UINT32_MAX - HDR",
+  "functions": [
+    "frame_size"
+  ],
+  "guard_ids": [
+    15
+  ],
+  "loops": false,
+  "alive2_unroll": 0,
+  "inputs": [
+    {
+      "args": [
+        "100"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "4294967279"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "4294967280"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    },
+    {
+      "args": [
+        "4294967295"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    }
+  ]
+}

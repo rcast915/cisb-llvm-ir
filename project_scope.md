@@ -38,6 +38,15 @@ Out of scope (do not do these)
   - `UNKNOWN`: timeout, unsupported feature, or Alive2 error.
   - `BENIGN`: guard was redundant (e.g., dominated by an identical check); no behavior change.
 
+## 4b. Two experiment arms (important)
+
+A correct compiler should almost never remove a guard in UB-free code, so a UB-free-only study can end with zero candidates. Run two arms and report them separately:
+
+- **Arm A: UB-free hunt.** Seeds and mutants must stay free of UB: strict UB filter (no nsw/nuw/inbounds/nonnull/poison/undef added on guard computations), and each unmutated seed and each mutant is checked sanitizer-clean on its inputs. Any guard removal here is a potential real miscompilation (expected to be rare; a null result is a valid, honestly reported result).
+- **Arm B: positive controls (`ub_by_construction`).** 6-8 seeds containing classic CISB patterns that are UB in C: signed overflow check after the add (`a + b < a` with signed ints), pointer-wrap check (`p + len < p`), null check after a dereference, bounds check after the use. These are exempt from the sanitizer-clean rule (UBSan firing at -O0 is expected and is recorded). They validate that the pipeline detects guard removal, and supply the LEGAL_UB cases for the per-pass tables.
+
+Report yield, classification counts, and per-pass rates per arm. Never mix the arms in one headline number.
+
 ## 5. Architecture
 
 ```

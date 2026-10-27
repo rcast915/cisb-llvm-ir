@@ -1,0 +1,41 @@
+{
+  "id": "a_nul07_safe_strlen",
+  "arm": "A",
+  "class": "null",
+  "ub_by_construction": false,
+  "description": "NULL string check before length loop",
+  "functions": [
+    "safe_len"
+  ],
+  "guard_ids": [
+    27
+  ],
+  "loops": true,
+  "alive2_unroll": 6,
+  "inputs": [
+    {
+      "args": [
+        "hello"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        ""
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "null"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    }
+  ]
+}

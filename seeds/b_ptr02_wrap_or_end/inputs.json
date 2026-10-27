@@ -1,0 +1,58 @@
+{
+  "id": "b_ptr02_wrap_or_end",
+  "arm": "B",
+  "class": "bounds",
+  "ub_by_construction": true,
+  "ub_pattern": "pointer_wrap_check",
+  "description": "p + len < p || p + len > end, then memcpy",
+  "functions": [
+    "copy_region"
+  ],
+  "guard_ids": [
+    34
+  ],
+  "loops": false,
+  "alive2_unroll": 0,
+  "inputs": [
+    {
+      "args": [
+        "0",
+        "8"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "8",
+        "8"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "0",
+        "0xffffffffffffffff"
+      ],
+      "guard": "trip",
+      "expect_reports": [
+        "ubsan:pointer-overflow"
+      ],
+      "expect_guard_output": true,
+      "note": "p + len wraps"
+    },
+    {
+      "args": [
+        "0",
+        "17"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true,
+      "note": "p + len is past one-past-end (UB in C) but no sanitizer instruments it"
+    }
+  ]
+}

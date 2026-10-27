@@ -1,0 +1,49 @@
+{
+  "id": "a_nul04_list_walk",
+  "arm": "A",
+  "class": "null",
+  "ub_by_construction": false,
+  "description": "walk n && n->val != k, then !n",
+  "functions": [
+    "list_find"
+  ],
+  "guard_ids": [
+    24
+  ],
+  "loops": true,
+  "alive2_unroll": 5,
+  "inputs": [
+    {
+      "args": [
+        "1"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "4"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "5"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    },
+    {
+      "args": [
+        "-1"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true
+    }
+  ]
+}

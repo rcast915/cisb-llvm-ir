@@ -1,0 +1,38 @@
+{
+  "id": "b_nul01_deref_then_check",
+  "arm": "B",
+  "class": "null",
+  "ub_by_construction": true,
+  "ub_pattern": "null_check_after_deref",
+  "description": "d->flags read before if (!d) (tun.c pattern)",
+  "functions": [
+    "dev_poll"
+  ],
+  "guard_ids": [
+    35
+  ],
+  "loops": false,
+  "alive2_unroll": 0,
+  "inputs": [
+    {
+      "args": [
+        "ok"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "null"
+      ],
+      "guard": "trip",
+      "expect_reports": [
+        "ubsan:null",
+        "asan:SEGV"
+      ],
+      "expect_guard_output": false,
+      "note": "crashes on the load before reaching the check"
+    }
+  ]
+}

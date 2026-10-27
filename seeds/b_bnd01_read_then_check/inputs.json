@@ -1,0 +1,39 @@
+{
+  "id": "b_bnd01_read_then_check",
+  "arm": "B",
+  "class": "bounds",
+  "ub_by_construction": true,
+  "ub_pattern": "bounds_check_after_use",
+  "description": "v = a[i] read before i >= n",
+  "functions": [
+    "read_then_check"
+  ],
+  "guard_ids": [
+    37
+  ],
+  "loops": false,
+  "alive2_unroll": 0,
+  "inputs": [
+    {
+      "args": [
+        "4",
+        "3"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "4",
+        "4"
+      ],
+      "guard": "trip",
+      "expect_reports": [
+        "asan:heap-buffer-overflow"
+      ],
+      "expect_guard_output": false,
+      "note": "ASan aborts on the read before the check"
+    }
+  ]
+}

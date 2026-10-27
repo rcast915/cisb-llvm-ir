@@ -1,0 +1,36 @@
+{
+  "id": "b_ovf02_inc_wrap",
+  "arm": "B",
+  "class": "overflow",
+  "ub_by_construction": true,
+  "ub_pattern": "signed_overflow_check_after_add",
+  "description": "signed x + 1 < x",
+  "functions": [
+    "inc_checked"
+  ],
+  "guard_ids": [
+    32
+  ],
+  "loops": false,
+  "alive2_unroll": 0,
+  "inputs": [
+    {
+      "args": [
+        "5"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "2147483647"
+      ],
+      "guard": "trip",
+      "expect_reports": [
+        "ubsan:signed-integer-overflow"
+      ],
+      "expect_guard_output": true
+    }
+  ]
+}
