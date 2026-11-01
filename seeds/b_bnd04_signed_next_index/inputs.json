@@ -1,0 +1,59 @@
+{
+  "id": "b_bnd04_signed_next_index",
+  "arm": "B",
+  "class": "bounds",
+  "ub_by_construction": true,
+  "ub_pattern": "signed_overflow_in_bounds_check",
+  "control_role": "positive",
+  "description": "j = i + 1 (signed) then j <= i || j >= n before a[j]",
+  "functions": [
+    "get_next"
+  ],
+  "guard_ids": [
+    41
+  ],
+  "loops": false,
+  "alive2_unroll": 0,
+  "inputs": [
+    {
+      "args": [
+        "4",
+        "1"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "4",
+        "-1"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false
+    },
+    {
+      "args": [
+        "4",
+        "3"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true,
+      "note": "j >= n, no UB"
+    },
+    {
+      "args": [
+        "4",
+        "2147483647"
+      ],
+      "guard": "trip",
+      "expect_reports": [
+        "ubsan:signed-integer-overflow"
+      ],
+      "expect_guard_output": true,
+      "note": "i + 1 wraps; -O0 wraps so j <= i trips"
+    }
+  ]
+}

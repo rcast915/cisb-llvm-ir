@@ -154,27 +154,20 @@ def classify(candidate, verdict, alive_detail, ub_on_inputs, ub_by_construction)
     return "UNKNOWN:alive2-error"
 
 
-def process_seed(sdir):
-    meta = json.loads((sdir / "inputs.json").read_text())
-    w = WORK / meta["id"]
-    w.mkdir(parents=True, exist_ok=True)
-    main_o, harness_o = build_plain(meta, w)
-    seed_ll = w / "seed.ll"
-    before_ids = irguards.count_ids(seed_ll.read_text())
-    ref = run_inputs(link_variant(seed_ll, w, "O0ref", main_o, harness_o), meta)
-    san = sanitizer_attribution(meta, w)
-    rows = []
+def evaluate_pipelines(meta, src_ll, w, ref, san, main_o, harness_o, base_row, pipelines=None):
+    """Run every pipeline on src_ll; compare against `ref` (plain -O0 runs of src_ll).
+    `san` = per-input UB reports used only for attribution. Returns one row per pipeline."""
+    before_ids = irguards.count_ids(Path(src_ll).read_text())
 
     def one(pl):
         name, passes = pl
         after = w / f"{name}.ll"
-        rc, _, err, dt = run([OPT, "-S", f"-passes={passes}", seed_ll, "-o", after], 120)
-        row = {"arm": meta["arm"], "seed": meta["id"], "class": meta["class"],
-               "ub_by_construction": meta["ub_by_construction"], "ub_pattern": meta.get("ub_pattern", ""),
-               "pipeline": name, "prelude": PRELUDE if name.startswith("sroa") else "none (full pipeline)",
+        rc, _, err, dt = run([OPT, "-S", f"-passes={passes}", src_ll, "-o", after], 120)
+        row = {**base_row, "pipeline": name, "prelude": PRELUDE if name.startswith("sroa") else "none (full pipeline)",
                "opt_passes": passes, "guard_ids_before": " ".join(map(str, before_ids))}
         if rc != 0:
-            row.update(status="OPT_FAIL", detail=err.strip()[:200], opt_secs=f"{dt:.3f}")
+            row.update(status="OPT_FAIL", detail=err.strip().splitlines()[0][:200] if err.strip() else str(rc),
+                       opt_secs=f"{dt:.3f}", candidate=False, classification="-")
             return row
         row["opt_secs"] = f"{dt:.3f}"
         after_ids = irguards.count_ids(after.read_text())
@@ -200,7 +193,7 @@ def process_seed(sdir):
                 f"opt(exit={b['exit']},G={list(b['guards'])}) san0={'+'.join(s) or 'clean'}" for k, a, b, s in div),
             "stdout_diff_inputs": sum(1 for r0, r1 in zip(ref, var) if r0["stdout"] != r1["stdout"]),
         })
-        verdict, detail, adt, text = alive2(seed_ll, after, meta)
+        verdict, detail, adt, text = alive2(src_ll, after, meta)
         (w / f"{name}.alive.txt").write_text(text)
         candidate = bool(removed or weakened or div)
         row.update({"candidate": candidate, "alive2_verdict": verdict, "alive2_detail": detail,
@@ -210,11 +203,24 @@ def process_seed(sdir):
         return row
 
     with ThreadPoolExecutor(max_workers=6) as ex:
-        rows = list(ex.map(one, PIPELINES))
-    return rows
+        return list(ex.map(one, pipelines or PIPELINES))
 
 
-COLUMNS = ["arm", "seed", "class", "ub_by_construction", "ub_pattern", "pipeline", "prelude", "opt_passes",
+def process_seed(sdir):
+    meta = json.loads((sdir / "inputs.json").read_text())
+    w = WORK / meta["id"]
+    w.mkdir(parents=True, exist_ok=True)
+    main_o, harness_o = build_plain(meta, w)
+    seed_ll = w / "seed.ll"
+    ref = run_inputs(link_variant(seed_ll, w, "O0ref", main_o, harness_o), meta)
+    san = sanitizer_attribution(meta, w)
+    base = {"arm": meta["arm"], "seed": meta["id"], "class": meta["class"],
+            "ub_by_construction": meta["ub_by_construction"], "ub_pattern": meta.get("ub_pattern", ""),
+            "control_role": meta.get("control_role", "")}
+    return evaluate_pipelines(meta, seed_ll, w, ref, san, main_o, harness_o, base)
+
+
+COLUMNS = ["arm", "seed", "class", "ub_by_construction", "ub_pattern", "control_role", "pipeline", "prelude", "opt_passes",
            "guard_ids_before", "guard_ids_after", "removed_ids", "weakened_ids", "opt_secs",
            "n_inputs", "divergent_inputs", "divergent_ub_attributed", "divergent_unattributed",
            "stdout_diff_inputs", "candidate", "alive2_verdict", "alive2_unroll", "alive2_secs",

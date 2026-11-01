@@ -1,0 +1,117 @@
+arm,seed,input,args,source_sanitizers,ir_monitor,agree_ub_vs_clean,known_gap_pointer_overflow
+A,a_bnd01_idx_unsigned,0,4 0,clean,clean,True,False
+A,a_bnd01_idx_unsigned,1,4 3,clean,clean,True,False
+A,a_bnd01_idx_unsigned,2,4 4,clean,clean,True,False
+A,a_bnd01_idx_unsigned,3,4 4294967295,clean,clean,True,False
+A,a_bnd01_idx_unsigned,4,1 1,clean,clean,True,False
+A,a_bnd02_idx_signed,0,4 0,clean,clean,True,False
+A,a_bnd02_idx_signed,1,4 3,clean,clean,True,False
+A,a_bnd02_idx_signed,2,4 -1,clean,clean,True,False
+A,a_bnd02_idx_signed,3,4 4,clean,clean,True,False
+A,a_bnd02_idx_signed,4,4 -2147483648,clean,clean,True,False
+A,a_bnd03_fixed_buf,0,0,clean,clean,True,False
+A,a_bnd03_fixed_buf,1,15,clean,clean,True,False
+A,a_bnd03_fixed_buf,2,16,clean,clean,True,False
+A,a_bnd03_fixed_buf,3,1000,clean,clean,True,False
+A,a_bnd04_memcpy_range,0,16 0 16,clean,clean,True,False
+A,a_bnd04_memcpy_range,1,16 8 8,clean,clean,True,False
+A,a_bnd04_memcpy_range,2,16 8 9,clean,clean,True,False
+A,a_bnd04_memcpy_range,3,16 17 0,clean,clean,True,False
+A,a_bnd04_memcpy_range,4,16 8 0xffffffffffffffff,clean,clean,True,False
+A,a_bnd05_loop_copy,0,4 0,clean,clean,True,False
+A,a_bnd05_loop_copy,1,4 2,clean,clean,True,False
+A,a_bnd05_loop_copy,2,4 4,clean,clean,True,False
+A,a_bnd05_loop_copy,3,4 5,clean,clean,True,False
+A,a_bnd05_loop_copy,4,0 1,clean,clean,True,False
+A,a_bnd06_mask_index,0,7 0,clean,clean,True,False
+A,a_bnd06_mask_index,1,7 7,clean,clean,True,False
+A,a_bnd06_mask_index,2,7 8,clean,clean,True,False
+A,a_bnd06_mask_index,3,7 2147483651,clean,clean,True,False
+A,a_bnd07_char_at,0,hello 0,clean,clean,True,False
+A,a_bnd07_char_at,1,hello 4,clean,clean,True,False
+A,a_bnd07_char_at,2,hello 5,clean,clean,True,False
+A,a_bnd07_char_at,3, 0,clean,clean,True,False
+A,a_bnd08_matrix,0,3 4 0 0,clean,clean,True,False
+A,a_bnd08_matrix,1,3 4 2 3,clean,clean,True,False
+A,a_bnd08_matrix,2,3 4 3 0,clean,clean,True,False
+A,a_bnd08_matrix,3,3 4 0 4,clean,clean,True,False
+A,a_bnd08_matrix,4,3 4 1 7,clean,clean,True,False
+A,a_nul01_ptr_param,0,ok,clean,clean,True,False
+A,a_nul01_ptr_param,1,null,clean,clean,True,False
+A,a_nul02_struct_field,0,ok,clean,clean,True,False
+A,a_nul02_struct_field,1,null,clean,clean,True,False
+A,a_nul02_struct_field,2,nodata,clean,clean,True,False
+A,a_nul03_lookup,0,1,clean,clean,True,False
+A,a_nul03_lookup,1,3,clean,clean,True,False
+A,a_nul03_lookup,2,4,clean,clean,True,False
+A,a_nul03_lookup,3,0,clean,clean,True,False
+A,a_nul04_list_walk,0,1,clean,clean,True,False
+A,a_nul04_list_walk,1,4,clean,clean,True,False
+A,a_nul04_list_walk,2,5,clean,clean,True,False
+A,a_nul04_list_walk,3,-1,clean,clean,True,False
+A,a_nul05_callback,0,twice,clean,clean,True,False
+A,a_nul05_callback,1,null,clean,clean,True,False
+A,a_nul06_out_param,0,ok,clean,clean,True,False
+A,a_nul06_out_param,1,null,clean,clean,True,False
+A,a_nul07_safe_strlen,0,hello,clean,clean,True,False
+A,a_nul07_safe_strlen,1,,clean,clean,True,False
+A,a_nul07_safe_strlen,2,null,clean,clean,True,False
+A,a_ovf01_uadd_wrap,0,1 2,clean,clean,True,False
+A,a_ovf01_uadd_wrap,1,2147483648 2147483647,clean,clean,True,False
+A,a_ovf01_uadd_wrap,2,4294967295 1,clean,clean,True,False
+A,a_ovf01_uadd_wrap,3,2147483648 2147483648,clean,clean,True,False
+A,a_ovf02_sadd_precheck,0,100 -200,clean,clean,True,False
+A,a_ovf02_sadd_precheck,1,2147483646 1,clean,clean,True,False
+A,a_ovf02_sadd_precheck,2,2147483647 1,clean,clean,True,False
+A,a_ovf02_sadd_precheck,3,-2147483648 -1,clean,clean,True,False
+A,a_ovf03_mul_alloc,0,10 4,clean,clean,True,False
+A,a_ovf03_mul_alloc,1,0 8,clean,clean,True,False
+A,a_ovf03_mul_alloc,2,0x4000000000000000 4,clean,clean,True,False
+A,a_ovf03_mul_alloc,3,3 0x8000000000000000,clean,clean,True,False
+A,a_ovf04_builtin_add,0,1 2,clean,clean,True,False
+A,a_ovf04_builtin_add,1,-5 -7,clean,clean,True,False
+A,a_ovf04_builtin_add,2,2147483647 1,clean,clean,True,False
+A,a_ovf04_builtin_add,3,-2147483648 -1,clean,clean,True,False
+A,a_ovf05_len_header,0,100,clean,clean,True,False
+A,a_ovf05_len_header,1,4294967279,clean,clean,True,False
+A,a_ovf05_len_header,2,4294967280,clean,clean,True,False
+A,a_ovf05_len_header,3,4294967295,clean,clean,True,False
+A,a_ovf06_usub_underflow,0,10 3,clean,clean,True,False
+A,a_ovf06_usub_underflow,1,10 10,clean,clean,True,False
+A,a_ovf06_usub_underflow,2,10 11,clean,clean,True,False
+A,a_ovf06_usub_underflow,3,0 1,clean,clean,True,False
+A,a_ovf07_signed_len,0,8,clean,clean,True,False
+A,a_ovf07_signed_len,1,16,clean,clean,True,False
+A,a_ovf07_signed_len,2,-1,clean,clean,True,False
+A,a_ovf07_signed_len,3,17,clean,clean,True,False
+A,a_ovf08_shift_amount,0,1 0,clean,clean,True,False
+A,a_ovf08_shift_amount,1,1 31,clean,clean,True,False
+A,a_ovf08_shift_amount,2,1 32,clean,clean,True,False
+A,a_ovf08_shift_amount,3,1 100,clean,clean,True,False
+B,b_bnd01_read_then_check,0,4 3,clean,clean,True,False
+B,b_bnd01_read_then_check,1,4 4,asan:heap-buffer-overflow,asan:heap-buffer-overflow,True,False
+B,b_bnd02_loop_use_then_check,0,4 4,clean,clean,True,False
+B,b_bnd02_loop_use_then_check,1,4 0,clean,clean,True,False
+B,b_bnd02_loop_use_then_check,2,4 5,asan:heap-buffer-overflow,asan:heap-buffer-overflow,True,False
+B,b_bnd03_signed_range_end,0,10 5 100,clean,clean,True,False
+B,b_bnd03_signed_range_end,1,10 -1 100,clean,clean,True,False
+B,b_bnd03_signed_range_end,2,90 20 100,clean,clean,True,False
+B,b_bnd03_signed_range_end,3,2147483647 1 100,ubsan:signed-integer-overflow,ubmon:signed-add-overflow,True,False
+B,b_bnd04_signed_next_index,0,4 1,clean,clean,True,False
+B,b_bnd04_signed_next_index,1,4 -1,clean,clean,True,False
+B,b_bnd04_signed_next_index,2,4 3,clean,clean,True,False
+B,b_bnd04_signed_next_index,3,4 2147483647,ubsan:signed-integer-overflow,ubmon:signed-add-overflow,True,False
+B,b_nul01_deref_then_check,0,ok,clean,clean,True,False
+B,b_nul01_deref_then_check,1,null,ubsan:null asan:SEGV,asan:SEGV,True,False
+B,b_nul02_store_then_check,0,ok,clean,clean,True,False
+B,b_nul02_store_then_check,1,null,ubsan:null asan:SEGV,asan:SEGV,True,False
+B,b_ovf01_sadd_check_after,0,1 2,clean,clean,True,False
+B,b_ovf01_sadd_check_after,1,2147483647 1,ubsan:signed-integer-overflow,ubmon:signed-add-overflow,True,False
+B,b_ovf02_inc_wrap,0,5,clean,clean,True,False
+B,b_ovf02_inc_wrap,1,2147483647,ubsan:signed-integer-overflow,ubmon:signed-add-overflow,True,False
+B,b_ptr01_wrap_check,0,8,clean,clean,True,False
+B,b_ptr01_wrap_check,1,0xffffffffffffffff,ubsan:pointer-overflow,clean,False,True
+B,b_ptr02_wrap_or_end,0,0 8,clean,clean,True,False
+B,b_ptr02_wrap_or_end,1,8 8,clean,clean,True,False
+B,b_ptr02_wrap_or_end,2,0 0xffffffffffffffff,ubsan:pointer-overflow,clean,False,True
+B,b_ptr02_wrap_or_end,3,0 17,clean,clean,True,False

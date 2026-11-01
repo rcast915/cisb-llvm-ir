@@ -148,6 +148,18 @@ B b_bnd02_loop_use_then_check  sroa+simplifycfg  ids  38 ->  38 rm=-   wk=-   di
 B b_bnd02_loop_use_then_check  sroa+gvn          ids  38 ->  38 rm=-   wk=-   div=0 alive=CORRECT      cls=-
 B b_bnd02_loop_use_then_check  O2                ids  38 ->  38 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
 B b_bnd02_loop_use_then_check  O3                ids  38 ->  38 rm=-   wk=-   div=0 alive=UNKNOWN      cls=-
+B b_bnd03_signed_range_end     sroa              ids 39 40 -> 39 40 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_bnd03_signed_range_end     sroa+instcombine  ids 39 40 -> 39 40 rm=-   wk=40  div=1 alive=CORRECT      cls=LEGAL_UB
+B b_bnd03_signed_range_end     sroa+simplifycfg  ids 39 40 -> 39 40 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_bnd03_signed_range_end     sroa+gvn          ids 39 40 -> 39 40 rm=-   wk=40  div=1 alive=CORRECT      cls=LEGAL_UB
+B b_bnd03_signed_range_end     O2                ids 39 40 -> 39 40 rm=-   wk=40  div=1 alive=CORRECT      cls=LEGAL_UB
+B b_bnd03_signed_range_end     O3                ids 39 40 -> 39 40 rm=-   wk=40  div=1 alive=CORRECT      cls=LEGAL_UB
+B b_bnd04_signed_next_index    sroa              ids  41 ->  41 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_bnd04_signed_next_index    sroa+instcombine  ids  41 ->  41 rm=-   wk=41  div=1 alive=CORRECT      cls=LEGAL_UB
+B b_bnd04_signed_next_index    sroa+simplifycfg  ids  41 ->  41 rm=-   wk=-   div=0 alive=CORRECT      cls=-
+B b_bnd04_signed_next_index    sroa+gvn          ids  41 ->  41 rm=-   wk=41  div=1 alive=CORRECT      cls=LEGAL_UB
+B b_bnd04_signed_next_index    O2                ids  41 ->  41 rm=-   wk=41  div=1 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
+B b_bnd04_signed_next_index    O3                ids  41 ->  41 rm=-   wk=41  div=1 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
 B b_nul01_deref_then_check     sroa              ids  35 ->  35 rm=-   wk=-   div=0 alive=CORRECT      cls=-
 B b_nul01_deref_then_check     sroa+instcombine  ids  35 ->  35 rm=-   wk=-   div=1 alive=CORRECT      cls=LEGAL_UB
 B b_nul01_deref_then_check     sroa+simplifycfg  ids  35 ->  35 rm=-   wk=-   div=0 alive=CORRECT      cls=-
@@ -184,4 +196,4 @@ B b_ptr02_wrap_or_end          sroa+simplifycfg  ids  34 ->  34 rm=-   wk=-   di
 B b_ptr02_wrap_or_end          sroa+gvn          ids  34 ->  34 rm=-   wk=-   div=0 alive=CORRECT      cls=-
 B b_ptr02_wrap_or_end          O2                ids  34 ->  34 rm=-   wk=34  div=1 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
 B b_ptr02_wrap_or_end          O3                ids  34 ->  34 rm=-   wk=34  div=1 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
-wrote /Users/raycast/Desktop/computer_security/project/results/baseline.csv (186 rows) in 121.7s
+wrote /Users/raycast/Desktop/computer_security/project/results/baseline.csv (198 rows) in 114.3s

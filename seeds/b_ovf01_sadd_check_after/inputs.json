@@ -4,6 +4,7 @@
   "class": "overflow",
   "ub_by_construction": true,
   "ub_pattern": "signed_overflow_check_after_add",
+  "control_role": "positive",
   "description": "signed s = a + b computed first, then s < a (UB on overflow)",
   "functions": [
     "add_after"

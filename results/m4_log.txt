@@ -1,0 +1,69 @@
+a_bnd01_idx_unsigned
+a_bnd02_idx_signed
+  a_bnd02_idx_signed__pred_flip_00               icmp slt i32 %8, 0           -> icmp sle i32 %8, 0           cand=0 
+  a_bnd02_idx_signed__const_pm1_01               icmp slt i32 %8, 0           -> icmp slt i32 %8, 1           cand=0 
+a_bnd03_fixed_buf
+  a_bnd03_fixed_buf__pred_flip_00                icmp ugt i32 %6, 15          -> icmp uge i32 %6, 15          cand=0 
+  a_bnd03_fixed_buf__const_pm1_02                icmp ugt i32 %6, 15          -> icmp ugt i32 %6, 14          cand=0 
+a_bnd04_memcpy_range
+  a_bnd04_memcpy_range__pred_flip_00             icmp ugt i64 %12, %13        -> icmp uge i64 %12, %13        cand=0 
+  a_bnd04_memcpy_range__pred_flip_01             icmp ugt i64 %16, %19        -> icmp uge i64 %16, %19        cand=0 
+a_bnd05_loop_copy
+a_bnd06_mask_index
+a_bnd07_char_at
+  a_bnd07_char_at__pred_flip_00                  icmp uge i64 %8, %9          -> icmp ugt i64 %8, %9          cand=0 
+a_bnd08_matrix
+  a_bnd08_matrix__pred_flip_01                   icmp uge i32 %16, %17        -> icmp ugt i32 %16, %17        cand=0 
+a_nul01_ptr_param
+a_nul02_struct_field
+a_nul03_lookup
+a_nul04_list_walk
+a_nul05_callback
+a_nul06_out_param
+a_nul07_safe_strlen
+a_ovf01_uadd_wrap
+  a_ovf01_uadd_wrap__pred_flip_00                icmp ult i32 %12, %13        -> icmp ule i32 %12, %13        cand=0 
+a_ovf02_sadd_precheck
+  a_ovf02_sadd_precheck__pred_flip_00            icmp sgt i32 %11, %13        -> icmp sge i32 %11, %13        cand=0 
+  a_ovf02_sadd_precheck__pred_flip_01            icmp slt i32 %19, %21        -> icmp sle i32 %19, %21        cand=0 
+a_ovf03_mul_alloc
+  a_ovf03_mul_alloc__pred_flip_00                icmp ugt i64 %9, %11         -> icmp uge i64 %9, %11         cand=0 
+a_ovf04_builtin_add
+a_ovf05_len_header
+  a_ovf05_len_header__pred_flip_00               icmp ugt i32 %6, -17         -> icmp uge i32 %6, -17         cand=0 
+  a_ovf05_len_header__const_pm1_01               icmp ugt i32 %6, -17         -> icmp ugt i32 %6, -16         cand=0 
+  a_ovf05_len_header__const_pm1_02               icmp ugt i32 %6, -17         -> icmp ugt i32 %6, -18         cand=0 
+a_ovf06_usub_underflow
+  a_ovf06_usub_underflow__pred_flip_00           icmp ugt i64 %8, %9          -> icmp uge i64 %8, %9          cand=0 
+a_ovf07_signed_len
+  a_ovf07_signed_len__pred_flip_00               icmp slt i64 %10, 0          -> icmp sle i64 %10, 0          cand=0 
+  a_ovf07_signed_len__const_pm1_01               icmp slt i64 %10, 0          -> icmp slt i64 %10, 1          cand=0 
+  a_ovf07_signed_len__const_pm1_02               icmp slt i64 %10, 0          -> icmp slt i64 %10, -1         cand=0 
+  a_ovf07_signed_len__pred_flip_03               icmp ugt i64 %13, %14        -> icmp uge i64 %13, %14        cand=0 
+a_ovf08_shift_amount
+  a_ovf08_shift_amount__const_pm1_02             icmp uge i32 %8, 32          -> icmp uge i32 %8, 31          cand=0 
+b_bnd01_read_then_check
+  b_bnd01_read_then_check__pred_flip_00          icmp uge i32 %14, %15        -> icmp ugt i32 %14, %15        cand=0 
+b_bnd02_loop_use_then_check
+  b_bnd02_loop_use_then_check__pred_flip_00      icmp uge i32 %22, %23        -> icmp ugt i32 %22, %23        cand=0 
+b_bnd03_signed_range_end
+  b_bnd03_signed_range_end__pred_flip_00         icmp slt i32 %9, 0           -> icmp sle i32 %9, 0           cand=4 sroa+instcombine:LEGAL_UB sroa+gvn:LEGAL_UB O2:LEGAL_UB O3:LEGAL_UB
+  b_bnd03_signed_range_end__const_pm1_01         icmp slt i32 %9, 0           -> icmp slt i32 %9, 1           cand=4 sroa+instcombine:LEGAL_UB sroa+gvn:LEGAL_UB O2:LEGAL_UB O3:LEGAL_UB
+  b_bnd03_signed_range_end__const_pm1_02         icmp slt i32 %9, 0           -> icmp slt i32 %9, -1          cand=3 sroa+instcombine:LEGAL_UB O2:LEGAL_UB O3:LEGAL_UB
+  b_bnd03_signed_range_end__pred_flip_03         icmp slt i32 %16, %17        -> icmp sle i32 %16, %17        cand=3 sroa+instcombine:LEGAL_UB O2:LEGAL_UB O3:LEGAL_UB
+  b_bnd03_signed_range_end__pred_flip_04         icmp sgt i32 %20, %21        -> icmp sge i32 %20, %21        cand=4 sroa+instcombine:LEGAL_UB sroa+gvn:LEGAL_UB O2:LEGAL_UB O3:LEGAL_UB
+b_bnd04_signed_next_index
+  b_bnd04_signed_next_index__pred_flip_00        icmp sle i32 %11, %12        -> icmp slt i32 %11, %12        cand=4 sroa+instcombine:LEGAL_UB sroa+gvn:LEGAL_UB O2:UNKNOWN:unsupported-attribute:nofree O3:UNKNOWN:unsupported-attribute:nofree
+  b_bnd04_signed_next_index__pred_flip_01        icmp sge i32 %15, %16        -> icmp sgt i32 %15, %16        cand=1 sroa+gvn:LEGAL_UB
+b_nul01_deref_then_check
+b_nul02_store_then_check
+b_ovf01_sadd_check_after
+  b_ovf01_sadd_check_after__pred_flip_00         icmp slt i32 %15, %16        -> icmp sle i32 %15, %16        cand=4 sroa+instcombine:LEGAL_UB sroa+gvn:LEGAL_UB O2:UNKNOWN:unsupported-attribute:nofree O3:UNKNOWN:unsupported-attribute:nofree
+b_ovf02_inc_wrap
+  b_ovf02_inc_wrap__pred_flip_00                 icmp slt i32 %5, %6          -> icmp sle i32 %5, %6          cand=4 sroa+instcombine:LEGAL_UB sroa+gvn:LEGAL_UB O2:LEGAL_UB O3:LEGAL_UB
+b_ptr01_wrap_check
+  b_ptr01_wrap_check__pred_flip_00               icmp ult ptr %8, %9          -> icmp ule ptr %8, %9          cand=3 sroa+instcombine:LEGAL_UB O2:UNKNOWN:unsupported-attribute:nofree O3:UNKNOWN:unsupported-attribute:nofree
+b_ptr02_wrap_or_end
+  b_ptr02_wrap_or_end__pred_flip_00              icmp ult ptr %18, %19        -> icmp ule ptr %18, %19        cand=3 sroa+instcombine:LEGAL_UB O2:UNKNOWN:unsupported-attribute:nofree O3:UNKNOWN:unsupported-attribute:nofree
+  b_ptr02_wrap_or_end__pred_flip_01              icmp ugt ptr %24, %25        -> icmp uge ptr %24, %25        cand=3 sroa+instcombine:LEGAL_UB O2:UNKNOWN:unsupported-attribute:nofree O3:UNKNOWN:unsupported-attribute:nofree
+43 mutants, 35 accepted, 210 pipeline rows in 166s

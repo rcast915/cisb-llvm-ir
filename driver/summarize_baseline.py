@@ -54,7 +54,9 @@ def main(path=ROOT / "results" / "baseline.csv"):
             for s in seeds:
                 hits = [f"{r['pipeline']}({'rm' if r['removed_ids'] else 'wk'})" for r in a
                         if r["seed"] == s and (r["removed_ids"] or r["weakened_ids"])]
-                p(f"  {'PASS' if hits else 'NO CHANGE':9} {s:30} {' '.join(hits) or '-'}")
+                role = next(r.get("control_role", "") for r in a if r["seed"] == s) or "positive"
+                verdict = ("PASS" if hits else "NO CHANGE") if role == "positive" else ("negative ctl" if not hits else "neg ctl CHANGED")
+                p(f"  {verdict:15} {s:30} {' '.join(hits) or '-'}")
     text = "\n".join(out)
     print(text)
     return text

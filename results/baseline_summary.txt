@@ -9,27 +9,29 @@ O2                  0   0    0      0        0    0  CORRECT=1, UNKNOWN:smt-time
 O3                  0   0    0      0        0    0  CORRECT=1, UNKNOWN:smt-timeout=1, UNKNOWN:unsupported-attribute:nofree=21
 alive2 verdicts (all rows): CORRECT=89, UNKNOWN:smt-timeout=7, UNKNOWN:unsupported-attribute:nofree=42
 candidates: 0; classification: none
-time: opt 2.2s, alive2 111.1s (summed over rows)
+time: opt 2.2s, alive2 112.8s (summed over rows)
 Arm A guard removals/weakenings/divergences (candidates):
   none
 
-=== Arm B: 8 seeds x 6 pipelines = 48 rows ===
+=== Arm B: 10 seeds x 6 pipelines = 60 rows ===
 pipeline           rm  wk  div div_ub div_noub cand  alive2 (all rows)
-sroa                0   0    0      0        0    0  CORRECT=8
-sroa+instcombine    4   1    5      5        0    6  CORRECT=8
-sroa+simplifycfg    0   0    0      0        0    0  CORRECT=8
-sroa+gvn            4   0    2      2        0    4  CORRECT=8
-O2                  5   1    4      4        0    6  CORRECT=1, UNKNOWN:unsupported-attribute:nofree=7
-O3                  5   1    4      4        0    6  CORRECT=1, UNKNOWN:unsupported-attribute:nofree=7
-alive2 verdicts (all rows): CORRECT=34, UNKNOWN:unsupported-attribute:nofree=14
-candidates: 22; classification: LEGAL_UB=12, UNKNOWN:unsupported-attribute:nofree=10
-time: opt 0.7s, alive2 8.8s (summed over rows)
+sroa                0   0    0      0        0    0  CORRECT=10
+sroa+instcombine    4   3    7      7        0    8  CORRECT=10
+sroa+simplifycfg    0   0    0      0        0    0  CORRECT=10
+sroa+gvn            4   2    4      4        0    6  CORRECT=10
+O2                  5   3    6      6        0    8  CORRECT=2, UNKNOWN:unsupported-attribute:nofree=8
+O3                  5   3    6      6        0    8  CORRECT=2, UNKNOWN:unsupported-attribute:nofree=8
+alive2 verdicts (all rows): CORRECT=44, UNKNOWN:unsupported-attribute:nofree=16
+candidates: 30; classification: LEGAL_UB=18, UNKNOWN:unsupported-attribute:nofree=12
+time: opt 0.9s, alive2 9.7s (summed over rows)
 Positive-control gate (Arm B): pipelines that removed (rm) or weakened (wk) the guard
-  NO CHANGE b_bnd01_read_then_check        -
-  NO CHANGE b_bnd02_loop_use_then_check    -
-  PASS      b_nul01_deref_then_check       sroa+gvn(rm) O2(rm) O3(rm)
-  PASS      b_nul02_store_then_check       sroa+instcombine(rm) sroa+gvn(rm) O2(rm) O3(rm)
-  PASS      b_ovf01_sadd_check_after       sroa+instcombine(rm) sroa+gvn(rm) O2(rm) O3(rm)
-  PASS      b_ovf02_inc_wrap               sroa+instcombine(rm) sroa+gvn(rm) O2(rm) O3(rm)
-  PASS      b_ptr01_wrap_check             sroa+instcombine(rm) O2(rm) O3(rm)
-  PASS      b_ptr02_wrap_or_end            sroa+instcombine(wk) O2(wk) O3(wk)
+  negative ctl    b_bnd01_read_then_check        -
+  negative ctl    b_bnd02_loop_use_then_check    -
+  PASS            b_bnd03_signed_range_end       sroa+instcombine(wk) sroa+gvn(wk) O2(wk) O3(wk)
+  PASS            b_bnd04_signed_next_index      sroa+instcombine(wk) sroa+gvn(wk) O2(wk) O3(wk)
+  PASS            b_nul01_deref_then_check       sroa+gvn(rm) O2(rm) O3(rm)
+  PASS            b_nul02_store_then_check       sroa+instcombine(rm) sroa+gvn(rm) O2(rm) O3(rm)
+  PASS            b_ovf01_sadd_check_after       sroa+instcombine(rm) sroa+gvn(rm) O2(rm) O3(rm)
+  PASS            b_ovf02_inc_wrap               sroa+instcombine(rm) sroa+gvn(rm) O2(rm) O3(rm)
+  PASS            b_ptr01_wrap_check             sroa+instcombine(rm) O2(rm) O3(rm)
+  PASS            b_ptr02_wrap_or_end            sroa+instcombine(wk) O2(wk) O3(wk)

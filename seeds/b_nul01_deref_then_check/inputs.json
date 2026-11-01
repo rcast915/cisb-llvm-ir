@@ -4,6 +4,7 @@
   "class": "null",
   "ub_by_construction": true,
   "ub_pattern": "null_check_after_deref",
+  "control_role": "positive",
   "description": "d->flags read before if (!d) (tun.c pattern)",
   "functions": [
     "dev_poll"

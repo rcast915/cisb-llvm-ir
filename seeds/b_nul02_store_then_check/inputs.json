@@ -4,6 +4,7 @@
   "class": "null",
   "ub_by_construction": true,
   "ub_pattern": "null_check_after_deref",
+  "control_role": "positive",
   "description": "*out = v before if (out == NULL)",
   "functions": [
     "store_then_check"

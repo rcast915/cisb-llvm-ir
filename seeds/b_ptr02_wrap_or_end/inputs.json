@@ -4,6 +4,7 @@
   "class": "bounds",
   "ub_by_construction": true,
   "ub_pattern": "pointer_wrap_check",
+  "control_role": "positive",
   "description": "p + len < p || p + len > end, then memcpy",
   "functions": [
     "copy_region"

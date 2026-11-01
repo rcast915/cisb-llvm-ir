@@ -23,6 +23,8 @@ OK   A overflow a_ovf07_signed_len             guards=17     optnone=-    inputs
 OK   A overflow a_ovf08_shift_amount           guards=18     optnone=-    inputs 4/4
 OK   B bounds   b_bnd01_read_then_check        guards=37     optnone=-    inputs 2/2
 OK   B bounds   b_bnd02_loop_use_then_check    guards=38     optnone=-    inputs 3/3
+OK   B bounds   b_bnd03_signed_range_end       guards=39 40  optnone=-    inputs 4/4
+OK   B bounds   b_bnd04_signed_next_index      guards=41     optnone=-    inputs 4/4
 OK   B null     b_nul01_deref_then_check       guards=35     optnone=-    inputs 2/2
 OK   B null     b_nul02_store_then_check       guards=36     optnone=-    inputs 2/2
 OK   B overflow b_ovf01_sadd_check_after       guards=31     optnone=-    inputs 2/2
@@ -30,4 +32,4 @@ OK   B overflow b_ovf02_inc_wrap               guards=32     optnone=-    inputs
 OK   B bounds   b_ptr01_wrap_check             guards=33     optnone=-    inputs 2/2
 OK   B bounds   b_ptr02_wrap_or_end            guards=34     optnone=-    inputs 4/4
 Arm A: 23/23 seeds OK, per class {'bounds': 8, 'overflow': 8, 'null': 7}, inputs ok 89/89
-Arm B: 8/8 seeds OK, per class {'bounds': 4, 'overflow': 2, 'null': 2}, inputs ok 19/19
+Arm B: 10/10 seeds OK, per class {'bounds': 6, 'overflow': 2, 'null': 2}, inputs ok 27/27

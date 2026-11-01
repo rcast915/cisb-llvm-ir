@@ -4,6 +4,7 @@
   "class": "bounds",
   "ub_by_construction": true,
   "ub_pattern": "bounds_check_after_use",
+  "control_role": "negative",
   "description": "loop: s += a[i] before i >= n",
   "functions": [
     "sum_then_check"
@@ -44,5 +45,6 @@
       "expect_guard_output": false,
       "note": "ASan aborts on a[4] before the check"
     }
-  ]
+  ],
+  "control_note": "LLVM 23 does not exploit out-of-bounds-read UB to remove a later bounds check (M3 baseline + scratch variants); kept as a documented negative control, excluded from detection-validation counts"
 }
