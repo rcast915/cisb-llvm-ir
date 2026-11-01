@@ -47,7 +47,8 @@ UBSAN_KINDS = [
 
 def run(cmd, timeout, log=True, **kw):
     if log:
-        COMMANDS.append(" ".join(shlex.quote(str(c)) for c in cmd))
+        # Log paths relative to the repo root so logs are portable and carry no home directory.
+        COMMANDS.append(" ".join(shlex.quote(str(c)) for c in cmd).replace(str(ROOT) + "/", ""))
     t0 = time.monotonic()
     try:
         p = subprocess.run([str(c) for c in cmd], capture_output=True, text=True, timeout=timeout, **kw)

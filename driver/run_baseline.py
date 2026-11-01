@@ -254,7 +254,7 @@ def main():
         wr.writeheader()
         wr.writerows(all_rows)
     (ROOT / "results" / "m3_commands.txt").write_text("\n".join(COMMANDS) + "\n")
-    print(f"wrote {out} ({len(all_rows)} rows) in {time.monotonic() - t0:.1f}s")
+    print(f"wrote {out.relative_to(ROOT)} ({len(all_rows)} rows) in {time.monotonic() - t0:.1f}s")
 
 
 if __name__ == "__main__":

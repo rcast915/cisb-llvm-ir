@@ -196,4 +196,4 @@ B b_ptr02_wrap_or_end          sroa+simplifycfg  ids  34 ->  34 rm=-   wk=-   di
 B b_ptr02_wrap_or_end          sroa+gvn          ids  34 ->  34 rm=-   wk=-   div=0 alive=CORRECT      cls=-
 B b_ptr02_wrap_or_end          O2                ids  34 ->  34 rm=-   wk=34  div=1 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
 B b_ptr02_wrap_or_end          O3                ids  34 ->  34 rm=-   wk=34  div=1 alive=UNKNOWN      cls=UNKNOWN:unsupported-attribute:nofree
-wrote /Users/raycast/Desktop/computer_security/project/results/baseline.csv (198 rows) in 114.3s
+wrote results/baseline.csv (198 rows) in 114.3s
