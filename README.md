@@ -46,7 +46,7 @@ Versions are written to `results/versions.txt`; the full M1 log is `results/m1_l
 | Milestone | How to run | Status |
 |-----------|-----------|--------|
 | M1 toolchain | `scripts/setup.sh` | **done** (2026-10-27) |
-| M2 seed corpus | `scripts/check_seeds.sh` | **done** (2026-10-27): 31 seeds, all checks pass |
+| M2 seed corpus | `scripts/check_seeds.sh` | **done** (2026-10-27): 38 seeds, all checks pass |
 | M3 baseline driver | `scripts/run_baseline.sh` then `python3 driver/summarize_baseline.py` | **done** (2026-10-27); Arm B gate: 2 bounds controls show no change (see below) |
 | M4 mutator (2 ops) + UB filter + first Alive2 run | `scripts/run_mutants.sh` then `python3 driver/summarize_mutants.py` | **done** (2026-11-01): 43 mutants, 35 accepted |
 | M5 remaining ops, ASan/UBSan harness, classification | — | next (after interim report) |

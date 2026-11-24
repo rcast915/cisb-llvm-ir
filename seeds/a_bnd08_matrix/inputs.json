@@ -68,6 +68,19 @@
       "expect_reports": [],
       "expect_guard_output": true,
       "note": "r*cols+c in bounds but c >= cols"
+    },
+    {
+      "args": [
+        "3",
+        "4",
+        "2",
+        "4"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true,
+      "boundary": true,
+      "note": "c == cols"
     }
   ]
 }

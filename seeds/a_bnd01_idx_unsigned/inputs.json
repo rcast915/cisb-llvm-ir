@@ -57,6 +57,28 @@
       "guard": "trip",
       "expect_reports": [],
       "expect_guard_output": true
+    },
+    {
+      "args": [
+        "1",
+        "0"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false,
+      "boundary": true,
+      "note": "single element"
+    },
+    {
+      "args": [
+        "0",
+        "0"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true,
+      "boundary": true,
+      "note": "empty array"
     }
   ]
 }

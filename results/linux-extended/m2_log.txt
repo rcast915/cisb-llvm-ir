@@ -1,0 +1,40 @@
+OK   A bounds   a_bnd01_idx_unsigned           guards=1      optnone=-    inputs 7/7
+OK   A bounds   a_bnd02_idx_signed             guards=2      optnone=-    inputs 7/7
+OK   A bounds   a_bnd03_fixed_buf              guards=3      optnone=-    inputs 4/4
+OK   A bounds   a_bnd04_memcpy_range           guards=4      optnone=-    inputs 8/8
+OK   A bounds   a_bnd05_loop_copy              guards=5      optnone=-    inputs 9/9
+OK   A bounds   a_bnd06_mask_index             guards=6      optnone=-    inputs 4/4
+OK   A bounds   a_bnd07_char_at                guards=7      optnone=-    inputs 4/4
+OK   A bounds   a_bnd08_matrix                 guards=8      optnone=-    inputs 6/6
+OK   A bounds   a_bnd09_ptr_range_safe         guards=42 43  optnone=-    inputs 8/8
+OK   A bounds   a_bnd10_uintptr_wrap           guards=44     optnone=-    inputs 4/4
+OK   A null     a_nul01_ptr_param              guards=21     optnone=-    inputs 2/2
+OK   A null     a_nul02_struct_field           guards=22     optnone=-    inputs 3/3
+OK   A null     a_nul03_lookup                 guards=23     optnone=-    inputs 4/4
+OK   A null     a_nul04_list_walk              guards=24     optnone=-    inputs 4/4
+OK   A null     a_nul05_callback               guards=25     optnone=-    inputs 2/2
+OK   A null     a_nul06_out_param              guards=26     optnone=-    inputs 2/2
+OK   A null     a_nul07_safe_strlen            guards=27     optnone=-    inputs 3/3
+OK   A overflow a_ovf01_uadd_wrap              guards=11     optnone=-    inputs 7/7
+OK   A overflow a_ovf02_sadd_precheck          guards=12     optnone=-    inputs 8/8
+OK   A overflow a_ovf03_mul_alloc              guards=13     optnone=-    inputs 4/4
+OK   A overflow a_ovf04_builtin_add            guards=14     optnone=-    inputs 6/6
+OK   A overflow a_ovf05_len_header             guards=15     optnone=-    inputs 5/5
+OK   A overflow a_ovf06_usub_underflow         guards=16     optnone=-    inputs 6/6
+OK   A overflow a_ovf07_signed_len             guards=17     optnone=-    inputs 6/6
+OK   A overflow a_ovf08_shift_amount           guards=18     optnone=-    inputs 7/7
+OK   B bounds   b_bnd01_read_then_check        guards=37     optnone=-    inputs 2/2
+OK   B bounds   b_bnd02_loop_use_then_check    guards=38     optnone=-    inputs 3/3
+OK   B bounds   b_bnd03_signed_range_end       guards=39 40  optnone=-    inputs 4/4
+OK   B bounds   b_bnd04_signed_next_index      guards=41     optnone=-    inputs 4/4
+OK   B null     b_nul01_deref_then_check       guards=35     optnone=-    inputs 2/2
+OK   B null     b_nul02_store_then_check       guards=36     optnone=-    inputs 2/2
+OK   B overflow b_ovf01_sadd_check_after       guards=31     optnone=-    inputs 2/2
+OK   B overflow b_ovf02_inc_wrap               guards=32     optnone=-    inputs 2/2
+OK   B bounds   b_ptr01_wrap_check             guards=33     optnone=-    inputs 3/3
+OK   B bounds   b_ptr02_wrap_or_end            guards=34     optnone=-    inputs 6/6
+OK   B bounds   b_ptr03_wrap_ge                guards=45     optnone=-    inputs 2/2
+OK   B bounds   b_ptr04_wrap_signed_off        guards=46     optnone=-    inputs 3/3
+OK   B bounds   b_ptr05_wrap_int_len           guards=47     optnone=-    inputs 4/4
+Arm A: 25/25 seeds OK, per class {'bounds': 10, 'overflow': 8, 'null': 7}, inputs ok 130/130
+Arm B: 13/13 seeds OK, per class {'bounds': 9, 'overflow': 2, 'null': 2}, inputs ok 39/39

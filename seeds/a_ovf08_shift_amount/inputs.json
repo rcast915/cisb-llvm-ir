@@ -48,6 +48,38 @@
       "guard": "trip",
       "expect_reports": [],
       "expect_guard_output": true
+    },
+    {
+      "args": [
+        "0xffffffff",
+        "31"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false,
+      "boundary": true,
+      "note": "max shift"
+    },
+    {
+      "args": [
+        "1",
+        "33"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true,
+      "boundary": true
+    },
+    {
+      "args": [
+        "1",
+        "4294967295"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true,
+      "boundary": true,
+      "note": "UINT_MAX shift"
     }
   ]
 }

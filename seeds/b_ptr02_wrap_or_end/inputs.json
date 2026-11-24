@@ -54,6 +54,30 @@
       "expect_reports": [],
       "expect_guard_output": true,
       "note": "p + len is past one-past-end (UB in C) but no sanitizer instruments it"
+    },
+    {
+      "args": [
+        "16",
+        "0"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false,
+      "boundary": true,
+      "note": "p == end, len 0 (one-past is legal)"
+    },
+    {
+      "args": [
+        "8",
+        "0xfffffffffffffff8"
+      ],
+      "guard": "trip",
+      "expect_reports": [
+        "ubsan:pointer-overflow"
+      ],
+      "expect_guard_output": true,
+      "boundary": true,
+      "note": "p + len wraps exactly to buf"
     }
   ]
 }

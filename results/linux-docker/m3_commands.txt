@@ -1,0 +1,1984 @@
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_bnd01_idx_unsigned/seed.c -o work/m3/a_bnd01_idx_unsigned/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_bnd01_idx_unsigned/seed.c -o work/m3/a_bnd01_idx_unsigned/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=get_u work/m3/a_bnd01_idx_unsigned/full.ll -o work/m3/a_bnd01_idx_unsigned/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd01_idx_unsigned/main_rest.ll -o work/m3/a_bnd01_idx_unsigned/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_bnd01_idx_unsigned/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd01_idx_unsigned/seed.ll -o work/m3/a_bnd01_idx_unsigned/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd01_idx_unsigned/main_rest.o work/m3/a_bnd01_idx_unsigned/harness.o work/m3/a_bnd01_idx_unsigned/O0ref.o -o work/m3/a_bnd01_idx_unsigned/O0ref.plain
+work/m3/a_bnd01_idx_unsigned/O0ref.plain 4 0
+work/m3/a_bnd01_idx_unsigned/O0ref.plain 4 3
+work/m3/a_bnd01_idx_unsigned/O0ref.plain 4 4
+work/m3/a_bnd01_idx_unsigned/O0ref.plain 4 4294967295
+work/m3/a_bnd01_idx_unsigned/O0ref.plain 1 1
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_bnd01_idx_unsigned/seed.c seeds/common/harness.c -o work/m3/a_bnd01_idx_unsigned/seed_san
+work/m3/a_bnd01_idx_unsigned/seed_san 4 0
+work/m3/a_bnd01_idx_unsigned/seed_san 4 3
+work/m3/a_bnd01_idx_unsigned/seed_san 4 4
+work/m3/a_bnd01_idx_unsigned/seed_san 4 4294967295
+work/m3/a_bnd01_idx_unsigned/seed_san 1 1
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_bnd01_idx_unsigned/seed.ll -o work/m3/a_bnd01_idx_unsigned/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_bnd01_idx_unsigned/seed.ll -o work/m3/a_bnd01_idx_unsigned/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_bnd01_idx_unsigned/seed.ll -o work/m3/a_bnd01_idx_unsigned/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_bnd01_idx_unsigned/seed.ll -o work/m3/a_bnd01_idx_unsigned/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_bnd01_idx_unsigned/seed.ll -o work/m3/a_bnd01_idx_unsigned/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_bnd01_idx_unsigned/seed.ll -o work/m3/a_bnd01_idx_unsigned/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd01_idx_unsigned/sroa+instcombine.ll -o work/m3/a_bnd01_idx_unsigned/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd01_idx_unsigned/sroa+simplifycfg.ll -o work/m3/a_bnd01_idx_unsigned/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd01_idx_unsigned/sroa.ll -o work/m3/a_bnd01_idx_unsigned/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd01_idx_unsigned/O2.ll -o work/m3/a_bnd01_idx_unsigned/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd01_idx_unsigned/O3.ll -o work/m3/a_bnd01_idx_unsigned/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd01_idx_unsigned/sroa+gvn.ll -o work/m3/a_bnd01_idx_unsigned/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd01_idx_unsigned/main_rest.o work/m3/a_bnd01_idx_unsigned/harness.o work/m3/a_bnd01_idx_unsigned/sroa+instcombine.o -o work/m3/a_bnd01_idx_unsigned/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd01_idx_unsigned/main_rest.o work/m3/a_bnd01_idx_unsigned/harness.o work/m3/a_bnd01_idx_unsigned/sroa.o -o work/m3/a_bnd01_idx_unsigned/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd01_idx_unsigned/main_rest.o work/m3/a_bnd01_idx_unsigned/harness.o work/m3/a_bnd01_idx_unsigned/sroa+simplifycfg.o -o work/m3/a_bnd01_idx_unsigned/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd01_idx_unsigned/main_rest.o work/m3/a_bnd01_idx_unsigned/harness.o work/m3/a_bnd01_idx_unsigned/O2.o -o work/m3/a_bnd01_idx_unsigned/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd01_idx_unsigned/main_rest.o work/m3/a_bnd01_idx_unsigned/harness.o work/m3/a_bnd01_idx_unsigned/O3.o -o work/m3/a_bnd01_idx_unsigned/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd01_idx_unsigned/main_rest.o work/m3/a_bnd01_idx_unsigned/harness.o work/m3/a_bnd01_idx_unsigned/sroa+gvn.o -o work/m3/a_bnd01_idx_unsigned/sroa+gvn.plain
+work/m3/a_bnd01_idx_unsigned/sroa.plain 4 0
+work/m3/a_bnd01_idx_unsigned/sroa+instcombine.plain 4 0
+work/m3/a_bnd01_idx_unsigned/sroa.plain 4 3
+work/m3/a_bnd01_idx_unsigned/sroa+instcombine.plain 4 3
+work/m3/a_bnd01_idx_unsigned/sroa+simplifycfg.plain 4 0
+work/m3/a_bnd01_idx_unsigned/sroa.plain 4 4
+work/m3/a_bnd01_idx_unsigned/sroa+simplifycfg.plain 4 3
+work/m3/a_bnd01_idx_unsigned/sroa+instcombine.plain 4 4
+work/m3/a_bnd01_idx_unsigned/sroa.plain 4 4294967295
+work/m3/a_bnd01_idx_unsigned/O2.plain 4 0
+work/m3/a_bnd01_idx_unsigned/sroa+gvn.plain 4 0
+work/m3/a_bnd01_idx_unsigned/sroa+instcombine.plain 4 4294967295
+work/m3/a_bnd01_idx_unsigned/sroa+simplifycfg.plain 4 4
+work/m3/a_bnd01_idx_unsigned/sroa.plain 1 1
+work/m3/a_bnd01_idx_unsigned/O3.plain 4 0
+work/m3/a_bnd01_idx_unsigned/sroa+gvn.plain 4 3
+work/m3/a_bnd01_idx_unsigned/sroa+simplifycfg.plain 4 4294967295
+work/m3/a_bnd01_idx_unsigned/sroa+instcombine.plain 1 1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd01_idx_unsigned/seed.ll work/m3/a_bnd01_idx_unsigned/sroa.ll
+work/m3/a_bnd01_idx_unsigned/sroa+gvn.plain 4 4
+work/m3/a_bnd01_idx_unsigned/O3.plain 4 3
+work/m3/a_bnd01_idx_unsigned/O2.plain 4 3
+work/m3/a_bnd01_idx_unsigned/sroa+simplifycfg.plain 1 1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd01_idx_unsigned/seed.ll work/m3/a_bnd01_idx_unsigned/sroa+instcombine.ll
+work/m3/a_bnd01_idx_unsigned/O3.plain 4 4
+work/m3/a_bnd01_idx_unsigned/O2.plain 4 4
+work/m3/a_bnd01_idx_unsigned/sroa+gvn.plain 4 4294967295
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd01_idx_unsigned/seed.ll work/m3/a_bnd01_idx_unsigned/sroa+simplifycfg.ll
+work/m3/a_bnd01_idx_unsigned/O2.plain 4 4294967295
+work/m3/a_bnd01_idx_unsigned/O3.plain 4 4294967295
+work/m3/a_bnd01_idx_unsigned/sroa+gvn.plain 1 1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd01_idx_unsigned/seed.ll work/m3/a_bnd01_idx_unsigned/sroa+gvn.ll
+work/m3/a_bnd01_idx_unsigned/O2.plain 1 1
+work/m3/a_bnd01_idx_unsigned/O3.plain 1 1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd01_idx_unsigned/seed.ll work/m3/a_bnd01_idx_unsigned/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd01_idx_unsigned/seed.ll work/m3/a_bnd01_idx_unsigned/O3.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_bnd02_idx_signed/seed.c -o work/m3/a_bnd02_idx_signed/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_bnd02_idx_signed/seed.c -o work/m3/a_bnd02_idx_signed/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=get_s work/m3/a_bnd02_idx_signed/full.ll -o work/m3/a_bnd02_idx_signed/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd02_idx_signed/main_rest.ll -o work/m3/a_bnd02_idx_signed/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_bnd02_idx_signed/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd02_idx_signed/seed.ll -o work/m3/a_bnd02_idx_signed/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd02_idx_signed/main_rest.o work/m3/a_bnd02_idx_signed/harness.o work/m3/a_bnd02_idx_signed/O0ref.o -o work/m3/a_bnd02_idx_signed/O0ref.plain
+work/m3/a_bnd02_idx_signed/O0ref.plain 4 0
+work/m3/a_bnd02_idx_signed/O0ref.plain 4 3
+work/m3/a_bnd02_idx_signed/O0ref.plain 4 -1
+work/m3/a_bnd02_idx_signed/O0ref.plain 4 4
+work/m3/a_bnd02_idx_signed/O0ref.plain 4 -2147483648
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_bnd02_idx_signed/seed.c seeds/common/harness.c -o work/m3/a_bnd02_idx_signed/seed_san
+work/m3/a_bnd02_idx_signed/seed_san 4 0
+work/m3/a_bnd02_idx_signed/seed_san 4 3
+work/m3/a_bnd02_idx_signed/seed_san 4 -1
+work/m3/a_bnd02_idx_signed/seed_san 4 4
+work/m3/a_bnd02_idx_signed/seed_san 4 -2147483648
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_bnd02_idx_signed/seed.ll -o work/m3/a_bnd02_idx_signed/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_bnd02_idx_signed/seed.ll -o work/m3/a_bnd02_idx_signed/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_bnd02_idx_signed/seed.ll -o work/m3/a_bnd02_idx_signed/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_bnd02_idx_signed/seed.ll -o work/m3/a_bnd02_idx_signed/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_bnd02_idx_signed/seed.ll -o work/m3/a_bnd02_idx_signed/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_bnd02_idx_signed/seed.ll -o work/m3/a_bnd02_idx_signed/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd02_idx_signed/sroa.ll -o work/m3/a_bnd02_idx_signed/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd02_idx_signed/sroa+simplifycfg.ll -o work/m3/a_bnd02_idx_signed/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd02_idx_signed/sroa+gvn.ll -o work/m3/a_bnd02_idx_signed/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd02_idx_signed/sroa+instcombine.ll -o work/m3/a_bnd02_idx_signed/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd02_idx_signed/O3.ll -o work/m3/a_bnd02_idx_signed/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd02_idx_signed/O2.ll -o work/m3/a_bnd02_idx_signed/O2.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd02_idx_signed/main_rest.o work/m3/a_bnd02_idx_signed/harness.o work/m3/a_bnd02_idx_signed/sroa+gvn.o -o work/m3/a_bnd02_idx_signed/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd02_idx_signed/main_rest.o work/m3/a_bnd02_idx_signed/harness.o work/m3/a_bnd02_idx_signed/sroa+simplifycfg.o -o work/m3/a_bnd02_idx_signed/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd02_idx_signed/main_rest.o work/m3/a_bnd02_idx_signed/harness.o work/m3/a_bnd02_idx_signed/sroa.o -o work/m3/a_bnd02_idx_signed/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd02_idx_signed/main_rest.o work/m3/a_bnd02_idx_signed/harness.o work/m3/a_bnd02_idx_signed/sroa+instcombine.o -o work/m3/a_bnd02_idx_signed/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd02_idx_signed/main_rest.o work/m3/a_bnd02_idx_signed/harness.o work/m3/a_bnd02_idx_signed/O3.o -o work/m3/a_bnd02_idx_signed/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd02_idx_signed/main_rest.o work/m3/a_bnd02_idx_signed/harness.o work/m3/a_bnd02_idx_signed/O2.o -o work/m3/a_bnd02_idx_signed/O2.plain
+work/m3/a_bnd02_idx_signed/sroa+instcombine.plain 4 0
+work/m3/a_bnd02_idx_signed/sroa+gvn.plain 4 0
+work/m3/a_bnd02_idx_signed/sroa+instcombine.plain 4 3
+work/m3/a_bnd02_idx_signed/sroa+gvn.plain 4 3
+work/m3/a_bnd02_idx_signed/sroa+simplifycfg.plain 4 0
+work/m3/a_bnd02_idx_signed/sroa.plain 4 0
+work/m3/a_bnd02_idx_signed/sroa+gvn.plain 4 -1
+work/m3/a_bnd02_idx_signed/sroa+instcombine.plain 4 -1
+work/m3/a_bnd02_idx_signed/sroa.plain 4 3
+work/m3/a_bnd02_idx_signed/sroa+simplifycfg.plain 4 3
+work/m3/a_bnd02_idx_signed/O3.plain 4 0
+work/m3/a_bnd02_idx_signed/sroa+gvn.plain 4 4
+work/m3/a_bnd02_idx_signed/sroa+instcombine.plain 4 4
+work/m3/a_bnd02_idx_signed/sroa.plain 4 -1
+work/m3/a_bnd02_idx_signed/O2.plain 4 0
+work/m3/a_bnd02_idx_signed/sroa+simplifycfg.plain 4 -1
+work/m3/a_bnd02_idx_signed/O3.plain 4 3
+work/m3/a_bnd02_idx_signed/sroa+gvn.plain 4 -2147483648
+work/m3/a_bnd02_idx_signed/sroa+instcombine.plain 4 -2147483648
+work/m3/a_bnd02_idx_signed/sroa.plain 4 4
+work/m3/a_bnd02_idx_signed/sroa+simplifycfg.plain 4 4
+work/m3/a_bnd02_idx_signed/O2.plain 4 3
+work/m3/a_bnd02_idx_signed/O3.plain 4 -1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd02_idx_signed/seed.ll work/m3/a_bnd02_idx_signed/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd02_idx_signed/seed.ll work/m3/a_bnd02_idx_signed/sroa+instcombine.ll
+work/m3/a_bnd02_idx_signed/sroa.plain 4 -2147483648
+work/m3/a_bnd02_idx_signed/sroa+simplifycfg.plain 4 -2147483648
+work/m3/a_bnd02_idx_signed/O2.plain 4 -1
+work/m3/a_bnd02_idx_signed/O3.plain 4 4
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd02_idx_signed/seed.ll work/m3/a_bnd02_idx_signed/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd02_idx_signed/seed.ll work/m3/a_bnd02_idx_signed/sroa+simplifycfg.ll
+work/m3/a_bnd02_idx_signed/O2.plain 4 4
+work/m3/a_bnd02_idx_signed/O3.plain 4 -2147483648
+work/m3/a_bnd02_idx_signed/O2.plain 4 -2147483648
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd02_idx_signed/seed.ll work/m3/a_bnd02_idx_signed/O3.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd02_idx_signed/seed.ll work/m3/a_bnd02_idx_signed/O2.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_bnd03_fixed_buf/seed.c -o work/m3/a_bnd03_fixed_buf/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_bnd03_fixed_buf/seed.c -o work/m3/a_bnd03_fixed_buf/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=put_fixed --glob=g_buf work/m3/a_bnd03_fixed_buf/full.ll -o work/m3/a_bnd03_fixed_buf/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd03_fixed_buf/main_rest.ll -o work/m3/a_bnd03_fixed_buf/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_bnd03_fixed_buf/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd03_fixed_buf/seed.ll -o work/m3/a_bnd03_fixed_buf/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd03_fixed_buf/main_rest.o work/m3/a_bnd03_fixed_buf/harness.o work/m3/a_bnd03_fixed_buf/O0ref.o -o work/m3/a_bnd03_fixed_buf/O0ref.plain
+work/m3/a_bnd03_fixed_buf/O0ref.plain 0
+work/m3/a_bnd03_fixed_buf/O0ref.plain 15
+work/m3/a_bnd03_fixed_buf/O0ref.plain 16
+work/m3/a_bnd03_fixed_buf/O0ref.plain 1000
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_bnd03_fixed_buf/seed.c seeds/common/harness.c -o work/m3/a_bnd03_fixed_buf/seed_san
+work/m3/a_bnd03_fixed_buf/seed_san 0
+work/m3/a_bnd03_fixed_buf/seed_san 15
+work/m3/a_bnd03_fixed_buf/seed_san 16
+work/m3/a_bnd03_fixed_buf/seed_san 1000
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_bnd03_fixed_buf/seed.ll -o work/m3/a_bnd03_fixed_buf/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_bnd03_fixed_buf/seed.ll -o work/m3/a_bnd03_fixed_buf/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_bnd03_fixed_buf/seed.ll -o work/m3/a_bnd03_fixed_buf/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_bnd03_fixed_buf/seed.ll -o work/m3/a_bnd03_fixed_buf/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_bnd03_fixed_buf/seed.ll -o work/m3/a_bnd03_fixed_buf/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_bnd03_fixed_buf/seed.ll -o work/m3/a_bnd03_fixed_buf/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd03_fixed_buf/sroa.ll -o work/m3/a_bnd03_fixed_buf/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd03_fixed_buf/sroa+simplifycfg.ll -o work/m3/a_bnd03_fixed_buf/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd03_fixed_buf/sroa+instcombine.ll -o work/m3/a_bnd03_fixed_buf/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd03_fixed_buf/sroa+gvn.ll -o work/m3/a_bnd03_fixed_buf/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd03_fixed_buf/O3.ll -o work/m3/a_bnd03_fixed_buf/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd03_fixed_buf/O2.ll -o work/m3/a_bnd03_fixed_buf/O2.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd03_fixed_buf/main_rest.o work/m3/a_bnd03_fixed_buf/harness.o work/m3/a_bnd03_fixed_buf/O3.o -o work/m3/a_bnd03_fixed_buf/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd03_fixed_buf/main_rest.o work/m3/a_bnd03_fixed_buf/harness.o work/m3/a_bnd03_fixed_buf/sroa+simplifycfg.o -o work/m3/a_bnd03_fixed_buf/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd03_fixed_buf/main_rest.o work/m3/a_bnd03_fixed_buf/harness.o work/m3/a_bnd03_fixed_buf/sroa+gvn.o -o work/m3/a_bnd03_fixed_buf/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd03_fixed_buf/main_rest.o work/m3/a_bnd03_fixed_buf/harness.o work/m3/a_bnd03_fixed_buf/sroa.o -o work/m3/a_bnd03_fixed_buf/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd03_fixed_buf/main_rest.o work/m3/a_bnd03_fixed_buf/harness.o work/m3/a_bnd03_fixed_buf/O2.o -o work/m3/a_bnd03_fixed_buf/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd03_fixed_buf/main_rest.o work/m3/a_bnd03_fixed_buf/harness.o work/m3/a_bnd03_fixed_buf/sroa+instcombine.o -o work/m3/a_bnd03_fixed_buf/sroa+instcombine.plain
+work/m3/a_bnd03_fixed_buf/O3.plain 0
+work/m3/a_bnd03_fixed_buf/sroa+gvn.plain 0
+work/m3/a_bnd03_fixed_buf/sroa+gvn.plain 15
+work/m3/a_bnd03_fixed_buf/O3.plain 15
+work/m3/a_bnd03_fixed_buf/sroa.plain 0
+work/m3/a_bnd03_fixed_buf/sroa+gvn.plain 16
+work/m3/a_bnd03_fixed_buf/sroa+simplifycfg.plain 0
+work/m3/a_bnd03_fixed_buf/sroa+instcombine.plain 0
+work/m3/a_bnd03_fixed_buf/O3.plain 16
+work/m3/a_bnd03_fixed_buf/sroa+gvn.plain 1000
+work/m3/a_bnd03_fixed_buf/sroa.plain 15
+work/m3/a_bnd03_fixed_buf/sroa+simplifycfg.plain 15
+work/m3/a_bnd03_fixed_buf/O2.plain 0
+work/m3/a_bnd03_fixed_buf/O3.plain 1000
+work/m3/a_bnd03_fixed_buf/sroa+instcombine.plain 15
+work/m3/a_bnd03_fixed_buf/sroa.plain 16
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd03_fixed_buf/seed.ll work/m3/a_bnd03_fixed_buf/sroa+gvn.ll
+work/m3/a_bnd03_fixed_buf/sroa+simplifycfg.plain 16
+work/m3/a_bnd03_fixed_buf/O2.plain 15
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd03_fixed_buf/seed.ll work/m3/a_bnd03_fixed_buf/O3.ll
+work/m3/a_bnd03_fixed_buf/sroa+instcombine.plain 16
+work/m3/a_bnd03_fixed_buf/sroa.plain 1000
+work/m3/a_bnd03_fixed_buf/O2.plain 16
+work/m3/a_bnd03_fixed_buf/sroa+simplifycfg.plain 1000
+work/m3/a_bnd03_fixed_buf/sroa+instcombine.plain 1000
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd03_fixed_buf/seed.ll work/m3/a_bnd03_fixed_buf/sroa.ll
+work/m3/a_bnd03_fixed_buf/O2.plain 1000
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd03_fixed_buf/seed.ll work/m3/a_bnd03_fixed_buf/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd03_fixed_buf/seed.ll work/m3/a_bnd03_fixed_buf/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd03_fixed_buf/seed.ll work/m3/a_bnd03_fixed_buf/O2.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_bnd04_memcpy_range/seed.c -o work/m3/a_bnd04_memcpy_range/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_bnd04_memcpy_range/seed.c -o work/m3/a_bnd04_memcpy_range/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=copy_in work/m3/a_bnd04_memcpy_range/full.ll -o work/m3/a_bnd04_memcpy_range/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd04_memcpy_range/main_rest.ll -o work/m3/a_bnd04_memcpy_range/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_bnd04_memcpy_range/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd04_memcpy_range/seed.ll -o work/m3/a_bnd04_memcpy_range/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd04_memcpy_range/main_rest.o work/m3/a_bnd04_memcpy_range/harness.o work/m3/a_bnd04_memcpy_range/O0ref.o -o work/m3/a_bnd04_memcpy_range/O0ref.plain
+work/m3/a_bnd04_memcpy_range/O0ref.plain 16 0 16
+work/m3/a_bnd04_memcpy_range/O0ref.plain 16 8 8
+work/m3/a_bnd04_memcpy_range/O0ref.plain 16 8 9
+work/m3/a_bnd04_memcpy_range/O0ref.plain 16 17 0
+work/m3/a_bnd04_memcpy_range/O0ref.plain 16 8 0xffffffffffffffff
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_bnd04_memcpy_range/seed.c seeds/common/harness.c -o work/m3/a_bnd04_memcpy_range/seed_san
+work/m3/a_bnd04_memcpy_range/seed_san 16 0 16
+work/m3/a_bnd04_memcpy_range/seed_san 16 8 8
+work/m3/a_bnd04_memcpy_range/seed_san 16 8 9
+work/m3/a_bnd04_memcpy_range/seed_san 16 17 0
+work/m3/a_bnd04_memcpy_range/seed_san 16 8 0xffffffffffffffff
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_bnd04_memcpy_range/seed.ll -o work/m3/a_bnd04_memcpy_range/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_bnd04_memcpy_range/seed.ll -o work/m3/a_bnd04_memcpy_range/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_bnd04_memcpy_range/seed.ll -o work/m3/a_bnd04_memcpy_range/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_bnd04_memcpy_range/seed.ll -o work/m3/a_bnd04_memcpy_range/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_bnd04_memcpy_range/seed.ll -o work/m3/a_bnd04_memcpy_range/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_bnd04_memcpy_range/seed.ll -o work/m3/a_bnd04_memcpy_range/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd04_memcpy_range/sroa+instcombine.ll -o work/m3/a_bnd04_memcpy_range/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd04_memcpy_range/sroa+simplifycfg.ll -o work/m3/a_bnd04_memcpy_range/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd04_memcpy_range/sroa+gvn.ll -o work/m3/a_bnd04_memcpy_range/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd04_memcpy_range/sroa.ll -o work/m3/a_bnd04_memcpy_range/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd04_memcpy_range/O2.ll -o work/m3/a_bnd04_memcpy_range/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd04_memcpy_range/O3.ll -o work/m3/a_bnd04_memcpy_range/O3.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd04_memcpy_range/main_rest.o work/m3/a_bnd04_memcpy_range/harness.o work/m3/a_bnd04_memcpy_range/sroa+gvn.o -o work/m3/a_bnd04_memcpy_range/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd04_memcpy_range/main_rest.o work/m3/a_bnd04_memcpy_range/harness.o work/m3/a_bnd04_memcpy_range/sroa+instcombine.o -o work/m3/a_bnd04_memcpy_range/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd04_memcpy_range/main_rest.o work/m3/a_bnd04_memcpy_range/harness.o work/m3/a_bnd04_memcpy_range/sroa+simplifycfg.o -o work/m3/a_bnd04_memcpy_range/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd04_memcpy_range/main_rest.o work/m3/a_bnd04_memcpy_range/harness.o work/m3/a_bnd04_memcpy_range/sroa.o -o work/m3/a_bnd04_memcpy_range/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd04_memcpy_range/main_rest.o work/m3/a_bnd04_memcpy_range/harness.o work/m3/a_bnd04_memcpy_range/O2.o -o work/m3/a_bnd04_memcpy_range/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd04_memcpy_range/main_rest.o work/m3/a_bnd04_memcpy_range/harness.o work/m3/a_bnd04_memcpy_range/O3.o -o work/m3/a_bnd04_memcpy_range/O3.plain
+work/m3/a_bnd04_memcpy_range/sroa+instcombine.plain 16 0 16
+work/m3/a_bnd04_memcpy_range/sroa+gvn.plain 16 0 16
+work/m3/a_bnd04_memcpy_range/sroa+simplifycfg.plain 16 0 16
+work/m3/a_bnd04_memcpy_range/sroa+gvn.plain 16 8 8
+work/m3/a_bnd04_memcpy_range/sroa+instcombine.plain 16 8 8
+work/m3/a_bnd04_memcpy_range/sroa.plain 16 0 16
+work/m3/a_bnd04_memcpy_range/sroa+simplifycfg.plain 16 8 8
+work/m3/a_bnd04_memcpy_range/sroa+gvn.plain 16 8 9
+work/m3/a_bnd04_memcpy_range/sroa+instcombine.plain 16 8 9
+work/m3/a_bnd04_memcpy_range/sroa.plain 16 8 8
+work/m3/a_bnd04_memcpy_range/sroa+simplifycfg.plain 16 8 9
+work/m3/a_bnd04_memcpy_range/O3.plain 16 0 16
+work/m3/a_bnd04_memcpy_range/sroa+gvn.plain 16 17 0
+work/m3/a_bnd04_memcpy_range/sroa+instcombine.plain 16 17 0
+work/m3/a_bnd04_memcpy_range/O2.plain 16 0 16
+work/m3/a_bnd04_memcpy_range/sroa.plain 16 8 9
+work/m3/a_bnd04_memcpy_range/sroa+simplifycfg.plain 16 17 0
+work/m3/a_bnd04_memcpy_range/sroa+gvn.plain 16 8 0xffffffffffffffff
+work/m3/a_bnd04_memcpy_range/sroa+instcombine.plain 16 8 0xffffffffffffffff
+work/m3/a_bnd04_memcpy_range/O3.plain 16 8 8
+work/m3/a_bnd04_memcpy_range/O2.plain 16 8 8
+work/m3/a_bnd04_memcpy_range/sroa.plain 16 17 0
+work/m3/a_bnd04_memcpy_range/sroa+simplifycfg.plain 16 8 0xffffffffffffffff
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd04_memcpy_range/seed.ll work/m3/a_bnd04_memcpy_range/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd04_memcpy_range/seed.ll work/m3/a_bnd04_memcpy_range/sroa+instcombine.ll
+work/m3/a_bnd04_memcpy_range/O3.plain 16 8 9
+work/m3/a_bnd04_memcpy_range/O2.plain 16 8 9
+work/m3/a_bnd04_memcpy_range/sroa.plain 16 8 0xffffffffffffffff
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd04_memcpy_range/seed.ll work/m3/a_bnd04_memcpy_range/sroa+simplifycfg.ll
+work/m3/a_bnd04_memcpy_range/O2.plain 16 17 0
+work/m3/a_bnd04_memcpy_range/O3.plain 16 17 0
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd04_memcpy_range/seed.ll work/m3/a_bnd04_memcpy_range/sroa.ll
+work/m3/a_bnd04_memcpy_range/O3.plain 16 8 0xffffffffffffffff
+work/m3/a_bnd04_memcpy_range/O2.plain 16 8 0xffffffffffffffff
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd04_memcpy_range/seed.ll work/m3/a_bnd04_memcpy_range/O3.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd04_memcpy_range/seed.ll work/m3/a_bnd04_memcpy_range/O2.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_bnd05_loop_copy/seed.c -o work/m3/a_bnd05_loop_copy/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_bnd05_loop_copy/seed.c -o work/m3/a_bnd05_loop_copy/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=copy_words work/m3/a_bnd05_loop_copy/full.ll -o work/m3/a_bnd05_loop_copy/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd05_loop_copy/main_rest.ll -o work/m3/a_bnd05_loop_copy/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_bnd05_loop_copy/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd05_loop_copy/seed.ll -o work/m3/a_bnd05_loop_copy/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd05_loop_copy/main_rest.o work/m3/a_bnd05_loop_copy/harness.o work/m3/a_bnd05_loop_copy/O0ref.o -o work/m3/a_bnd05_loop_copy/O0ref.plain
+work/m3/a_bnd05_loop_copy/O0ref.plain 4 0
+work/m3/a_bnd05_loop_copy/O0ref.plain 4 2
+work/m3/a_bnd05_loop_copy/O0ref.plain 4 4
+work/m3/a_bnd05_loop_copy/O0ref.plain 4 5
+work/m3/a_bnd05_loop_copy/O0ref.plain 0 1
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_bnd05_loop_copy/seed.c seeds/common/harness.c -o work/m3/a_bnd05_loop_copy/seed_san
+work/m3/a_bnd05_loop_copy/seed_san 4 0
+work/m3/a_bnd05_loop_copy/seed_san 4 2
+work/m3/a_bnd05_loop_copy/seed_san 4 4
+work/m3/a_bnd05_loop_copy/seed_san 4 5
+work/m3/a_bnd05_loop_copy/seed_san 0 1
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_bnd05_loop_copy/seed.ll -o work/m3/a_bnd05_loop_copy/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_bnd05_loop_copy/seed.ll -o work/m3/a_bnd05_loop_copy/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_bnd05_loop_copy/seed.ll -o work/m3/a_bnd05_loop_copy/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_bnd05_loop_copy/seed.ll -o work/m3/a_bnd05_loop_copy/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_bnd05_loop_copy/seed.ll -o work/m3/a_bnd05_loop_copy/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_bnd05_loop_copy/seed.ll -o work/m3/a_bnd05_loop_copy/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd05_loop_copy/sroa+instcombine.ll -o work/m3/a_bnd05_loop_copy/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd05_loop_copy/sroa+simplifycfg.ll -o work/m3/a_bnd05_loop_copy/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd05_loop_copy/sroa+gvn.ll -o work/m3/a_bnd05_loop_copy/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd05_loop_copy/sroa.ll -o work/m3/a_bnd05_loop_copy/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd05_loop_copy/O3.ll -o work/m3/a_bnd05_loop_copy/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd05_loop_copy/O2.ll -o work/m3/a_bnd05_loop_copy/O2.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd05_loop_copy/main_rest.o work/m3/a_bnd05_loop_copy/harness.o work/m3/a_bnd05_loop_copy/sroa+simplifycfg.o -o work/m3/a_bnd05_loop_copy/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd05_loop_copy/main_rest.o work/m3/a_bnd05_loop_copy/harness.o work/m3/a_bnd05_loop_copy/sroa+instcombine.o -o work/m3/a_bnd05_loop_copy/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd05_loop_copy/main_rest.o work/m3/a_bnd05_loop_copy/harness.o work/m3/a_bnd05_loop_copy/sroa+gvn.o -o work/m3/a_bnd05_loop_copy/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd05_loop_copy/main_rest.o work/m3/a_bnd05_loop_copy/harness.o work/m3/a_bnd05_loop_copy/sroa.o -o work/m3/a_bnd05_loop_copy/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd05_loop_copy/main_rest.o work/m3/a_bnd05_loop_copy/harness.o work/m3/a_bnd05_loop_copy/O3.o -o work/m3/a_bnd05_loop_copy/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd05_loop_copy/main_rest.o work/m3/a_bnd05_loop_copy/harness.o work/m3/a_bnd05_loop_copy/O2.o -o work/m3/a_bnd05_loop_copy/O2.plain
+work/m3/a_bnd05_loop_copy/sroa+simplifycfg.plain 4 0
+work/m3/a_bnd05_loop_copy/sroa+simplifycfg.plain 4 2
+work/m3/a_bnd05_loop_copy/sroa+instcombine.plain 4 0
+work/m3/a_bnd05_loop_copy/sroa+gvn.plain 4 0
+work/m3/a_bnd05_loop_copy/sroa+simplifycfg.plain 4 4
+work/m3/a_bnd05_loop_copy/sroa+instcombine.plain 4 2
+work/m3/a_bnd05_loop_copy/sroa.plain 4 0
+work/m3/a_bnd05_loop_copy/sroa+gvn.plain 4 2
+work/m3/a_bnd05_loop_copy/sroa+simplifycfg.plain 4 5
+work/m3/a_bnd05_loop_copy/sroa+instcombine.plain 4 4
+work/m3/a_bnd05_loop_copy/sroa.plain 4 2
+work/m3/a_bnd05_loop_copy/O3.plain 4 0
+work/m3/a_bnd05_loop_copy/sroa+simplifycfg.plain 0 1
+work/m3/a_bnd05_loop_copy/sroa+gvn.plain 4 4
+work/m3/a_bnd05_loop_copy/sroa+instcombine.plain 4 5
+work/m3/a_bnd05_loop_copy/sroa.plain 4 4
+work/m3/a_bnd05_loop_copy/O2.plain 4 0
+work/m3/a_bnd05_loop_copy/O3.plain 4 2
+work/m3/a_bnd05_loop_copy/sroa+gvn.plain 4 5
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=8 --tgt-unroll=8 work/m3/a_bnd05_loop_copy/seed.ll work/m3/a_bnd05_loop_copy/sroa+simplifycfg.ll
+work/m3/a_bnd05_loop_copy/sroa+instcombine.plain 0 1
+work/m3/a_bnd05_loop_copy/sroa.plain 4 5
+work/m3/a_bnd05_loop_copy/O3.plain 4 4
+work/m3/a_bnd05_loop_copy/O2.plain 4 2
+work/m3/a_bnd05_loop_copy/sroa+gvn.plain 0 1
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=8 --tgt-unroll=8 work/m3/a_bnd05_loop_copy/seed.ll work/m3/a_bnd05_loop_copy/sroa+instcombine.ll
+work/m3/a_bnd05_loop_copy/O3.plain 4 5
+work/m3/a_bnd05_loop_copy/O2.plain 4 4
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=8 --tgt-unroll=8 work/m3/a_bnd05_loop_copy/seed.ll work/m3/a_bnd05_loop_copy/sroa+gvn.ll
+work/m3/a_bnd05_loop_copy/sroa.plain 0 1
+work/m3/a_bnd05_loop_copy/O3.plain 0 1
+work/m3/a_bnd05_loop_copy/O2.plain 4 5
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=8 --tgt-unroll=8 work/m3/a_bnd05_loop_copy/seed.ll work/m3/a_bnd05_loop_copy/sroa.ll
+work/m3/a_bnd05_loop_copy/O2.plain 0 1
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=8 --tgt-unroll=8 work/m3/a_bnd05_loop_copy/seed.ll work/m3/a_bnd05_loop_copy/O3.ll
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=8 --tgt-unroll=8 work/m3/a_bnd05_loop_copy/seed.ll work/m3/a_bnd05_loop_copy/O2.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_bnd06_mask_index/seed.c -o work/m3/a_bnd06_mask_index/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_bnd06_mask_index/seed.c -o work/m3/a_bnd06_mask_index/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=ring_get work/m3/a_bnd06_mask_index/full.ll -o work/m3/a_bnd06_mask_index/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd06_mask_index/main_rest.ll -o work/m3/a_bnd06_mask_index/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_bnd06_mask_index/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd06_mask_index/seed.ll -o work/m3/a_bnd06_mask_index/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd06_mask_index/main_rest.o work/m3/a_bnd06_mask_index/harness.o work/m3/a_bnd06_mask_index/O0ref.o -o work/m3/a_bnd06_mask_index/O0ref.plain
+work/m3/a_bnd06_mask_index/O0ref.plain 7 0
+work/m3/a_bnd06_mask_index/O0ref.plain 7 7
+work/m3/a_bnd06_mask_index/O0ref.plain 7 8
+work/m3/a_bnd06_mask_index/O0ref.plain 7 2147483651
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_bnd06_mask_index/seed.c seeds/common/harness.c -o work/m3/a_bnd06_mask_index/seed_san
+work/m3/a_bnd06_mask_index/seed_san 7 0
+work/m3/a_bnd06_mask_index/seed_san 7 7
+work/m3/a_bnd06_mask_index/seed_san 7 8
+work/m3/a_bnd06_mask_index/seed_san 7 2147483651
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_bnd06_mask_index/seed.ll -o work/m3/a_bnd06_mask_index/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_bnd06_mask_index/seed.ll -o work/m3/a_bnd06_mask_index/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_bnd06_mask_index/seed.ll -o work/m3/a_bnd06_mask_index/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_bnd06_mask_index/seed.ll -o work/m3/a_bnd06_mask_index/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_bnd06_mask_index/seed.ll -o work/m3/a_bnd06_mask_index/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_bnd06_mask_index/seed.ll -o work/m3/a_bnd06_mask_index/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd06_mask_index/sroa.ll -o work/m3/a_bnd06_mask_index/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd06_mask_index/sroa+simplifycfg.ll -o work/m3/a_bnd06_mask_index/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd06_mask_index/sroa+instcombine.ll -o work/m3/a_bnd06_mask_index/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd06_mask_index/O3.ll -o work/m3/a_bnd06_mask_index/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd06_mask_index/O2.ll -o work/m3/a_bnd06_mask_index/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd06_mask_index/sroa+gvn.ll -o work/m3/a_bnd06_mask_index/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd06_mask_index/main_rest.o work/m3/a_bnd06_mask_index/harness.o work/m3/a_bnd06_mask_index/O3.o -o work/m3/a_bnd06_mask_index/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd06_mask_index/main_rest.o work/m3/a_bnd06_mask_index/harness.o work/m3/a_bnd06_mask_index/sroa.o -o work/m3/a_bnd06_mask_index/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd06_mask_index/main_rest.o work/m3/a_bnd06_mask_index/harness.o work/m3/a_bnd06_mask_index/sroa+instcombine.o -o work/m3/a_bnd06_mask_index/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd06_mask_index/main_rest.o work/m3/a_bnd06_mask_index/harness.o work/m3/a_bnd06_mask_index/O2.o -o work/m3/a_bnd06_mask_index/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd06_mask_index/main_rest.o work/m3/a_bnd06_mask_index/harness.o work/m3/a_bnd06_mask_index/sroa+simplifycfg.o -o work/m3/a_bnd06_mask_index/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd06_mask_index/main_rest.o work/m3/a_bnd06_mask_index/harness.o work/m3/a_bnd06_mask_index/sroa+gvn.o -o work/m3/a_bnd06_mask_index/sroa+gvn.plain
+work/m3/a_bnd06_mask_index/O3.plain 7 0
+work/m3/a_bnd06_mask_index/sroa.plain 7 0
+work/m3/a_bnd06_mask_index/sroa+instcombine.plain 7 0
+work/m3/a_bnd06_mask_index/sroa.plain 7 7
+work/m3/a_bnd06_mask_index/sroa+instcombine.plain 7 7
+work/m3/a_bnd06_mask_index/O2.plain 7 0
+work/m3/a_bnd06_mask_index/sroa+instcombine.plain 7 8
+work/m3/a_bnd06_mask_index/sroa.plain 7 8
+work/m3/a_bnd06_mask_index/O3.plain 7 7
+work/m3/a_bnd06_mask_index/sroa+simplifycfg.plain 7 0
+work/m3/a_bnd06_mask_index/sroa+gvn.plain 7 0
+work/m3/a_bnd06_mask_index/sroa+instcombine.plain 7 2147483651
+work/m3/a_bnd06_mask_index/sroa.plain 7 2147483651
+work/m3/a_bnd06_mask_index/O3.plain 7 8
+work/m3/a_bnd06_mask_index/sroa+simplifycfg.plain 7 7
+work/m3/a_bnd06_mask_index/sroa+gvn.plain 7 7
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd06_mask_index/seed.ll work/m3/a_bnd06_mask_index/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd06_mask_index/seed.ll work/m3/a_bnd06_mask_index/sroa.ll
+work/m3/a_bnd06_mask_index/O3.plain 7 2147483651
+work/m3/a_bnd06_mask_index/sroa+simplifycfg.plain 7 8
+work/m3/a_bnd06_mask_index/sroa+gvn.plain 7 8
+work/m3/a_bnd06_mask_index/O2.plain 7 7
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd06_mask_index/seed.ll work/m3/a_bnd06_mask_index/O3.ll
+work/m3/a_bnd06_mask_index/sroa+simplifycfg.plain 7 2147483651
+work/m3/a_bnd06_mask_index/sroa+gvn.plain 7 2147483651
+work/m3/a_bnd06_mask_index/O2.plain 7 8
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd06_mask_index/seed.ll work/m3/a_bnd06_mask_index/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd06_mask_index/seed.ll work/m3/a_bnd06_mask_index/sroa+gvn.ll
+work/m3/a_bnd06_mask_index/O2.plain 7 2147483651
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd06_mask_index/seed.ll work/m3/a_bnd06_mask_index/O2.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_bnd07_char_at/seed.c -o work/m3/a_bnd07_char_at/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_bnd07_char_at/seed.c -o work/m3/a_bnd07_char_at/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=char_at work/m3/a_bnd07_char_at/full.ll -o work/m3/a_bnd07_char_at/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd07_char_at/main_rest.ll -o work/m3/a_bnd07_char_at/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_bnd07_char_at/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd07_char_at/seed.ll -o work/m3/a_bnd07_char_at/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd07_char_at/main_rest.o work/m3/a_bnd07_char_at/harness.o work/m3/a_bnd07_char_at/O0ref.o -o work/m3/a_bnd07_char_at/O0ref.plain
+work/m3/a_bnd07_char_at/O0ref.plain hello 0
+work/m3/a_bnd07_char_at/O0ref.plain hello 4
+work/m3/a_bnd07_char_at/O0ref.plain hello 5
+work/m3/a_bnd07_char_at/O0ref.plain '' 0
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_bnd07_char_at/seed.c seeds/common/harness.c -o work/m3/a_bnd07_char_at/seed_san
+work/m3/a_bnd07_char_at/seed_san hello 0
+work/m3/a_bnd07_char_at/seed_san hello 4
+work/m3/a_bnd07_char_at/seed_san hello 5
+work/m3/a_bnd07_char_at/seed_san '' 0
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_bnd07_char_at/seed.ll -o work/m3/a_bnd07_char_at/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_bnd07_char_at/seed.ll -o work/m3/a_bnd07_char_at/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_bnd07_char_at/seed.ll -o work/m3/a_bnd07_char_at/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_bnd07_char_at/seed.ll -o work/m3/a_bnd07_char_at/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_bnd07_char_at/seed.ll -o work/m3/a_bnd07_char_at/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_bnd07_char_at/seed.ll -o work/m3/a_bnd07_char_at/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd07_char_at/sroa+instcombine.ll -o work/m3/a_bnd07_char_at/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd07_char_at/sroa.ll -o work/m3/a_bnd07_char_at/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd07_char_at/sroa+gvn.ll -o work/m3/a_bnd07_char_at/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd07_char_at/O3.ll -o work/m3/a_bnd07_char_at/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd07_char_at/sroa+simplifycfg.ll -o work/m3/a_bnd07_char_at/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd07_char_at/O2.ll -o work/m3/a_bnd07_char_at/O2.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd07_char_at/main_rest.o work/m3/a_bnd07_char_at/harness.o work/m3/a_bnd07_char_at/sroa.o -o work/m3/a_bnd07_char_at/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd07_char_at/main_rest.o work/m3/a_bnd07_char_at/harness.o work/m3/a_bnd07_char_at/sroa+simplifycfg.o -o work/m3/a_bnd07_char_at/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd07_char_at/main_rest.o work/m3/a_bnd07_char_at/harness.o work/m3/a_bnd07_char_at/sroa+instcombine.o -o work/m3/a_bnd07_char_at/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd07_char_at/main_rest.o work/m3/a_bnd07_char_at/harness.o work/m3/a_bnd07_char_at/sroa+gvn.o -o work/m3/a_bnd07_char_at/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd07_char_at/main_rest.o work/m3/a_bnd07_char_at/harness.o work/m3/a_bnd07_char_at/O3.o -o work/m3/a_bnd07_char_at/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd07_char_at/main_rest.o work/m3/a_bnd07_char_at/harness.o work/m3/a_bnd07_char_at/O2.o -o work/m3/a_bnd07_char_at/O2.plain
+work/m3/a_bnd07_char_at/sroa.plain hello 0
+work/m3/a_bnd07_char_at/sroa+instcombine.plain hello 0
+work/m3/a_bnd07_char_at/sroa+gvn.plain hello 0
+work/m3/a_bnd07_char_at/O3.plain hello 0
+work/m3/a_bnd07_char_at/sroa+simplifycfg.plain hello 0
+work/m3/a_bnd07_char_at/sroa+instcombine.plain hello 4
+work/m3/a_bnd07_char_at/sroa.plain hello 4
+work/m3/a_bnd07_char_at/sroa+gvn.plain hello 4
+work/m3/a_bnd07_char_at/O3.plain hello 4
+work/m3/a_bnd07_char_at/O2.plain hello 0
+work/m3/a_bnd07_char_at/sroa+instcombine.plain hello 5
+work/m3/a_bnd07_char_at/sroa+simplifycfg.plain hello 4
+work/m3/a_bnd07_char_at/sroa.plain hello 5
+work/m3/a_bnd07_char_at/sroa+gvn.plain hello 5
+work/m3/a_bnd07_char_at/O3.plain hello 5
+work/m3/a_bnd07_char_at/O2.plain hello 4
+work/m3/a_bnd07_char_at/sroa+simplifycfg.plain hello 5
+work/m3/a_bnd07_char_at/sroa+instcombine.plain '' 0
+work/m3/a_bnd07_char_at/sroa.plain '' 0
+work/m3/a_bnd07_char_at/sroa+gvn.plain '' 0
+work/m3/a_bnd07_char_at/O3.plain '' 0
+work/m3/a_bnd07_char_at/O2.plain hello 5
+work/m3/a_bnd07_char_at/sroa+simplifycfg.plain '' 0
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd07_char_at/seed.ll work/m3/a_bnd07_char_at/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd07_char_at/seed.ll work/m3/a_bnd07_char_at/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd07_char_at/seed.ll work/m3/a_bnd07_char_at/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd07_char_at/seed.ll work/m3/a_bnd07_char_at/O3.ll
+work/m3/a_bnd07_char_at/O2.plain '' 0
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd07_char_at/seed.ll work/m3/a_bnd07_char_at/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd07_char_at/seed.ll work/m3/a_bnd07_char_at/O2.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_bnd08_matrix/seed.c -o work/m3/a_bnd08_matrix/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_bnd08_matrix/seed.c -o work/m3/a_bnd08_matrix/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=mat_get work/m3/a_bnd08_matrix/full.ll -o work/m3/a_bnd08_matrix/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd08_matrix/main_rest.ll -o work/m3/a_bnd08_matrix/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_bnd08_matrix/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd08_matrix/seed.ll -o work/m3/a_bnd08_matrix/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd08_matrix/main_rest.o work/m3/a_bnd08_matrix/harness.o work/m3/a_bnd08_matrix/O0ref.o -o work/m3/a_bnd08_matrix/O0ref.plain
+work/m3/a_bnd08_matrix/O0ref.plain 3 4 0 0
+work/m3/a_bnd08_matrix/O0ref.plain 3 4 2 3
+work/m3/a_bnd08_matrix/O0ref.plain 3 4 3 0
+work/m3/a_bnd08_matrix/O0ref.plain 3 4 0 4
+work/m3/a_bnd08_matrix/O0ref.plain 3 4 1 7
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_bnd08_matrix/seed.c seeds/common/harness.c -o work/m3/a_bnd08_matrix/seed_san
+work/m3/a_bnd08_matrix/seed_san 3 4 0 0
+work/m3/a_bnd08_matrix/seed_san 3 4 2 3
+work/m3/a_bnd08_matrix/seed_san 3 4 3 0
+work/m3/a_bnd08_matrix/seed_san 3 4 0 4
+work/m3/a_bnd08_matrix/seed_san 3 4 1 7
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_bnd08_matrix/seed.ll -o work/m3/a_bnd08_matrix/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_bnd08_matrix/seed.ll -o work/m3/a_bnd08_matrix/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_bnd08_matrix/seed.ll -o work/m3/a_bnd08_matrix/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_bnd08_matrix/seed.ll -o work/m3/a_bnd08_matrix/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_bnd08_matrix/seed.ll -o work/m3/a_bnd08_matrix/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_bnd08_matrix/seed.ll -o work/m3/a_bnd08_matrix/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd08_matrix/sroa.ll -o work/m3/a_bnd08_matrix/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd08_matrix/sroa+simplifycfg.ll -o work/m3/a_bnd08_matrix/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd08_matrix/sroa+gvn.ll -o work/m3/a_bnd08_matrix/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd08_matrix/sroa+instcombine.ll -o work/m3/a_bnd08_matrix/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd08_matrix/O3.ll -o work/m3/a_bnd08_matrix/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_bnd08_matrix/O2.ll -o work/m3/a_bnd08_matrix/O2.o
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd08_matrix/main_rest.o work/m3/a_bnd08_matrix/harness.o work/m3/a_bnd08_matrix/sroa+simplifycfg.o -o work/m3/a_bnd08_matrix/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd08_matrix/main_rest.o work/m3/a_bnd08_matrix/harness.o work/m3/a_bnd08_matrix/sroa+gvn.o -o work/m3/a_bnd08_matrix/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd08_matrix/main_rest.o work/m3/a_bnd08_matrix/harness.o work/m3/a_bnd08_matrix/sroa.o -o work/m3/a_bnd08_matrix/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd08_matrix/main_rest.o work/m3/a_bnd08_matrix/harness.o work/m3/a_bnd08_matrix/O3.o -o work/m3/a_bnd08_matrix/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd08_matrix/main_rest.o work/m3/a_bnd08_matrix/harness.o work/m3/a_bnd08_matrix/O2.o -o work/m3/a_bnd08_matrix/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_bnd08_matrix/main_rest.o work/m3/a_bnd08_matrix/harness.o work/m3/a_bnd08_matrix/sroa+instcombine.o -o work/m3/a_bnd08_matrix/sroa+instcombine.plain
+work/m3/a_bnd08_matrix/sroa.plain 3 4 0 0
+work/m3/a_bnd08_matrix/sroa+gvn.plain 3 4 0 0
+work/m3/a_bnd08_matrix/sroa+simplifycfg.plain 3 4 0 0
+work/m3/a_bnd08_matrix/O3.plain 3 4 0 0
+work/m3/a_bnd08_matrix/sroa+gvn.plain 3 4 2 3
+work/m3/a_bnd08_matrix/sroa.plain 3 4 2 3
+work/m3/a_bnd08_matrix/sroa+simplifycfg.plain 3 4 2 3
+work/m3/a_bnd08_matrix/O2.plain 3 4 0 0
+work/m3/a_bnd08_matrix/O3.plain 3 4 2 3
+work/m3/a_bnd08_matrix/O2.plain 3 4 2 3
+work/m3/a_bnd08_matrix/sroa.plain 3 4 3 0
+work/m3/a_bnd08_matrix/sroa+gvn.plain 3 4 3 0
+work/m3/a_bnd08_matrix/sroa+simplifycfg.plain 3 4 3 0
+work/m3/a_bnd08_matrix/sroa+instcombine.plain 3 4 0 0
+work/m3/a_bnd08_matrix/O3.plain 3 4 3 0
+work/m3/a_bnd08_matrix/sroa.plain 3 4 0 4
+work/m3/a_bnd08_matrix/sroa+instcombine.plain 3 4 2 3
+work/m3/a_bnd08_matrix/O2.plain 3 4 3 0
+work/m3/a_bnd08_matrix/O3.plain 3 4 0 4
+work/m3/a_bnd08_matrix/sroa+simplifycfg.plain 3 4 0 4
+work/m3/a_bnd08_matrix/sroa+gvn.plain 3 4 0 4
+work/m3/a_bnd08_matrix/sroa+gvn.plain 3 4 1 7
+work/m3/a_bnd08_matrix/O3.plain 3 4 1 7
+work/m3/a_bnd08_matrix/sroa.plain 3 4 1 7
+work/m3/a_bnd08_matrix/O2.plain 3 4 0 4
+work/m3/a_bnd08_matrix/sroa+simplifycfg.plain 3 4 1 7
+work/m3/a_bnd08_matrix/sroa+instcombine.plain 3 4 3 0
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd08_matrix/seed.ll work/m3/a_bnd08_matrix/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd08_matrix/seed.ll work/m3/a_bnd08_matrix/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd08_matrix/seed.ll work/m3/a_bnd08_matrix/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd08_matrix/seed.ll work/m3/a_bnd08_matrix/O3.ll
+work/m3/a_bnd08_matrix/sroa+instcombine.plain 3 4 0 4
+work/m3/a_bnd08_matrix/O2.plain 3 4 1 7
+work/m3/a_bnd08_matrix/sroa+instcombine.plain 3 4 1 7
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd08_matrix/seed.ll work/m3/a_bnd08_matrix/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_bnd08_matrix/seed.ll work/m3/a_bnd08_matrix/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_nul01_ptr_param/seed.c -o work/m3/a_nul01_ptr_param/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_nul01_ptr_param/seed.c -o work/m3/a_nul01_ptr_param/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=read_val work/m3/a_nul01_ptr_param/full.ll -o work/m3/a_nul01_ptr_param/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul01_ptr_param/main_rest.ll -o work/m3/a_nul01_ptr_param/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_nul01_ptr_param/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul01_ptr_param/seed.ll -o work/m3/a_nul01_ptr_param/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul01_ptr_param/main_rest.o work/m3/a_nul01_ptr_param/harness.o work/m3/a_nul01_ptr_param/O0ref.o -o work/m3/a_nul01_ptr_param/O0ref.plain
+work/m3/a_nul01_ptr_param/O0ref.plain ok
+work/m3/a_nul01_ptr_param/O0ref.plain null
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_nul01_ptr_param/seed.c seeds/common/harness.c -o work/m3/a_nul01_ptr_param/seed_san
+work/m3/a_nul01_ptr_param/seed_san ok
+work/m3/a_nul01_ptr_param/seed_san null
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_nul01_ptr_param/seed.ll -o work/m3/a_nul01_ptr_param/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_nul01_ptr_param/seed.ll -o work/m3/a_nul01_ptr_param/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_nul01_ptr_param/seed.ll -o work/m3/a_nul01_ptr_param/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_nul01_ptr_param/seed.ll -o work/m3/a_nul01_ptr_param/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_nul01_ptr_param/seed.ll -o work/m3/a_nul01_ptr_param/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_nul01_ptr_param/seed.ll -o work/m3/a_nul01_ptr_param/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul01_ptr_param/sroa+gvn.ll -o work/m3/a_nul01_ptr_param/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul01_ptr_param/sroa.ll -o work/m3/a_nul01_ptr_param/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul01_ptr_param/sroa+instcombine.ll -o work/m3/a_nul01_ptr_param/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul01_ptr_param/sroa+simplifycfg.ll -o work/m3/a_nul01_ptr_param/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul01_ptr_param/O3.ll -o work/m3/a_nul01_ptr_param/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul01_ptr_param/O2.ll -o work/m3/a_nul01_ptr_param/O2.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul01_ptr_param/main_rest.o work/m3/a_nul01_ptr_param/harness.o work/m3/a_nul01_ptr_param/sroa+instcombine.o -o work/m3/a_nul01_ptr_param/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul01_ptr_param/main_rest.o work/m3/a_nul01_ptr_param/harness.o work/m3/a_nul01_ptr_param/sroa.o -o work/m3/a_nul01_ptr_param/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul01_ptr_param/main_rest.o work/m3/a_nul01_ptr_param/harness.o work/m3/a_nul01_ptr_param/sroa+gvn.o -o work/m3/a_nul01_ptr_param/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul01_ptr_param/main_rest.o work/m3/a_nul01_ptr_param/harness.o work/m3/a_nul01_ptr_param/sroa+simplifycfg.o -o work/m3/a_nul01_ptr_param/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul01_ptr_param/main_rest.o work/m3/a_nul01_ptr_param/harness.o work/m3/a_nul01_ptr_param/O3.o -o work/m3/a_nul01_ptr_param/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul01_ptr_param/main_rest.o work/m3/a_nul01_ptr_param/harness.o work/m3/a_nul01_ptr_param/O2.o -o work/m3/a_nul01_ptr_param/O2.plain
+work/m3/a_nul01_ptr_param/sroa+instcombine.plain ok
+work/m3/a_nul01_ptr_param/sroa.plain ok
+work/m3/a_nul01_ptr_param/sroa+instcombine.plain null
+work/m3/a_nul01_ptr_param/sroa.plain null
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul01_ptr_param/seed.ll work/m3/a_nul01_ptr_param/sroa+instcombine.ll
+work/m3/a_nul01_ptr_param/sroa+gvn.plain ok
+work/m3/a_nul01_ptr_param/sroa+simplifycfg.plain ok
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul01_ptr_param/seed.ll work/m3/a_nul01_ptr_param/sroa.ll
+work/m3/a_nul01_ptr_param/sroa+gvn.plain null
+work/m3/a_nul01_ptr_param/sroa+simplifycfg.plain null
+work/m3/a_nul01_ptr_param/O3.plain ok
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul01_ptr_param/seed.ll work/m3/a_nul01_ptr_param/sroa+gvn.ll
+work/m3/a_nul01_ptr_param/O2.plain ok
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul01_ptr_param/seed.ll work/m3/a_nul01_ptr_param/sroa+simplifycfg.ll
+work/m3/a_nul01_ptr_param/O3.plain null
+work/m3/a_nul01_ptr_param/O2.plain null
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul01_ptr_param/seed.ll work/m3/a_nul01_ptr_param/O3.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul01_ptr_param/seed.ll work/m3/a_nul01_ptr_param/O2.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_nul02_struct_field/seed.c -o work/m3/a_nul02_struct_field/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_nul02_struct_field/seed.c -o work/m3/a_nul02_struct_field/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=buf_first work/m3/a_nul02_struct_field/full.ll -o work/m3/a_nul02_struct_field/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul02_struct_field/main_rest.ll -o work/m3/a_nul02_struct_field/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_nul02_struct_field/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul02_struct_field/seed.ll -o work/m3/a_nul02_struct_field/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul02_struct_field/main_rest.o work/m3/a_nul02_struct_field/harness.o work/m3/a_nul02_struct_field/O0ref.o -o work/m3/a_nul02_struct_field/O0ref.plain
+work/m3/a_nul02_struct_field/O0ref.plain ok
+work/m3/a_nul02_struct_field/O0ref.plain null
+work/m3/a_nul02_struct_field/O0ref.plain nodata
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_nul02_struct_field/seed.c seeds/common/harness.c -o work/m3/a_nul02_struct_field/seed_san
+work/m3/a_nul02_struct_field/seed_san ok
+work/m3/a_nul02_struct_field/seed_san null
+work/m3/a_nul02_struct_field/seed_san nodata
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_nul02_struct_field/seed.ll -o work/m3/a_nul02_struct_field/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_nul02_struct_field/seed.ll -o work/m3/a_nul02_struct_field/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_nul02_struct_field/seed.ll -o work/m3/a_nul02_struct_field/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_nul02_struct_field/seed.ll -o work/m3/a_nul02_struct_field/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_nul02_struct_field/seed.ll -o work/m3/a_nul02_struct_field/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_nul02_struct_field/seed.ll -o work/m3/a_nul02_struct_field/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul02_struct_field/sroa.ll -o work/m3/a_nul02_struct_field/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul02_struct_field/sroa+instcombine.ll -o work/m3/a_nul02_struct_field/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul02_struct_field/sroa+simplifycfg.ll -o work/m3/a_nul02_struct_field/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul02_struct_field/sroa+gvn.ll -o work/m3/a_nul02_struct_field/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul02_struct_field/O2.ll -o work/m3/a_nul02_struct_field/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul02_struct_field/O3.ll -o work/m3/a_nul02_struct_field/O3.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul02_struct_field/main_rest.o work/m3/a_nul02_struct_field/harness.o work/m3/a_nul02_struct_field/sroa+instcombine.o -o work/m3/a_nul02_struct_field/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul02_struct_field/main_rest.o work/m3/a_nul02_struct_field/harness.o work/m3/a_nul02_struct_field/sroa.o -o work/m3/a_nul02_struct_field/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul02_struct_field/main_rest.o work/m3/a_nul02_struct_field/harness.o work/m3/a_nul02_struct_field/sroa+simplifycfg.o -o work/m3/a_nul02_struct_field/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul02_struct_field/main_rest.o work/m3/a_nul02_struct_field/harness.o work/m3/a_nul02_struct_field/sroa+gvn.o -o work/m3/a_nul02_struct_field/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul02_struct_field/main_rest.o work/m3/a_nul02_struct_field/harness.o work/m3/a_nul02_struct_field/O2.o -o work/m3/a_nul02_struct_field/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul02_struct_field/main_rest.o work/m3/a_nul02_struct_field/harness.o work/m3/a_nul02_struct_field/O3.o -o work/m3/a_nul02_struct_field/O3.plain
+work/m3/a_nul02_struct_field/sroa.plain ok
+work/m3/a_nul02_struct_field/sroa+simplifycfg.plain ok
+work/m3/a_nul02_struct_field/sroa+gvn.plain ok
+work/m3/a_nul02_struct_field/sroa+instcombine.plain ok
+work/m3/a_nul02_struct_field/sroa+gvn.plain null
+work/m3/a_nul02_struct_field/O3.plain ok
+work/m3/a_nul02_struct_field/sroa+instcombine.plain null
+work/m3/a_nul02_struct_field/O2.plain ok
+work/m3/a_nul02_struct_field/sroa+gvn.plain nodata
+work/m3/a_nul02_struct_field/O3.plain null
+work/m3/a_nul02_struct_field/sroa+simplifycfg.plain null
+work/m3/a_nul02_struct_field/sroa.plain null
+work/m3/a_nul02_struct_field/sroa+instcombine.plain nodata
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul02_struct_field/seed.ll work/m3/a_nul02_struct_field/sroa+gvn.ll
+work/m3/a_nul02_struct_field/sroa+simplifycfg.plain nodata
+work/m3/a_nul02_struct_field/O3.plain nodata
+work/m3/a_nul02_struct_field/sroa.plain nodata
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul02_struct_field/seed.ll work/m3/a_nul02_struct_field/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul02_struct_field/seed.ll work/m3/a_nul02_struct_field/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul02_struct_field/seed.ll work/m3/a_nul02_struct_field/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul02_struct_field/seed.ll work/m3/a_nul02_struct_field/O3.ll
+work/m3/a_nul02_struct_field/O2.plain null
+work/m3/a_nul02_struct_field/O2.plain nodata
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul02_struct_field/seed.ll work/m3/a_nul02_struct_field/O2.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_nul03_lookup/seed.c -o work/m3/a_nul03_lookup/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_nul03_lookup/seed.c -o work/m3/a_nul03_lookup/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=lookup work/m3/a_nul03_lookup/full.ll -o work/m3/a_nul03_lookup/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul03_lookup/main_rest.ll -o work/m3/a_nul03_lookup/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_nul03_lookup/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul03_lookup/seed.ll -o work/m3/a_nul03_lookup/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul03_lookup/main_rest.o work/m3/a_nul03_lookup/harness.o work/m3/a_nul03_lookup/O0ref.o -o work/m3/a_nul03_lookup/O0ref.plain
+work/m3/a_nul03_lookup/O0ref.plain 1
+work/m3/a_nul03_lookup/O0ref.plain 3
+work/m3/a_nul03_lookup/O0ref.plain 4
+work/m3/a_nul03_lookup/O0ref.plain 0
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_nul03_lookup/seed.c seeds/common/harness.c -o work/m3/a_nul03_lookup/seed_san
+work/m3/a_nul03_lookup/seed_san 1
+work/m3/a_nul03_lookup/seed_san 3
+work/m3/a_nul03_lookup/seed_san 4
+work/m3/a_nul03_lookup/seed_san 0
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_nul03_lookup/seed.ll -o work/m3/a_nul03_lookup/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_nul03_lookup/seed.ll -o work/m3/a_nul03_lookup/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_nul03_lookup/seed.ll -o work/m3/a_nul03_lookup/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_nul03_lookup/seed.ll -o work/m3/a_nul03_lookup/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_nul03_lookup/seed.ll -o work/m3/a_nul03_lookup/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_nul03_lookup/seed.ll -o work/m3/a_nul03_lookup/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul03_lookup/sroa.ll -o work/m3/a_nul03_lookup/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul03_lookup/sroa+gvn.ll -o work/m3/a_nul03_lookup/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul03_lookup/O3.ll -o work/m3/a_nul03_lookup/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul03_lookup/O2.ll -o work/m3/a_nul03_lookup/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul03_lookup/sroa+instcombine.ll -o work/m3/a_nul03_lookup/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul03_lookup/sroa+simplifycfg.ll -o work/m3/a_nul03_lookup/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul03_lookup/main_rest.o work/m3/a_nul03_lookup/harness.o work/m3/a_nul03_lookup/sroa.o -o work/m3/a_nul03_lookup/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul03_lookup/main_rest.o work/m3/a_nul03_lookup/harness.o work/m3/a_nul03_lookup/sroa+gvn.o -o work/m3/a_nul03_lookup/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul03_lookup/main_rest.o work/m3/a_nul03_lookup/harness.o work/m3/a_nul03_lookup/sroa+simplifycfg.o -o work/m3/a_nul03_lookup/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul03_lookup/main_rest.o work/m3/a_nul03_lookup/harness.o work/m3/a_nul03_lookup/sroa+instcombine.o -o work/m3/a_nul03_lookup/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul03_lookup/main_rest.o work/m3/a_nul03_lookup/harness.o work/m3/a_nul03_lookup/O2.o -o work/m3/a_nul03_lookup/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul03_lookup/main_rest.o work/m3/a_nul03_lookup/harness.o work/m3/a_nul03_lookup/O3.o -o work/m3/a_nul03_lookup/O3.plain
+work/m3/a_nul03_lookup/sroa+simplifycfg.plain 1
+work/m3/a_nul03_lookup/sroa+gvn.plain 1
+work/m3/a_nul03_lookup/sroa.plain 1
+work/m3/a_nul03_lookup/sroa+simplifycfg.plain 3
+work/m3/a_nul03_lookup/sroa.plain 3
+work/m3/a_nul03_lookup/O2.plain 1
+work/m3/a_nul03_lookup/sroa+gvn.plain 3
+work/m3/a_nul03_lookup/sroa+instcombine.plain 1
+work/m3/a_nul03_lookup/sroa+simplifycfg.plain 4
+work/m3/a_nul03_lookup/sroa.plain 4
+work/m3/a_nul03_lookup/O2.plain 3
+work/m3/a_nul03_lookup/O3.plain 1
+work/m3/a_nul03_lookup/sroa+gvn.plain 4
+work/m3/a_nul03_lookup/sroa+instcombine.plain 3
+work/m3/a_nul03_lookup/sroa.plain 0
+work/m3/a_nul03_lookup/sroa+simplifycfg.plain 0
+work/m3/a_nul03_lookup/O2.plain 4
+work/m3/a_nul03_lookup/O3.plain 3
+work/m3/a_nul03_lookup/sroa+gvn.plain 0
+work/m3/a_nul03_lookup/sroa+instcombine.plain 4
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=4 --tgt-unroll=4 work/m3/a_nul03_lookup/seed.ll work/m3/a_nul03_lookup/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=4 --tgt-unroll=4 work/m3/a_nul03_lookup/seed.ll work/m3/a_nul03_lookup/sroa+simplifycfg.ll
+work/m3/a_nul03_lookup/O2.plain 0
+work/m3/a_nul03_lookup/O3.plain 4
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=4 --tgt-unroll=4 work/m3/a_nul03_lookup/seed.ll work/m3/a_nul03_lookup/sroa+gvn.ll
+work/m3/a_nul03_lookup/sroa+instcombine.plain 0
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=4 --tgt-unroll=4 work/m3/a_nul03_lookup/seed.ll work/m3/a_nul03_lookup/O2.ll
+work/m3/a_nul03_lookup/O3.plain 0
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=4 --tgt-unroll=4 work/m3/a_nul03_lookup/seed.ll work/m3/a_nul03_lookup/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=4 --tgt-unroll=4 work/m3/a_nul03_lookup/seed.ll work/m3/a_nul03_lookup/O3.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_nul04_list_walk/seed.c -o work/m3/a_nul04_list_walk/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_nul04_list_walk/seed.c -o work/m3/a_nul04_list_walk/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=list_find work/m3/a_nul04_list_walk/full.ll -o work/m3/a_nul04_list_walk/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul04_list_walk/main_rest.ll -o work/m3/a_nul04_list_walk/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_nul04_list_walk/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul04_list_walk/seed.ll -o work/m3/a_nul04_list_walk/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul04_list_walk/main_rest.o work/m3/a_nul04_list_walk/harness.o work/m3/a_nul04_list_walk/O0ref.o -o work/m3/a_nul04_list_walk/O0ref.plain
+work/m3/a_nul04_list_walk/O0ref.plain 1
+work/m3/a_nul04_list_walk/O0ref.plain 4
+work/m3/a_nul04_list_walk/O0ref.plain 5
+work/m3/a_nul04_list_walk/O0ref.plain -1
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_nul04_list_walk/seed.c seeds/common/harness.c -o work/m3/a_nul04_list_walk/seed_san
+work/m3/a_nul04_list_walk/seed_san 1
+work/m3/a_nul04_list_walk/seed_san 4
+work/m3/a_nul04_list_walk/seed_san 5
+work/m3/a_nul04_list_walk/seed_san -1
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_nul04_list_walk/seed.ll -o work/m3/a_nul04_list_walk/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_nul04_list_walk/seed.ll -o work/m3/a_nul04_list_walk/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_nul04_list_walk/seed.ll -o work/m3/a_nul04_list_walk/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_nul04_list_walk/seed.ll -o work/m3/a_nul04_list_walk/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_nul04_list_walk/seed.ll -o work/m3/a_nul04_list_walk/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_nul04_list_walk/seed.ll -o work/m3/a_nul04_list_walk/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul04_list_walk/sroa+instcombine.ll -o work/m3/a_nul04_list_walk/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul04_list_walk/sroa.ll -o work/m3/a_nul04_list_walk/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul04_list_walk/O3.ll -o work/m3/a_nul04_list_walk/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul04_list_walk/sroa+simplifycfg.ll -o work/m3/a_nul04_list_walk/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul04_list_walk/sroa+gvn.ll -o work/m3/a_nul04_list_walk/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul04_list_walk/O2.ll -o work/m3/a_nul04_list_walk/O2.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul04_list_walk/main_rest.o work/m3/a_nul04_list_walk/harness.o work/m3/a_nul04_list_walk/O3.o -o work/m3/a_nul04_list_walk/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul04_list_walk/main_rest.o work/m3/a_nul04_list_walk/harness.o work/m3/a_nul04_list_walk/sroa+simplifycfg.o -o work/m3/a_nul04_list_walk/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul04_list_walk/main_rest.o work/m3/a_nul04_list_walk/harness.o work/m3/a_nul04_list_walk/sroa+gvn.o -o work/m3/a_nul04_list_walk/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul04_list_walk/main_rest.o work/m3/a_nul04_list_walk/harness.o work/m3/a_nul04_list_walk/sroa+instcombine.o -o work/m3/a_nul04_list_walk/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul04_list_walk/main_rest.o work/m3/a_nul04_list_walk/harness.o work/m3/a_nul04_list_walk/sroa.o -o work/m3/a_nul04_list_walk/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul04_list_walk/main_rest.o work/m3/a_nul04_list_walk/harness.o work/m3/a_nul04_list_walk/O2.o -o work/m3/a_nul04_list_walk/O2.plain
+work/m3/a_nul04_list_walk/sroa+simplifycfg.plain 1
+work/m3/a_nul04_list_walk/O3.plain 1
+work/m3/a_nul04_list_walk/sroa+instcombine.plain 1
+work/m3/a_nul04_list_walk/sroa+gvn.plain 1
+work/m3/a_nul04_list_walk/O3.plain 4
+work/m3/a_nul04_list_walk/sroa+instcombine.plain 4
+work/m3/a_nul04_list_walk/sroa+gvn.plain 4
+work/m3/a_nul04_list_walk/sroa.plain 1
+work/m3/a_nul04_list_walk/sroa+simplifycfg.plain 4
+work/m3/a_nul04_list_walk/sroa+gvn.plain 5
+work/m3/a_nul04_list_walk/O3.plain 5
+work/m3/a_nul04_list_walk/sroa+instcombine.plain 5
+work/m3/a_nul04_list_walk/sroa.plain 4
+work/m3/a_nul04_list_walk/sroa+simplifycfg.plain 5
+work/m3/a_nul04_list_walk/O2.plain 1
+work/m3/a_nul04_list_walk/O3.plain -1
+work/m3/a_nul04_list_walk/sroa.plain 5
+work/m3/a_nul04_list_walk/sroa+instcombine.plain -1
+work/m3/a_nul04_list_walk/sroa+gvn.plain -1
+work/m3/a_nul04_list_walk/sroa+simplifycfg.plain -1
+work/m3/a_nul04_list_walk/O2.plain 4
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=5 --tgt-unroll=5 work/m3/a_nul04_list_walk/seed.ll work/m3/a_nul04_list_walk/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=5 --tgt-unroll=5 work/m3/a_nul04_list_walk/seed.ll work/m3/a_nul04_list_walk/O3.ll
+work/m3/a_nul04_list_walk/sroa.plain -1
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=5 --tgt-unroll=5 work/m3/a_nul04_list_walk/seed.ll work/m3/a_nul04_list_walk/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=5 --tgt-unroll=5 work/m3/a_nul04_list_walk/seed.ll work/m3/a_nul04_list_walk/sroa+simplifycfg.ll
+work/m3/a_nul04_list_walk/O2.plain 5
+work/m3/a_nul04_list_walk/O2.plain -1
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=5 --tgt-unroll=5 work/m3/a_nul04_list_walk/seed.ll work/m3/a_nul04_list_walk/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=5 --tgt-unroll=5 work/m3/a_nul04_list_walk/seed.ll work/m3/a_nul04_list_walk/O2.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_nul05_callback/seed.c -o work/m3/a_nul05_callback/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_nul05_callback/seed.c -o work/m3/a_nul05_callback/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=apply work/m3/a_nul05_callback/full.ll -o work/m3/a_nul05_callback/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul05_callback/main_rest.ll -o work/m3/a_nul05_callback/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_nul05_callback/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul05_callback/seed.ll -o work/m3/a_nul05_callback/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul05_callback/main_rest.o work/m3/a_nul05_callback/harness.o work/m3/a_nul05_callback/O0ref.o -o work/m3/a_nul05_callback/O0ref.plain
+work/m3/a_nul05_callback/O0ref.plain twice
+work/m3/a_nul05_callback/O0ref.plain null
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_nul05_callback/seed.c seeds/common/harness.c -o work/m3/a_nul05_callback/seed_san
+work/m3/a_nul05_callback/seed_san twice
+work/m3/a_nul05_callback/seed_san null
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_nul05_callback/seed.ll -o work/m3/a_nul05_callback/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_nul05_callback/seed.ll -o work/m3/a_nul05_callback/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_nul05_callback/seed.ll -o work/m3/a_nul05_callback/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_nul05_callback/seed.ll -o work/m3/a_nul05_callback/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_nul05_callback/seed.ll -o work/m3/a_nul05_callback/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_nul05_callback/seed.ll -o work/m3/a_nul05_callback/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul05_callback/sroa+gvn.ll -o work/m3/a_nul05_callback/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul05_callback/sroa.ll -o work/m3/a_nul05_callback/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul05_callback/sroa+simplifycfg.ll -o work/m3/a_nul05_callback/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul05_callback/sroa+instcombine.ll -o work/m3/a_nul05_callback/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul05_callback/O3.ll -o work/m3/a_nul05_callback/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul05_callback/O2.ll -o work/m3/a_nul05_callback/O2.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul05_callback/main_rest.o work/m3/a_nul05_callback/harness.o work/m3/a_nul05_callback/sroa+gvn.o -o work/m3/a_nul05_callback/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul05_callback/main_rest.o work/m3/a_nul05_callback/harness.o work/m3/a_nul05_callback/sroa.o -o work/m3/a_nul05_callback/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul05_callback/main_rest.o work/m3/a_nul05_callback/harness.o work/m3/a_nul05_callback/O2.o -o work/m3/a_nul05_callback/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul05_callback/main_rest.o work/m3/a_nul05_callback/harness.o work/m3/a_nul05_callback/sroa+instcombine.o -o work/m3/a_nul05_callback/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul05_callback/main_rest.o work/m3/a_nul05_callback/harness.o work/m3/a_nul05_callback/sroa+simplifycfg.o -o work/m3/a_nul05_callback/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul05_callback/main_rest.o work/m3/a_nul05_callback/harness.o work/m3/a_nul05_callback/O3.o -o work/m3/a_nul05_callback/O3.plain
+work/m3/a_nul05_callback/O2.plain twice
+work/m3/a_nul05_callback/sroa+gvn.plain twice
+work/m3/a_nul05_callback/sroa.plain twice
+work/m3/a_nul05_callback/O2.plain null
+work/m3/a_nul05_callback/sroa.plain null
+work/m3/a_nul05_callback/sroa+gvn.plain null
+work/m3/a_nul05_callback/sroa+simplifycfg.plain twice
+work/m3/a_nul05_callback/sroa+instcombine.plain twice
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul05_callback/seed.ll work/m3/a_nul05_callback/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul05_callback/seed.ll work/m3/a_nul05_callback/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul05_callback/seed.ll work/m3/a_nul05_callback/sroa.ll
+work/m3/a_nul05_callback/sroa+simplifycfg.plain null
+work/m3/a_nul05_callback/O3.plain twice
+work/m3/a_nul05_callback/sroa+instcombine.plain null
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul05_callback/seed.ll work/m3/a_nul05_callback/sroa+simplifycfg.ll
+work/m3/a_nul05_callback/O3.plain null
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul05_callback/seed.ll work/m3/a_nul05_callback/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul05_callback/seed.ll work/m3/a_nul05_callback/O3.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_nul06_out_param/seed.c -o work/m3/a_nul06_out_param/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_nul06_out_param/seed.c -o work/m3/a_nul06_out_param/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=get_answer work/m3/a_nul06_out_param/full.ll -o work/m3/a_nul06_out_param/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul06_out_param/main_rest.ll -o work/m3/a_nul06_out_param/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_nul06_out_param/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul06_out_param/seed.ll -o work/m3/a_nul06_out_param/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul06_out_param/main_rest.o work/m3/a_nul06_out_param/harness.o work/m3/a_nul06_out_param/O0ref.o -o work/m3/a_nul06_out_param/O0ref.plain
+work/m3/a_nul06_out_param/O0ref.plain ok
+work/m3/a_nul06_out_param/O0ref.plain null
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_nul06_out_param/seed.c seeds/common/harness.c -o work/m3/a_nul06_out_param/seed_san
+work/m3/a_nul06_out_param/seed_san ok
+work/m3/a_nul06_out_param/seed_san null
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_nul06_out_param/seed.ll -o work/m3/a_nul06_out_param/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_nul06_out_param/seed.ll -o work/m3/a_nul06_out_param/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_nul06_out_param/seed.ll -o work/m3/a_nul06_out_param/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_nul06_out_param/seed.ll -o work/m3/a_nul06_out_param/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_nul06_out_param/seed.ll -o work/m3/a_nul06_out_param/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_nul06_out_param/seed.ll -o work/m3/a_nul06_out_param/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul06_out_param/sroa+gvn.ll -o work/m3/a_nul06_out_param/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul06_out_param/sroa+instcombine.ll -o work/m3/a_nul06_out_param/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul06_out_param/O2.ll -o work/m3/a_nul06_out_param/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul06_out_param/O3.ll -o work/m3/a_nul06_out_param/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul06_out_param/sroa.ll -o work/m3/a_nul06_out_param/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul06_out_param/sroa+simplifycfg.ll -o work/m3/a_nul06_out_param/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul06_out_param/main_rest.o work/m3/a_nul06_out_param/harness.o work/m3/a_nul06_out_param/sroa.o -o work/m3/a_nul06_out_param/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul06_out_param/main_rest.o work/m3/a_nul06_out_param/harness.o work/m3/a_nul06_out_param/sroa+gvn.o -o work/m3/a_nul06_out_param/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul06_out_param/main_rest.o work/m3/a_nul06_out_param/harness.o work/m3/a_nul06_out_param/O3.o -o work/m3/a_nul06_out_param/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul06_out_param/main_rest.o work/m3/a_nul06_out_param/harness.o work/m3/a_nul06_out_param/sroa+instcombine.o -o work/m3/a_nul06_out_param/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul06_out_param/main_rest.o work/m3/a_nul06_out_param/harness.o work/m3/a_nul06_out_param/O2.o -o work/m3/a_nul06_out_param/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul06_out_param/main_rest.o work/m3/a_nul06_out_param/harness.o work/m3/a_nul06_out_param/sroa+simplifycfg.o -o work/m3/a_nul06_out_param/sroa+simplifycfg.plain
+work/m3/a_nul06_out_param/sroa+gvn.plain ok
+work/m3/a_nul06_out_param/O3.plain ok
+work/m3/a_nul06_out_param/sroa.plain ok
+work/m3/a_nul06_out_param/sroa+gvn.plain null
+work/m3/a_nul06_out_param/O3.plain null
+work/m3/a_nul06_out_param/sroa.plain null
+work/m3/a_nul06_out_param/sroa+instcombine.plain ok
+work/m3/a_nul06_out_param/O2.plain ok
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul06_out_param/seed.ll work/m3/a_nul06_out_param/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul06_out_param/seed.ll work/m3/a_nul06_out_param/O3.ll
+work/m3/a_nul06_out_param/sroa+instcombine.plain null
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul06_out_param/seed.ll work/m3/a_nul06_out_param/sroa.ll
+work/m3/a_nul06_out_param/O2.plain null
+work/m3/a_nul06_out_param/sroa+simplifycfg.plain ok
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul06_out_param/seed.ll work/m3/a_nul06_out_param/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul06_out_param/seed.ll work/m3/a_nul06_out_param/O2.ll
+work/m3/a_nul06_out_param/sroa+simplifycfg.plain null
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_nul06_out_param/seed.ll work/m3/a_nul06_out_param/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_nul07_safe_strlen/seed.c -o work/m3/a_nul07_safe_strlen/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_nul07_safe_strlen/seed.c -o work/m3/a_nul07_safe_strlen/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=safe_len work/m3/a_nul07_safe_strlen/full.ll -o work/m3/a_nul07_safe_strlen/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul07_safe_strlen/main_rest.ll -o work/m3/a_nul07_safe_strlen/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_nul07_safe_strlen/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul07_safe_strlen/seed.ll -o work/m3/a_nul07_safe_strlen/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul07_safe_strlen/main_rest.o work/m3/a_nul07_safe_strlen/harness.o work/m3/a_nul07_safe_strlen/O0ref.o -o work/m3/a_nul07_safe_strlen/O0ref.plain
+work/m3/a_nul07_safe_strlen/O0ref.plain hello
+work/m3/a_nul07_safe_strlen/O0ref.plain ''
+work/m3/a_nul07_safe_strlen/O0ref.plain null
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_nul07_safe_strlen/seed.c seeds/common/harness.c -o work/m3/a_nul07_safe_strlen/seed_san
+work/m3/a_nul07_safe_strlen/seed_san hello
+work/m3/a_nul07_safe_strlen/seed_san ''
+work/m3/a_nul07_safe_strlen/seed_san null
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_nul07_safe_strlen/seed.ll -o work/m3/a_nul07_safe_strlen/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_nul07_safe_strlen/seed.ll -o work/m3/a_nul07_safe_strlen/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_nul07_safe_strlen/seed.ll -o work/m3/a_nul07_safe_strlen/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_nul07_safe_strlen/seed.ll -o work/m3/a_nul07_safe_strlen/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_nul07_safe_strlen/seed.ll -o work/m3/a_nul07_safe_strlen/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_nul07_safe_strlen/seed.ll -o work/m3/a_nul07_safe_strlen/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul07_safe_strlen/sroa+instcombine.ll -o work/m3/a_nul07_safe_strlen/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul07_safe_strlen/sroa.ll -o work/m3/a_nul07_safe_strlen/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul07_safe_strlen/sroa+gvn.ll -o work/m3/a_nul07_safe_strlen/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul07_safe_strlen/O2.ll -o work/m3/a_nul07_safe_strlen/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul07_safe_strlen/O3.ll -o work/m3/a_nul07_safe_strlen/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_nul07_safe_strlen/sroa+simplifycfg.ll -o work/m3/a_nul07_safe_strlen/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang work/m3/a_nul07_safe_strlen/main_rest.o work/m3/a_nul07_safe_strlen/harness.o work/m3/a_nul07_safe_strlen/O3.o -o work/m3/a_nul07_safe_strlen/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul07_safe_strlen/main_rest.o work/m3/a_nul07_safe_strlen/harness.o work/m3/a_nul07_safe_strlen/sroa+simplifycfg.o -o work/m3/a_nul07_safe_strlen/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul07_safe_strlen/main_rest.o work/m3/a_nul07_safe_strlen/harness.o work/m3/a_nul07_safe_strlen/sroa+gvn.o -o work/m3/a_nul07_safe_strlen/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul07_safe_strlen/main_rest.o work/m3/a_nul07_safe_strlen/harness.o work/m3/a_nul07_safe_strlen/O2.o -o work/m3/a_nul07_safe_strlen/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul07_safe_strlen/main_rest.o work/m3/a_nul07_safe_strlen/harness.o work/m3/a_nul07_safe_strlen/sroa+instcombine.o -o work/m3/a_nul07_safe_strlen/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_nul07_safe_strlen/main_rest.o work/m3/a_nul07_safe_strlen/harness.o work/m3/a_nul07_safe_strlen/sroa.o -o work/m3/a_nul07_safe_strlen/sroa.plain
+work/m3/a_nul07_safe_strlen/O3.plain hello
+work/m3/a_nul07_safe_strlen/sroa+gvn.plain hello
+work/m3/a_nul07_safe_strlen/sroa+simplifycfg.plain hello
+work/m3/a_nul07_safe_strlen/sroa+instcombine.plain hello
+work/m3/a_nul07_safe_strlen/O2.plain hello
+work/m3/a_nul07_safe_strlen/sroa+gvn.plain ''
+work/m3/a_nul07_safe_strlen/O3.plain ''
+work/m3/a_nul07_safe_strlen/sroa+simplifycfg.plain ''
+work/m3/a_nul07_safe_strlen/sroa.plain hello
+work/m3/a_nul07_safe_strlen/sroa+instcombine.plain ''
+work/m3/a_nul07_safe_strlen/O2.plain ''
+work/m3/a_nul07_safe_strlen/sroa+gvn.plain null
+work/m3/a_nul07_safe_strlen/O2.plain null
+work/m3/a_nul07_safe_strlen/sroa.plain ''
+work/m3/a_nul07_safe_strlen/sroa+instcombine.plain null
+work/m3/a_nul07_safe_strlen/sroa+simplifycfg.plain null
+work/m3/a_nul07_safe_strlen/O3.plain null
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=6 --tgt-unroll=6 work/m3/a_nul07_safe_strlen/seed.ll work/m3/a_nul07_safe_strlen/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=6 --tgt-unroll=6 work/m3/a_nul07_safe_strlen/seed.ll work/m3/a_nul07_safe_strlen/O3.ll
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=6 --tgt-unroll=6 work/m3/a_nul07_safe_strlen/seed.ll work/m3/a_nul07_safe_strlen/O2.ll
+work/m3/a_nul07_safe_strlen/sroa.plain null
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=6 --tgt-unroll=6 work/m3/a_nul07_safe_strlen/seed.ll work/m3/a_nul07_safe_strlen/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=6 --tgt-unroll=6 work/m3/a_nul07_safe_strlen/seed.ll work/m3/a_nul07_safe_strlen/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=6 --tgt-unroll=6 work/m3/a_nul07_safe_strlen/seed.ll work/m3/a_nul07_safe_strlen/sroa.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_ovf01_uadd_wrap/seed.c -o work/m3/a_ovf01_uadd_wrap/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_ovf01_uadd_wrap/seed.c -o work/m3/a_ovf01_uadd_wrap/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=add_u work/m3/a_ovf01_uadd_wrap/full.ll -o work/m3/a_ovf01_uadd_wrap/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf01_uadd_wrap/main_rest.ll -o work/m3/a_ovf01_uadd_wrap/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_ovf01_uadd_wrap/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf01_uadd_wrap/seed.ll -o work/m3/a_ovf01_uadd_wrap/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf01_uadd_wrap/main_rest.o work/m3/a_ovf01_uadd_wrap/harness.o work/m3/a_ovf01_uadd_wrap/O0ref.o -o work/m3/a_ovf01_uadd_wrap/O0ref.plain
+work/m3/a_ovf01_uadd_wrap/O0ref.plain 1 2
+work/m3/a_ovf01_uadd_wrap/O0ref.plain 2147483648 2147483647
+work/m3/a_ovf01_uadd_wrap/O0ref.plain 4294967295 1
+work/m3/a_ovf01_uadd_wrap/O0ref.plain 2147483648 2147483648
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_ovf01_uadd_wrap/seed.c seeds/common/harness.c -o work/m3/a_ovf01_uadd_wrap/seed_san
+work/m3/a_ovf01_uadd_wrap/seed_san 1 2
+work/m3/a_ovf01_uadd_wrap/seed_san 2147483648 2147483647
+work/m3/a_ovf01_uadd_wrap/seed_san 4294967295 1
+work/m3/a_ovf01_uadd_wrap/seed_san 2147483648 2147483648
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_ovf01_uadd_wrap/seed.ll -o work/m3/a_ovf01_uadd_wrap/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_ovf01_uadd_wrap/seed.ll -o work/m3/a_ovf01_uadd_wrap/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_ovf01_uadd_wrap/seed.ll -o work/m3/a_ovf01_uadd_wrap/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_ovf01_uadd_wrap/seed.ll -o work/m3/a_ovf01_uadd_wrap/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_ovf01_uadd_wrap/seed.ll -o work/m3/a_ovf01_uadd_wrap/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_ovf01_uadd_wrap/seed.ll -o work/m3/a_ovf01_uadd_wrap/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf01_uadd_wrap/sroa+instcombine.ll -o work/m3/a_ovf01_uadd_wrap/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf01_uadd_wrap/sroa+gvn.ll -o work/m3/a_ovf01_uadd_wrap/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf01_uadd_wrap/sroa+simplifycfg.ll -o work/m3/a_ovf01_uadd_wrap/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf01_uadd_wrap/sroa.ll -o work/m3/a_ovf01_uadd_wrap/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf01_uadd_wrap/O2.ll -o work/m3/a_ovf01_uadd_wrap/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf01_uadd_wrap/O3.ll -o work/m3/a_ovf01_uadd_wrap/O3.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf01_uadd_wrap/main_rest.o work/m3/a_ovf01_uadd_wrap/harness.o work/m3/a_ovf01_uadd_wrap/O3.o -o work/m3/a_ovf01_uadd_wrap/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf01_uadd_wrap/main_rest.o work/m3/a_ovf01_uadd_wrap/harness.o work/m3/a_ovf01_uadd_wrap/sroa.o -o work/m3/a_ovf01_uadd_wrap/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf01_uadd_wrap/main_rest.o work/m3/a_ovf01_uadd_wrap/harness.o work/m3/a_ovf01_uadd_wrap/sroa+gvn.o -o work/m3/a_ovf01_uadd_wrap/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf01_uadd_wrap/main_rest.o work/m3/a_ovf01_uadd_wrap/harness.o work/m3/a_ovf01_uadd_wrap/sroa+simplifycfg.o -o work/m3/a_ovf01_uadd_wrap/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf01_uadd_wrap/main_rest.o work/m3/a_ovf01_uadd_wrap/harness.o work/m3/a_ovf01_uadd_wrap/sroa+instcombine.o -o work/m3/a_ovf01_uadd_wrap/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf01_uadd_wrap/main_rest.o work/m3/a_ovf01_uadd_wrap/harness.o work/m3/a_ovf01_uadd_wrap/O2.o -o work/m3/a_ovf01_uadd_wrap/O2.plain
+work/m3/a_ovf01_uadd_wrap/O3.plain 1 2
+work/m3/a_ovf01_uadd_wrap/sroa.plain 1 2
+work/m3/a_ovf01_uadd_wrap/sroa+gvn.plain 1 2
+work/m3/a_ovf01_uadd_wrap/sroa+simplifycfg.plain 1 2
+work/m3/a_ovf01_uadd_wrap/O3.plain 2147483648 2147483647
+work/m3/a_ovf01_uadd_wrap/sroa.plain 2147483648 2147483647
+work/m3/a_ovf01_uadd_wrap/sroa+gvn.plain 2147483648 2147483647
+work/m3/a_ovf01_uadd_wrap/sroa+simplifycfg.plain 2147483648 2147483647
+work/m3/a_ovf01_uadd_wrap/sroa+instcombine.plain 1 2
+work/m3/a_ovf01_uadd_wrap/O3.plain 4294967295 1
+work/m3/a_ovf01_uadd_wrap/O2.plain 1 2
+work/m3/a_ovf01_uadd_wrap/sroa+simplifycfg.plain 4294967295 1
+work/m3/a_ovf01_uadd_wrap/sroa+gvn.plain 4294967295 1
+work/m3/a_ovf01_uadd_wrap/sroa.plain 4294967295 1
+work/m3/a_ovf01_uadd_wrap/sroa+instcombine.plain 2147483648 2147483647
+work/m3/a_ovf01_uadd_wrap/O3.plain 2147483648 2147483648
+work/m3/a_ovf01_uadd_wrap/O2.plain 2147483648 2147483647
+work/m3/a_ovf01_uadd_wrap/sroa.plain 2147483648 2147483648
+work/m3/a_ovf01_uadd_wrap/sroa+simplifycfg.plain 2147483648 2147483648
+work/m3/a_ovf01_uadd_wrap/sroa+gvn.plain 2147483648 2147483648
+work/m3/a_ovf01_uadd_wrap/sroa+instcombine.plain 4294967295 1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf01_uadd_wrap/seed.ll work/m3/a_ovf01_uadd_wrap/O3.ll
+work/m3/a_ovf01_uadd_wrap/O2.plain 4294967295 1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf01_uadd_wrap/seed.ll work/m3/a_ovf01_uadd_wrap/sroa.ll
+work/m3/a_ovf01_uadd_wrap/O2.plain 2147483648 2147483648
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf01_uadd_wrap/seed.ll work/m3/a_ovf01_uadd_wrap/sroa+gvn.ll
+work/m3/a_ovf01_uadd_wrap/sroa+instcombine.plain 2147483648 2147483648
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf01_uadd_wrap/seed.ll work/m3/a_ovf01_uadd_wrap/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf01_uadd_wrap/seed.ll work/m3/a_ovf01_uadd_wrap/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf01_uadd_wrap/seed.ll work/m3/a_ovf01_uadd_wrap/O2.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_ovf02_sadd_precheck/seed.c -o work/m3/a_ovf02_sadd_precheck/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_ovf02_sadd_precheck/seed.c -o work/m3/a_ovf02_sadd_precheck/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=add_s work/m3/a_ovf02_sadd_precheck/full.ll -o work/m3/a_ovf02_sadd_precheck/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf02_sadd_precheck/main_rest.ll -o work/m3/a_ovf02_sadd_precheck/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_ovf02_sadd_precheck/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf02_sadd_precheck/seed.ll -o work/m3/a_ovf02_sadd_precheck/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf02_sadd_precheck/main_rest.o work/m3/a_ovf02_sadd_precheck/harness.o work/m3/a_ovf02_sadd_precheck/O0ref.o -o work/m3/a_ovf02_sadd_precheck/O0ref.plain
+work/m3/a_ovf02_sadd_precheck/O0ref.plain 100 -200
+work/m3/a_ovf02_sadd_precheck/O0ref.plain 2147483646 1
+work/m3/a_ovf02_sadd_precheck/O0ref.plain 2147483647 1
+work/m3/a_ovf02_sadd_precheck/O0ref.plain -2147483648 -1
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_ovf02_sadd_precheck/seed.c seeds/common/harness.c -o work/m3/a_ovf02_sadd_precheck/seed_san
+work/m3/a_ovf02_sadd_precheck/seed_san 100 -200
+work/m3/a_ovf02_sadd_precheck/seed_san 2147483646 1
+work/m3/a_ovf02_sadd_precheck/seed_san 2147483647 1
+work/m3/a_ovf02_sadd_precheck/seed_san -2147483648 -1
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_ovf02_sadd_precheck/seed.ll -o work/m3/a_ovf02_sadd_precheck/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_ovf02_sadd_precheck/seed.ll -o work/m3/a_ovf02_sadd_precheck/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_ovf02_sadd_precheck/seed.ll -o work/m3/a_ovf02_sadd_precheck/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_ovf02_sadd_precheck/seed.ll -o work/m3/a_ovf02_sadd_precheck/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_ovf02_sadd_precheck/seed.ll -o work/m3/a_ovf02_sadd_precheck/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_ovf02_sadd_precheck/seed.ll -o work/m3/a_ovf02_sadd_precheck/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf02_sadd_precheck/sroa+simplifycfg.ll -o work/m3/a_ovf02_sadd_precheck/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf02_sadd_precheck/sroa+gvn.ll -o work/m3/a_ovf02_sadd_precheck/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf02_sadd_precheck/sroa.ll -o work/m3/a_ovf02_sadd_precheck/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf02_sadd_precheck/sroa+instcombine.ll -o work/m3/a_ovf02_sadd_precheck/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf02_sadd_precheck/O2.ll -o work/m3/a_ovf02_sadd_precheck/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf02_sadd_precheck/O3.ll -o work/m3/a_ovf02_sadd_precheck/O3.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf02_sadd_precheck/main_rest.o work/m3/a_ovf02_sadd_precheck/harness.o work/m3/a_ovf02_sadd_precheck/sroa+simplifycfg.o -o work/m3/a_ovf02_sadd_precheck/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf02_sadd_precheck/main_rest.o work/m3/a_ovf02_sadd_precheck/harness.o work/m3/a_ovf02_sadd_precheck/sroa+gvn.o -o work/m3/a_ovf02_sadd_precheck/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf02_sadd_precheck/main_rest.o work/m3/a_ovf02_sadd_precheck/harness.o work/m3/a_ovf02_sadd_precheck/sroa.o -o work/m3/a_ovf02_sadd_precheck/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf02_sadd_precheck/main_rest.o work/m3/a_ovf02_sadd_precheck/harness.o work/m3/a_ovf02_sadd_precheck/sroa+instcombine.o -o work/m3/a_ovf02_sadd_precheck/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf02_sadd_precheck/main_rest.o work/m3/a_ovf02_sadd_precheck/harness.o work/m3/a_ovf02_sadd_precheck/O2.o -o work/m3/a_ovf02_sadd_precheck/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf02_sadd_precheck/main_rest.o work/m3/a_ovf02_sadd_precheck/harness.o work/m3/a_ovf02_sadd_precheck/O3.o -o work/m3/a_ovf02_sadd_precheck/O3.plain
+work/m3/a_ovf02_sadd_precheck/sroa+simplifycfg.plain 100 -200
+work/m3/a_ovf02_sadd_precheck/O2.plain 100 -200
+work/m3/a_ovf02_sadd_precheck/sroa+gvn.plain 100 -200
+work/m3/a_ovf02_sadd_precheck/sroa.plain 100 -200
+work/m3/a_ovf02_sadd_precheck/sroa+instcombine.plain 100 -200
+work/m3/a_ovf02_sadd_precheck/O2.plain 2147483646 1
+work/m3/a_ovf02_sadd_precheck/sroa+simplifycfg.plain 2147483646 1
+work/m3/a_ovf02_sadd_precheck/sroa+gvn.plain 2147483646 1
+work/m3/a_ovf02_sadd_precheck/sroa.plain 2147483646 1
+work/m3/a_ovf02_sadd_precheck/O3.plain 100 -200
+work/m3/a_ovf02_sadd_precheck/sroa+instcombine.plain 2147483646 1
+work/m3/a_ovf02_sadd_precheck/O2.plain 2147483647 1
+work/m3/a_ovf02_sadd_precheck/sroa.plain 2147483647 1
+work/m3/a_ovf02_sadd_precheck/O3.plain 2147483646 1
+work/m3/a_ovf02_sadd_precheck/sroa+simplifycfg.plain 2147483647 1
+work/m3/a_ovf02_sadd_precheck/sroa+instcombine.plain 2147483647 1
+work/m3/a_ovf02_sadd_precheck/sroa+gvn.plain 2147483647 1
+work/m3/a_ovf02_sadd_precheck/sroa.plain -2147483648 -1
+work/m3/a_ovf02_sadd_precheck/O2.plain -2147483648 -1
+work/m3/a_ovf02_sadd_precheck/sroa+simplifycfg.plain -2147483648 -1
+work/m3/a_ovf02_sadd_precheck/sroa+instcombine.plain -2147483648 -1
+work/m3/a_ovf02_sadd_precheck/sroa+gvn.plain -2147483648 -1
+work/m3/a_ovf02_sadd_precheck/O3.plain 2147483647 1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf02_sadd_precheck/seed.ll work/m3/a_ovf02_sadd_precheck/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf02_sadd_precheck/seed.ll work/m3/a_ovf02_sadd_precheck/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf02_sadd_precheck/seed.ll work/m3/a_ovf02_sadd_precheck/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf02_sadd_precheck/seed.ll work/m3/a_ovf02_sadd_precheck/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf02_sadd_precheck/seed.ll work/m3/a_ovf02_sadd_precheck/sroa+instcombine.ll
+work/m3/a_ovf02_sadd_precheck/O3.plain -2147483648 -1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf02_sadd_precheck/seed.ll work/m3/a_ovf02_sadd_precheck/O3.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_ovf03_mul_alloc/seed.c -o work/m3/a_ovf03_mul_alloc/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_ovf03_mul_alloc/seed.c -o work/m3/a_ovf03_mul_alloc/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=alloc_array work/m3/a_ovf03_mul_alloc/full.ll -o work/m3/a_ovf03_mul_alloc/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf03_mul_alloc/main_rest.ll -o work/m3/a_ovf03_mul_alloc/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_ovf03_mul_alloc/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf03_mul_alloc/seed.ll -o work/m3/a_ovf03_mul_alloc/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf03_mul_alloc/main_rest.o work/m3/a_ovf03_mul_alloc/harness.o work/m3/a_ovf03_mul_alloc/O0ref.o -o work/m3/a_ovf03_mul_alloc/O0ref.plain
+work/m3/a_ovf03_mul_alloc/O0ref.plain 10 4
+work/m3/a_ovf03_mul_alloc/O0ref.plain 0 8
+work/m3/a_ovf03_mul_alloc/O0ref.plain 0x4000000000000000 4
+work/m3/a_ovf03_mul_alloc/O0ref.plain 3 0x8000000000000000
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_ovf03_mul_alloc/seed.c seeds/common/harness.c -o work/m3/a_ovf03_mul_alloc/seed_san
+work/m3/a_ovf03_mul_alloc/seed_san 10 4
+work/m3/a_ovf03_mul_alloc/seed_san 0 8
+work/m3/a_ovf03_mul_alloc/seed_san 0x4000000000000000 4
+work/m3/a_ovf03_mul_alloc/seed_san 3 0x8000000000000000
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_ovf03_mul_alloc/seed.ll -o work/m3/a_ovf03_mul_alloc/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_ovf03_mul_alloc/seed.ll -o work/m3/a_ovf03_mul_alloc/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_ovf03_mul_alloc/seed.ll -o work/m3/a_ovf03_mul_alloc/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_ovf03_mul_alloc/seed.ll -o work/m3/a_ovf03_mul_alloc/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_ovf03_mul_alloc/seed.ll -o work/m3/a_ovf03_mul_alloc/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_ovf03_mul_alloc/seed.ll -o work/m3/a_ovf03_mul_alloc/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf03_mul_alloc/sroa.ll -o work/m3/a_ovf03_mul_alloc/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf03_mul_alloc/sroa+instcombine.ll -o work/m3/a_ovf03_mul_alloc/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf03_mul_alloc/sroa+gvn.ll -o work/m3/a_ovf03_mul_alloc/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf03_mul_alloc/O2.ll -o work/m3/a_ovf03_mul_alloc/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf03_mul_alloc/sroa+simplifycfg.ll -o work/m3/a_ovf03_mul_alloc/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf03_mul_alloc/O3.ll -o work/m3/a_ovf03_mul_alloc/O3.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf03_mul_alloc/main_rest.o work/m3/a_ovf03_mul_alloc/harness.o work/m3/a_ovf03_mul_alloc/O3.o -o work/m3/a_ovf03_mul_alloc/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf03_mul_alloc/main_rest.o work/m3/a_ovf03_mul_alloc/harness.o work/m3/a_ovf03_mul_alloc/sroa+gvn.o -o work/m3/a_ovf03_mul_alloc/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf03_mul_alloc/main_rest.o work/m3/a_ovf03_mul_alloc/harness.o work/m3/a_ovf03_mul_alloc/sroa.o -o work/m3/a_ovf03_mul_alloc/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf03_mul_alloc/main_rest.o work/m3/a_ovf03_mul_alloc/harness.o work/m3/a_ovf03_mul_alloc/sroa+simplifycfg.o -o work/m3/a_ovf03_mul_alloc/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf03_mul_alloc/main_rest.o work/m3/a_ovf03_mul_alloc/harness.o work/m3/a_ovf03_mul_alloc/sroa+instcombine.o -o work/m3/a_ovf03_mul_alloc/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf03_mul_alloc/main_rest.o work/m3/a_ovf03_mul_alloc/harness.o work/m3/a_ovf03_mul_alloc/O2.o -o work/m3/a_ovf03_mul_alloc/O2.plain
+work/m3/a_ovf03_mul_alloc/sroa+instcombine.plain 10 4
+work/m3/a_ovf03_mul_alloc/sroa.plain 10 4
+work/m3/a_ovf03_mul_alloc/O3.plain 10 4
+work/m3/a_ovf03_mul_alloc/sroa+gvn.plain 10 4
+work/m3/a_ovf03_mul_alloc/sroa+simplifycfg.plain 10 4
+work/m3/a_ovf03_mul_alloc/sroa.plain 0 8
+work/m3/a_ovf03_mul_alloc/O3.plain 0 8
+work/m3/a_ovf03_mul_alloc/sroa+gvn.plain 0 8
+work/m3/a_ovf03_mul_alloc/sroa+instcombine.plain 0 8
+work/m3/a_ovf03_mul_alloc/sroa+simplifycfg.plain 0 8
+work/m3/a_ovf03_mul_alloc/O2.plain 10 4
+work/m3/a_ovf03_mul_alloc/O3.plain 0x4000000000000000 4
+work/m3/a_ovf03_mul_alloc/sroa+gvn.plain 0x4000000000000000 4
+work/m3/a_ovf03_mul_alloc/sroa.plain 0x4000000000000000 4
+work/m3/a_ovf03_mul_alloc/sroa+instcombine.plain 0x4000000000000000 4
+work/m3/a_ovf03_mul_alloc/sroa+simplifycfg.plain 0x4000000000000000 4
+work/m3/a_ovf03_mul_alloc/O2.plain 0 8
+work/m3/a_ovf03_mul_alloc/O3.plain 3 0x8000000000000000
+work/m3/a_ovf03_mul_alloc/sroa+gvn.plain 3 0x8000000000000000
+work/m3/a_ovf03_mul_alloc/sroa.plain 3 0x8000000000000000
+work/m3/a_ovf03_mul_alloc/sroa+instcombine.plain 3 0x8000000000000000
+work/m3/a_ovf03_mul_alloc/sroa+simplifycfg.plain 3 0x8000000000000000
+work/m3/a_ovf03_mul_alloc/O2.plain 0x4000000000000000 4
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf03_mul_alloc/seed.ll work/m3/a_ovf03_mul_alloc/O3.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf03_mul_alloc/seed.ll work/m3/a_ovf03_mul_alloc/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf03_mul_alloc/seed.ll work/m3/a_ovf03_mul_alloc/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf03_mul_alloc/seed.ll work/m3/a_ovf03_mul_alloc/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf03_mul_alloc/seed.ll work/m3/a_ovf03_mul_alloc/sroa+simplifycfg.ll
+work/m3/a_ovf03_mul_alloc/O2.plain 3 0x8000000000000000
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf03_mul_alloc/seed.ll work/m3/a_ovf03_mul_alloc/O2.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_ovf04_builtin_add/seed.c -o work/m3/a_ovf04_builtin_add/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_ovf04_builtin_add/seed.c -o work/m3/a_ovf04_builtin_add/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=add_checked work/m3/a_ovf04_builtin_add/full.ll -o work/m3/a_ovf04_builtin_add/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf04_builtin_add/main_rest.ll -o work/m3/a_ovf04_builtin_add/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_ovf04_builtin_add/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf04_builtin_add/seed.ll -o work/m3/a_ovf04_builtin_add/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf04_builtin_add/main_rest.o work/m3/a_ovf04_builtin_add/harness.o work/m3/a_ovf04_builtin_add/O0ref.o -o work/m3/a_ovf04_builtin_add/O0ref.plain
+work/m3/a_ovf04_builtin_add/O0ref.plain 1 2
+work/m3/a_ovf04_builtin_add/O0ref.plain -5 -7
+work/m3/a_ovf04_builtin_add/O0ref.plain 2147483647 1
+work/m3/a_ovf04_builtin_add/O0ref.plain -2147483648 -1
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_ovf04_builtin_add/seed.c seeds/common/harness.c -o work/m3/a_ovf04_builtin_add/seed_san
+work/m3/a_ovf04_builtin_add/seed_san 1 2
+work/m3/a_ovf04_builtin_add/seed_san -5 -7
+work/m3/a_ovf04_builtin_add/seed_san 2147483647 1
+work/m3/a_ovf04_builtin_add/seed_san -2147483648 -1
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_ovf04_builtin_add/seed.ll -o work/m3/a_ovf04_builtin_add/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_ovf04_builtin_add/seed.ll -o work/m3/a_ovf04_builtin_add/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_ovf04_builtin_add/seed.ll -o work/m3/a_ovf04_builtin_add/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_ovf04_builtin_add/seed.ll -o work/m3/a_ovf04_builtin_add/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_ovf04_builtin_add/seed.ll -o work/m3/a_ovf04_builtin_add/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_ovf04_builtin_add/seed.ll -o work/m3/a_ovf04_builtin_add/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf04_builtin_add/sroa.ll -o work/m3/a_ovf04_builtin_add/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf04_builtin_add/sroa+instcombine.ll -o work/m3/a_ovf04_builtin_add/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf04_builtin_add/sroa+simplifycfg.ll -o work/m3/a_ovf04_builtin_add/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf04_builtin_add/sroa+gvn.ll -o work/m3/a_ovf04_builtin_add/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf04_builtin_add/O2.ll -o work/m3/a_ovf04_builtin_add/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf04_builtin_add/O3.ll -o work/m3/a_ovf04_builtin_add/O3.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf04_builtin_add/main_rest.o work/m3/a_ovf04_builtin_add/harness.o work/m3/a_ovf04_builtin_add/sroa+gvn.o -o work/m3/a_ovf04_builtin_add/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf04_builtin_add/main_rest.o work/m3/a_ovf04_builtin_add/harness.o work/m3/a_ovf04_builtin_add/sroa+instcombine.o -o work/m3/a_ovf04_builtin_add/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf04_builtin_add/main_rest.o work/m3/a_ovf04_builtin_add/harness.o work/m3/a_ovf04_builtin_add/sroa+simplifycfg.o -o work/m3/a_ovf04_builtin_add/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf04_builtin_add/main_rest.o work/m3/a_ovf04_builtin_add/harness.o work/m3/a_ovf04_builtin_add/sroa.o -o work/m3/a_ovf04_builtin_add/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf04_builtin_add/main_rest.o work/m3/a_ovf04_builtin_add/harness.o work/m3/a_ovf04_builtin_add/O2.o -o work/m3/a_ovf04_builtin_add/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf04_builtin_add/main_rest.o work/m3/a_ovf04_builtin_add/harness.o work/m3/a_ovf04_builtin_add/O3.o -o work/m3/a_ovf04_builtin_add/O3.plain
+work/m3/a_ovf04_builtin_add/sroa+instcombine.plain 1 2
+work/m3/a_ovf04_builtin_add/sroa+gvn.plain 1 2
+work/m3/a_ovf04_builtin_add/sroa+instcombine.plain -5 -7
+work/m3/a_ovf04_builtin_add/sroa+gvn.plain -5 -7
+work/m3/a_ovf04_builtin_add/sroa+instcombine.plain 2147483647 1
+work/m3/a_ovf04_builtin_add/sroa+gvn.plain 2147483647 1
+work/m3/a_ovf04_builtin_add/sroa+simplifycfg.plain 1 2
+work/m3/a_ovf04_builtin_add/O2.plain 1 2
+work/m3/a_ovf04_builtin_add/O3.plain 1 2
+work/m3/a_ovf04_builtin_add/sroa+instcombine.plain -2147483648 -1
+work/m3/a_ovf04_builtin_add/sroa+gvn.plain -2147483648 -1
+work/m3/a_ovf04_builtin_add/sroa+simplifycfg.plain -5 -7
+work/m3/a_ovf04_builtin_add/O2.plain -5 -7
+work/m3/a_ovf04_builtin_add/O3.plain -5 -7
+work/m3/a_ovf04_builtin_add/sroa.plain 1 2
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf04_builtin_add/seed.ll work/m3/a_ovf04_builtin_add/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf04_builtin_add/seed.ll work/m3/a_ovf04_builtin_add/sroa+gvn.ll
+work/m3/a_ovf04_builtin_add/sroa+simplifycfg.plain 2147483647 1
+work/m3/a_ovf04_builtin_add/O2.plain 2147483647 1
+work/m3/a_ovf04_builtin_add/O3.plain 2147483647 1
+work/m3/a_ovf04_builtin_add/sroa.plain -5 -7
+work/m3/a_ovf04_builtin_add/O2.plain -2147483648 -1
+work/m3/a_ovf04_builtin_add/sroa+simplifycfg.plain -2147483648 -1
+work/m3/a_ovf04_builtin_add/O3.plain -2147483648 -1
+work/m3/a_ovf04_builtin_add/sroa.plain 2147483647 1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf04_builtin_add/seed.ll work/m3/a_ovf04_builtin_add/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf04_builtin_add/seed.ll work/m3/a_ovf04_builtin_add/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf04_builtin_add/seed.ll work/m3/a_ovf04_builtin_add/O3.ll
+work/m3/a_ovf04_builtin_add/sroa.plain -2147483648 -1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf04_builtin_add/seed.ll work/m3/a_ovf04_builtin_add/sroa.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_ovf05_len_header/seed.c -o work/m3/a_ovf05_len_header/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_ovf05_len_header/seed.c -o work/m3/a_ovf05_len_header/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=frame_size work/m3/a_ovf05_len_header/full.ll -o work/m3/a_ovf05_len_header/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf05_len_header/main_rest.ll -o work/m3/a_ovf05_len_header/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_ovf05_len_header/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf05_len_header/seed.ll -o work/m3/a_ovf05_len_header/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf05_len_header/main_rest.o work/m3/a_ovf05_len_header/harness.o work/m3/a_ovf05_len_header/O0ref.o -o work/m3/a_ovf05_len_header/O0ref.plain
+work/m3/a_ovf05_len_header/O0ref.plain 100
+work/m3/a_ovf05_len_header/O0ref.plain 4294967279
+work/m3/a_ovf05_len_header/O0ref.plain 4294967280
+work/m3/a_ovf05_len_header/O0ref.plain 4294967295
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_ovf05_len_header/seed.c seeds/common/harness.c -o work/m3/a_ovf05_len_header/seed_san
+work/m3/a_ovf05_len_header/seed_san 100
+work/m3/a_ovf05_len_header/seed_san 4294967279
+work/m3/a_ovf05_len_header/seed_san 4294967280
+work/m3/a_ovf05_len_header/seed_san 4294967295
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_ovf05_len_header/seed.ll -o work/m3/a_ovf05_len_header/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_ovf05_len_header/seed.ll -o work/m3/a_ovf05_len_header/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_ovf05_len_header/seed.ll -o work/m3/a_ovf05_len_header/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_ovf05_len_header/seed.ll -o work/m3/a_ovf05_len_header/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_ovf05_len_header/seed.ll -o work/m3/a_ovf05_len_header/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_ovf05_len_header/seed.ll -o work/m3/a_ovf05_len_header/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf05_len_header/sroa+gvn.ll -o work/m3/a_ovf05_len_header/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf05_len_header/sroa+simplifycfg.ll -o work/m3/a_ovf05_len_header/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf05_len_header/sroa.ll -o work/m3/a_ovf05_len_header/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf05_len_header/O2.ll -o work/m3/a_ovf05_len_header/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf05_len_header/O3.ll -o work/m3/a_ovf05_len_header/O3.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf05_len_header/main_rest.o work/m3/a_ovf05_len_header/harness.o work/m3/a_ovf05_len_header/sroa+simplifycfg.o -o work/m3/a_ovf05_len_header/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf05_len_header/main_rest.o work/m3/a_ovf05_len_header/harness.o work/m3/a_ovf05_len_header/sroa+gvn.o -o work/m3/a_ovf05_len_header/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf05_len_header/main_rest.o work/m3/a_ovf05_len_header/harness.o work/m3/a_ovf05_len_header/sroa.o -o work/m3/a_ovf05_len_header/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf05_len_header/main_rest.o work/m3/a_ovf05_len_header/harness.o work/m3/a_ovf05_len_header/O3.o -o work/m3/a_ovf05_len_header/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf05_len_header/main_rest.o work/m3/a_ovf05_len_header/harness.o work/m3/a_ovf05_len_header/O2.o -o work/m3/a_ovf05_len_header/O2.plain
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf05_len_header/sroa+instcombine.ll -o work/m3/a_ovf05_len_header/sroa+instcombine.o
+work/m3/a_ovf05_len_header/sroa+simplifycfg.plain 100
+work/m3/a_ovf05_len_header/sroa+gvn.plain 100
+work/m3/a_ovf05_len_header/sroa.plain 100
+work/m3/a_ovf05_len_header/O2.plain 100
+work/m3/a_ovf05_len_header/O3.plain 100
+work/m3/a_ovf05_len_header/sroa+simplifycfg.plain 4294967279
+work/m3/a_ovf05_len_header/sroa.plain 4294967279
+work/m3/a_ovf05_len_header/O2.plain 4294967279
+work/m3/a_ovf05_len_header/sroa+gvn.plain 4294967279
+work/m3/a_ovf05_len_header/sroa+simplifycfg.plain 4294967280
+work/m3/a_ovf05_len_header/O3.plain 4294967279
+work/m3/a_ovf05_len_header/sroa.plain 4294967280
+work/m3/a_ovf05_len_header/O2.plain 4294967280
+work/m3/a_ovf05_len_header/sroa+simplifycfg.plain 4294967295
+work/m3/a_ovf05_len_header/sroa+gvn.plain 4294967280
+work/m3/a_ovf05_len_header/O3.plain 4294967280
+work/m3/a_ovf05_len_header/sroa.plain 4294967295
+work/m3/a_ovf05_len_header/O2.plain 4294967295
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf05_len_header/seed.ll work/m3/a_ovf05_len_header/sroa+simplifycfg.ll
+work/m3/a_ovf05_len_header/sroa+gvn.plain 4294967295
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf05_len_header/seed.ll work/m3/a_ovf05_len_header/sroa+gvn.ll
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf05_len_header/main_rest.o work/m3/a_ovf05_len_header/harness.o work/m3/a_ovf05_len_header/sroa+instcombine.o -o work/m3/a_ovf05_len_header/sroa+instcombine.plain
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf05_len_header/seed.ll work/m3/a_ovf05_len_header/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf05_len_header/seed.ll work/m3/a_ovf05_len_header/sroa.ll
+work/m3/a_ovf05_len_header/O3.plain 4294967295
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf05_len_header/seed.ll work/m3/a_ovf05_len_header/O3.ll
+work/m3/a_ovf05_len_header/sroa+instcombine.plain 100
+work/m3/a_ovf05_len_header/sroa+instcombine.plain 4294967279
+work/m3/a_ovf05_len_header/sroa+instcombine.plain 4294967280
+work/m3/a_ovf05_len_header/sroa+instcombine.plain 4294967295
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf05_len_header/seed.ll work/m3/a_ovf05_len_header/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_ovf06_usub_underflow/seed.c -o work/m3/a_ovf06_usub_underflow/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_ovf06_usub_underflow/seed.c -o work/m3/a_ovf06_usub_underflow/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=remaining work/m3/a_ovf06_usub_underflow/full.ll -o work/m3/a_ovf06_usub_underflow/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf06_usub_underflow/main_rest.ll -o work/m3/a_ovf06_usub_underflow/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_ovf06_usub_underflow/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf06_usub_underflow/seed.ll -o work/m3/a_ovf06_usub_underflow/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf06_usub_underflow/main_rest.o work/m3/a_ovf06_usub_underflow/harness.o work/m3/a_ovf06_usub_underflow/O0ref.o -o work/m3/a_ovf06_usub_underflow/O0ref.plain
+work/m3/a_ovf06_usub_underflow/O0ref.plain 10 3
+work/m3/a_ovf06_usub_underflow/O0ref.plain 10 10
+work/m3/a_ovf06_usub_underflow/O0ref.plain 10 11
+work/m3/a_ovf06_usub_underflow/O0ref.plain 0 1
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_ovf06_usub_underflow/seed.c seeds/common/harness.c -o work/m3/a_ovf06_usub_underflow/seed_san
+work/m3/a_ovf06_usub_underflow/seed_san 10 3
+work/m3/a_ovf06_usub_underflow/seed_san 10 10
+work/m3/a_ovf06_usub_underflow/seed_san 10 11
+work/m3/a_ovf06_usub_underflow/seed_san 0 1
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_ovf06_usub_underflow/seed.ll -o work/m3/a_ovf06_usub_underflow/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_ovf06_usub_underflow/seed.ll -o work/m3/a_ovf06_usub_underflow/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_ovf06_usub_underflow/seed.ll -o work/m3/a_ovf06_usub_underflow/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_ovf06_usub_underflow/seed.ll -o work/m3/a_ovf06_usub_underflow/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_ovf06_usub_underflow/seed.ll -o work/m3/a_ovf06_usub_underflow/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_ovf06_usub_underflow/seed.ll -o work/m3/a_ovf06_usub_underflow/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf06_usub_underflow/sroa+gvn.ll -o work/m3/a_ovf06_usub_underflow/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf06_usub_underflow/sroa+instcombine.ll -o work/m3/a_ovf06_usub_underflow/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf06_usub_underflow/O2.ll -o work/m3/a_ovf06_usub_underflow/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf06_usub_underflow/sroa+simplifycfg.ll -o work/m3/a_ovf06_usub_underflow/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf06_usub_underflow/sroa.ll -o work/m3/a_ovf06_usub_underflow/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf06_usub_underflow/O3.ll -o work/m3/a_ovf06_usub_underflow/O3.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf06_usub_underflow/main_rest.o work/m3/a_ovf06_usub_underflow/harness.o work/m3/a_ovf06_usub_underflow/sroa+simplifycfg.o -o work/m3/a_ovf06_usub_underflow/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf06_usub_underflow/main_rest.o work/m3/a_ovf06_usub_underflow/harness.o work/m3/a_ovf06_usub_underflow/sroa+instcombine.o -o work/m3/a_ovf06_usub_underflow/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf06_usub_underflow/main_rest.o work/m3/a_ovf06_usub_underflow/harness.o work/m3/a_ovf06_usub_underflow/sroa+gvn.o -o work/m3/a_ovf06_usub_underflow/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf06_usub_underflow/main_rest.o work/m3/a_ovf06_usub_underflow/harness.o work/m3/a_ovf06_usub_underflow/O2.o -o work/m3/a_ovf06_usub_underflow/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf06_usub_underflow/main_rest.o work/m3/a_ovf06_usub_underflow/harness.o work/m3/a_ovf06_usub_underflow/sroa.o -o work/m3/a_ovf06_usub_underflow/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf06_usub_underflow/main_rest.o work/m3/a_ovf06_usub_underflow/harness.o work/m3/a_ovf06_usub_underflow/O3.o -o work/m3/a_ovf06_usub_underflow/O3.plain
+work/m3/a_ovf06_usub_underflow/sroa+gvn.plain 10 3
+work/m3/a_ovf06_usub_underflow/sroa+simplifycfg.plain 10 3
+work/m3/a_ovf06_usub_underflow/sroa+instcombine.plain 10 3
+work/m3/a_ovf06_usub_underflow/O2.plain 10 3
+work/m3/a_ovf06_usub_underflow/sroa+simplifycfg.plain 10 10
+work/m3/a_ovf06_usub_underflow/sroa+gvn.plain 10 10
+work/m3/a_ovf06_usub_underflow/sroa+instcombine.plain 10 10
+work/m3/a_ovf06_usub_underflow/sroa+simplifycfg.plain 10 11
+work/m3/a_ovf06_usub_underflow/sroa+gvn.plain 10 11
+work/m3/a_ovf06_usub_underflow/O2.plain 10 10
+work/m3/a_ovf06_usub_underflow/sroa.plain 10 3
+work/m3/a_ovf06_usub_underflow/sroa+instcombine.plain 10 11
+work/m3/a_ovf06_usub_underflow/sroa+simplifycfg.plain 0 1
+work/m3/a_ovf06_usub_underflow/sroa+gvn.plain 0 1
+work/m3/a_ovf06_usub_underflow/O2.plain 10 11
+work/m3/a_ovf06_usub_underflow/sroa.plain 10 10
+work/m3/a_ovf06_usub_underflow/sroa+instcombine.plain 0 1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf06_usub_underflow/seed.ll work/m3/a_ovf06_usub_underflow/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf06_usub_underflow/seed.ll work/m3/a_ovf06_usub_underflow/sroa+simplifycfg.ll
+work/m3/a_ovf06_usub_underflow/O3.plain 10 3
+work/m3/a_ovf06_usub_underflow/O2.plain 0 1
+work/m3/a_ovf06_usub_underflow/sroa.plain 10 11
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf06_usub_underflow/seed.ll work/m3/a_ovf06_usub_underflow/sroa+instcombine.ll
+work/m3/a_ovf06_usub_underflow/sroa.plain 0 1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf06_usub_underflow/seed.ll work/m3/a_ovf06_usub_underflow/O2.ll
+work/m3/a_ovf06_usub_underflow/O3.plain 10 10
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf06_usub_underflow/seed.ll work/m3/a_ovf06_usub_underflow/sroa.ll
+work/m3/a_ovf06_usub_underflow/O3.plain 10 11
+work/m3/a_ovf06_usub_underflow/O3.plain 0 1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf06_usub_underflow/seed.ll work/m3/a_ovf06_usub_underflow/O3.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_ovf07_signed_len/seed.c -o work/m3/a_ovf07_signed_len/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_ovf07_signed_len/seed.c -o work/m3/a_ovf07_signed_len/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=read_len work/m3/a_ovf07_signed_len/full.ll -o work/m3/a_ovf07_signed_len/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf07_signed_len/main_rest.ll -o work/m3/a_ovf07_signed_len/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_ovf07_signed_len/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf07_signed_len/seed.ll -o work/m3/a_ovf07_signed_len/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf07_signed_len/main_rest.o work/m3/a_ovf07_signed_len/harness.o work/m3/a_ovf07_signed_len/O0ref.o -o work/m3/a_ovf07_signed_len/O0ref.plain
+work/m3/a_ovf07_signed_len/O0ref.plain 8
+work/m3/a_ovf07_signed_len/O0ref.plain 16
+work/m3/a_ovf07_signed_len/O0ref.plain -1
+work/m3/a_ovf07_signed_len/O0ref.plain 17
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_ovf07_signed_len/seed.c seeds/common/harness.c -o work/m3/a_ovf07_signed_len/seed_san
+work/m3/a_ovf07_signed_len/seed_san 8
+work/m3/a_ovf07_signed_len/seed_san 16
+work/m3/a_ovf07_signed_len/seed_san -1
+work/m3/a_ovf07_signed_len/seed_san 17
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_ovf07_signed_len/seed.ll -o work/m3/a_ovf07_signed_len/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_ovf07_signed_len/seed.ll -o work/m3/a_ovf07_signed_len/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_ovf07_signed_len/seed.ll -o work/m3/a_ovf07_signed_len/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_ovf07_signed_len/seed.ll -o work/m3/a_ovf07_signed_len/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_ovf07_signed_len/seed.ll -o work/m3/a_ovf07_signed_len/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_ovf07_signed_len/seed.ll -o work/m3/a_ovf07_signed_len/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf07_signed_len/sroa.ll -o work/m3/a_ovf07_signed_len/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf07_signed_len/sroa+simplifycfg.ll -o work/m3/a_ovf07_signed_len/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf07_signed_len/O2.ll -o work/m3/a_ovf07_signed_len/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf07_signed_len/sroa+gvn.ll -o work/m3/a_ovf07_signed_len/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf07_signed_len/O3.ll -o work/m3/a_ovf07_signed_len/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf07_signed_len/sroa+instcombine.ll -o work/m3/a_ovf07_signed_len/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf07_signed_len/main_rest.o work/m3/a_ovf07_signed_len/harness.o work/m3/a_ovf07_signed_len/sroa+simplifycfg.o -o work/m3/a_ovf07_signed_len/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf07_signed_len/main_rest.o work/m3/a_ovf07_signed_len/harness.o work/m3/a_ovf07_signed_len/sroa.o -o work/m3/a_ovf07_signed_len/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf07_signed_len/main_rest.o work/m3/a_ovf07_signed_len/harness.o work/m3/a_ovf07_signed_len/O3.o -o work/m3/a_ovf07_signed_len/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf07_signed_len/main_rest.o work/m3/a_ovf07_signed_len/harness.o work/m3/a_ovf07_signed_len/O2.o -o work/m3/a_ovf07_signed_len/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf07_signed_len/main_rest.o work/m3/a_ovf07_signed_len/harness.o work/m3/a_ovf07_signed_len/sroa+gvn.o -o work/m3/a_ovf07_signed_len/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf07_signed_len/main_rest.o work/m3/a_ovf07_signed_len/harness.o work/m3/a_ovf07_signed_len/sroa+instcombine.o -o work/m3/a_ovf07_signed_len/sroa+instcombine.plain
+work/m3/a_ovf07_signed_len/sroa+simplifycfg.plain 8
+work/m3/a_ovf07_signed_len/sroa.plain 8
+work/m3/a_ovf07_signed_len/O3.plain 8
+work/m3/a_ovf07_signed_len/sroa+gvn.plain 8
+work/m3/a_ovf07_signed_len/sroa+simplifycfg.plain 16
+work/m3/a_ovf07_signed_len/sroa.plain 16
+work/m3/a_ovf07_signed_len/O3.plain 16
+work/m3/a_ovf07_signed_len/sroa.plain -1
+work/m3/a_ovf07_signed_len/sroa+simplifycfg.plain -1
+work/m3/a_ovf07_signed_len/sroa+gvn.plain 16
+work/m3/a_ovf07_signed_len/O2.plain 8
+work/m3/a_ovf07_signed_len/O3.plain -1
+work/m3/a_ovf07_signed_len/sroa.plain 17
+work/m3/a_ovf07_signed_len/sroa+simplifycfg.plain 17
+work/m3/a_ovf07_signed_len/sroa+gvn.plain -1
+work/m3/a_ovf07_signed_len/O2.plain 16
+work/m3/a_ovf07_signed_len/O3.plain 17
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf07_signed_len/seed.ll work/m3/a_ovf07_signed_len/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf07_signed_len/seed.ll work/m3/a_ovf07_signed_len/sroa+simplifycfg.ll
+work/m3/a_ovf07_signed_len/sroa+gvn.plain 17
+work/m3/a_ovf07_signed_len/O2.plain -1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf07_signed_len/seed.ll work/m3/a_ovf07_signed_len/O3.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf07_signed_len/seed.ll work/m3/a_ovf07_signed_len/sroa+gvn.ll
+work/m3/a_ovf07_signed_len/O2.plain 17
+work/m3/a_ovf07_signed_len/sroa+instcombine.plain 8
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf07_signed_len/seed.ll work/m3/a_ovf07_signed_len/O2.ll
+work/m3/a_ovf07_signed_len/sroa+instcombine.plain 16
+work/m3/a_ovf07_signed_len/sroa+instcombine.plain -1
+work/m3/a_ovf07_signed_len/sroa+instcombine.plain 17
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf07_signed_len/seed.ll work/m3/a_ovf07_signed_len/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/a_ovf08_shift_amount/seed.c -o work/m3/a_ovf08_shift_amount/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/a_ovf08_shift_amount/seed.c -o work/m3/a_ovf08_shift_amount/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=shl_checked work/m3/a_ovf08_shift_amount/full.ll -o work/m3/a_ovf08_shift_amount/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf08_shift_amount/main_rest.ll -o work/m3/a_ovf08_shift_amount/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/a_ovf08_shift_amount/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf08_shift_amount/seed.ll -o work/m3/a_ovf08_shift_amount/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf08_shift_amount/main_rest.o work/m3/a_ovf08_shift_amount/harness.o work/m3/a_ovf08_shift_amount/O0ref.o -o work/m3/a_ovf08_shift_amount/O0ref.plain
+work/m3/a_ovf08_shift_amount/O0ref.plain 1 0
+work/m3/a_ovf08_shift_amount/O0ref.plain 1 31
+work/m3/a_ovf08_shift_amount/O0ref.plain 1 32
+work/m3/a_ovf08_shift_amount/O0ref.plain 1 100
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/a_ovf08_shift_amount/seed.c seeds/common/harness.c -o work/m3/a_ovf08_shift_amount/seed_san
+work/m3/a_ovf08_shift_amount/seed_san 1 0
+work/m3/a_ovf08_shift_amount/seed_san 1 31
+work/m3/a_ovf08_shift_amount/seed_san 1 32
+work/m3/a_ovf08_shift_amount/seed_san 1 100
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/a_ovf08_shift_amount/seed.ll -o work/m3/a_ovf08_shift_amount/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/a_ovf08_shift_amount/seed.ll -o work/m3/a_ovf08_shift_amount/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/a_ovf08_shift_amount/seed.ll -o work/m3/a_ovf08_shift_amount/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/a_ovf08_shift_amount/seed.ll -o work/m3/a_ovf08_shift_amount/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/a_ovf08_shift_amount/seed.ll -o work/m3/a_ovf08_shift_amount/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/a_ovf08_shift_amount/seed.ll -o work/m3/a_ovf08_shift_amount/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf08_shift_amount/sroa.ll -o work/m3/a_ovf08_shift_amount/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf08_shift_amount/sroa+instcombine.ll -o work/m3/a_ovf08_shift_amount/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf08_shift_amount/sroa+simplifycfg.ll -o work/m3/a_ovf08_shift_amount/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf08_shift_amount/sroa+gvn.ll -o work/m3/a_ovf08_shift_amount/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf08_shift_amount/O3.ll -o work/m3/a_ovf08_shift_amount/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/a_ovf08_shift_amount/O2.ll -o work/m3/a_ovf08_shift_amount/O2.o
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf08_shift_amount/main_rest.o work/m3/a_ovf08_shift_amount/harness.o work/m3/a_ovf08_shift_amount/sroa+gvn.o -o work/m3/a_ovf08_shift_amount/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf08_shift_amount/main_rest.o work/m3/a_ovf08_shift_amount/harness.o work/m3/a_ovf08_shift_amount/sroa+instcombine.o -o work/m3/a_ovf08_shift_amount/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf08_shift_amount/main_rest.o work/m3/a_ovf08_shift_amount/harness.o work/m3/a_ovf08_shift_amount/sroa.o -o work/m3/a_ovf08_shift_amount/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf08_shift_amount/main_rest.o work/m3/a_ovf08_shift_amount/harness.o work/m3/a_ovf08_shift_amount/sroa+simplifycfg.o -o work/m3/a_ovf08_shift_amount/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf08_shift_amount/main_rest.o work/m3/a_ovf08_shift_amount/harness.o work/m3/a_ovf08_shift_amount/O2.o -o work/m3/a_ovf08_shift_amount/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/a_ovf08_shift_amount/main_rest.o work/m3/a_ovf08_shift_amount/harness.o work/m3/a_ovf08_shift_amount/O3.o -o work/m3/a_ovf08_shift_amount/O3.plain
+work/m3/a_ovf08_shift_amount/sroa+simplifycfg.plain 1 0
+work/m3/a_ovf08_shift_amount/sroa.plain 1 0
+work/m3/a_ovf08_shift_amount/sroa+gvn.plain 1 0
+work/m3/a_ovf08_shift_amount/sroa+instcombine.plain 1 0
+work/m3/a_ovf08_shift_amount/sroa+simplifycfg.plain 1 31
+work/m3/a_ovf08_shift_amount/sroa+gvn.plain 1 31
+work/m3/a_ovf08_shift_amount/sroa.plain 1 31
+work/m3/a_ovf08_shift_amount/sroa+instcombine.plain 1 31
+work/m3/a_ovf08_shift_amount/O2.plain 1 0
+work/m3/a_ovf08_shift_amount/O3.plain 1 0
+work/m3/a_ovf08_shift_amount/sroa+simplifycfg.plain 1 32
+work/m3/a_ovf08_shift_amount/sroa.plain 1 32
+work/m3/a_ovf08_shift_amount/sroa+instcombine.plain 1 32
+work/m3/a_ovf08_shift_amount/sroa+gvn.plain 1 32
+work/m3/a_ovf08_shift_amount/O2.plain 1 31
+work/m3/a_ovf08_shift_amount/O3.plain 1 31
+work/m3/a_ovf08_shift_amount/sroa+simplifycfg.plain 1 100
+work/m3/a_ovf08_shift_amount/sroa.plain 1 100
+work/m3/a_ovf08_shift_amount/sroa+instcombine.plain 1 100
+work/m3/a_ovf08_shift_amount/sroa+gvn.plain 1 100
+work/m3/a_ovf08_shift_amount/O2.plain 1 32
+work/m3/a_ovf08_shift_amount/O3.plain 1 32
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf08_shift_amount/seed.ll work/m3/a_ovf08_shift_amount/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf08_shift_amount/seed.ll work/m3/a_ovf08_shift_amount/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf08_shift_amount/seed.ll work/m3/a_ovf08_shift_amount/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf08_shift_amount/seed.ll work/m3/a_ovf08_shift_amount/sroa+instcombine.ll
+work/m3/a_ovf08_shift_amount/O2.plain 1 100
+work/m3/a_ovf08_shift_amount/O3.plain 1 100
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf08_shift_amount/seed.ll work/m3/a_ovf08_shift_amount/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/a_ovf08_shift_amount/seed.ll work/m3/a_ovf08_shift_amount/O3.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/b_bnd01_read_then_check/seed.c -o work/m3/b_bnd01_read_then_check/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/b_bnd01_read_then_check/seed.c -o work/m3/b_bnd01_read_then_check/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=read_then_check work/m3/b_bnd01_read_then_check/full.ll -o work/m3/b_bnd01_read_then_check/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd01_read_then_check/main_rest.ll -o work/m3/b_bnd01_read_then_check/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/b_bnd01_read_then_check/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd01_read_then_check/seed.ll -o work/m3/b_bnd01_read_then_check/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd01_read_then_check/main_rest.o work/m3/b_bnd01_read_then_check/harness.o work/m3/b_bnd01_read_then_check/O0ref.o -o work/m3/b_bnd01_read_then_check/O0ref.plain
+work/m3/b_bnd01_read_then_check/O0ref.plain 4 3
+work/m3/b_bnd01_read_then_check/O0ref.plain 4 4
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/b_bnd01_read_then_check/seed.c seeds/common/harness.c -o work/m3/b_bnd01_read_then_check/seed_san
+work/m3/b_bnd01_read_then_check/seed_san 4 3
+work/m3/b_bnd01_read_then_check/seed_san 4 4
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/b_bnd01_read_then_check/seed.ll -o work/m3/b_bnd01_read_then_check/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/b_bnd01_read_then_check/seed.ll -o work/m3/b_bnd01_read_then_check/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/b_bnd01_read_then_check/seed.ll -o work/m3/b_bnd01_read_then_check/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/b_bnd01_read_then_check/seed.ll -o work/m3/b_bnd01_read_then_check/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/b_bnd01_read_then_check/seed.ll -o work/m3/b_bnd01_read_then_check/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/b_bnd01_read_then_check/seed.ll -o work/m3/b_bnd01_read_then_check/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd01_read_then_check/sroa+instcombine.ll -o work/m3/b_bnd01_read_then_check/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd01_read_then_check/sroa.ll -o work/m3/b_bnd01_read_then_check/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd01_read_then_check/sroa+simplifycfg.ll -o work/m3/b_bnd01_read_then_check/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd01_read_then_check/O2.ll -o work/m3/b_bnd01_read_then_check/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd01_read_then_check/sroa+gvn.ll -o work/m3/b_bnd01_read_then_check/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd01_read_then_check/O3.ll -o work/m3/b_bnd01_read_then_check/O3.o
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd01_read_then_check/main_rest.o work/m3/b_bnd01_read_then_check/harness.o work/m3/b_bnd01_read_then_check/sroa+gvn.o -o work/m3/b_bnd01_read_then_check/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd01_read_then_check/main_rest.o work/m3/b_bnd01_read_then_check/harness.o work/m3/b_bnd01_read_then_check/sroa+simplifycfg.o -o work/m3/b_bnd01_read_then_check/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd01_read_then_check/main_rest.o work/m3/b_bnd01_read_then_check/harness.o work/m3/b_bnd01_read_then_check/O2.o -o work/m3/b_bnd01_read_then_check/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd01_read_then_check/main_rest.o work/m3/b_bnd01_read_then_check/harness.o work/m3/b_bnd01_read_then_check/sroa.o -o work/m3/b_bnd01_read_then_check/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd01_read_then_check/main_rest.o work/m3/b_bnd01_read_then_check/harness.o work/m3/b_bnd01_read_then_check/sroa+instcombine.o -o work/m3/b_bnd01_read_then_check/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd01_read_then_check/main_rest.o work/m3/b_bnd01_read_then_check/harness.o work/m3/b_bnd01_read_then_check/O3.o -o work/m3/b_bnd01_read_then_check/O3.plain
+work/m3/b_bnd01_read_then_check/sroa+simplifycfg.plain 4 3
+work/m3/b_bnd01_read_then_check/sroa+gvn.plain 4 3
+work/m3/b_bnd01_read_then_check/O2.plain 4 3
+work/m3/b_bnd01_read_then_check/sroa+simplifycfg.plain 4 4
+work/m3/b_bnd01_read_then_check/O2.plain 4 4
+work/m3/b_bnd01_read_then_check/sroa+gvn.plain 4 4
+work/m3/b_bnd01_read_then_check/sroa.plain 4 3
+work/m3/b_bnd01_read_then_check/sroa+instcombine.plain 4 3
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd01_read_then_check/seed.ll work/m3/b_bnd01_read_then_check/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd01_read_then_check/seed.ll work/m3/b_bnd01_read_then_check/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd01_read_then_check/seed.ll work/m3/b_bnd01_read_then_check/sroa+gvn.ll
+work/m3/b_bnd01_read_then_check/O3.plain 4 3
+work/m3/b_bnd01_read_then_check/sroa.plain 4 4
+work/m3/b_bnd01_read_then_check/sroa+instcombine.plain 4 4
+work/m3/b_bnd01_read_then_check/O3.plain 4 4
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd01_read_then_check/seed.ll work/m3/b_bnd01_read_then_check/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd01_read_then_check/seed.ll work/m3/b_bnd01_read_then_check/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd01_read_then_check/seed.ll work/m3/b_bnd01_read_then_check/O3.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/b_bnd02_loop_use_then_check/seed.c -o work/m3/b_bnd02_loop_use_then_check/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/b_bnd02_loop_use_then_check/seed.c -o work/m3/b_bnd02_loop_use_then_check/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=sum_then_check work/m3/b_bnd02_loop_use_then_check/full.ll -o work/m3/b_bnd02_loop_use_then_check/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd02_loop_use_then_check/main_rest.ll -o work/m3/b_bnd02_loop_use_then_check/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/b_bnd02_loop_use_then_check/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd02_loop_use_then_check/seed.ll -o work/m3/b_bnd02_loop_use_then_check/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd02_loop_use_then_check/main_rest.o work/m3/b_bnd02_loop_use_then_check/harness.o work/m3/b_bnd02_loop_use_then_check/O0ref.o -o work/m3/b_bnd02_loop_use_then_check/O0ref.plain
+work/m3/b_bnd02_loop_use_then_check/O0ref.plain 4 4
+work/m3/b_bnd02_loop_use_then_check/O0ref.plain 4 0
+work/m3/b_bnd02_loop_use_then_check/O0ref.plain 4 5
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/b_bnd02_loop_use_then_check/seed.c seeds/common/harness.c -o work/m3/b_bnd02_loop_use_then_check/seed_san
+work/m3/b_bnd02_loop_use_then_check/seed_san 4 4
+work/m3/b_bnd02_loop_use_then_check/seed_san 4 0
+work/m3/b_bnd02_loop_use_then_check/seed_san 4 5
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/b_bnd02_loop_use_then_check/seed.ll -o work/m3/b_bnd02_loop_use_then_check/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/b_bnd02_loop_use_then_check/seed.ll -o work/m3/b_bnd02_loop_use_then_check/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/b_bnd02_loop_use_then_check/seed.ll -o work/m3/b_bnd02_loop_use_then_check/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/b_bnd02_loop_use_then_check/seed.ll -o work/m3/b_bnd02_loop_use_then_check/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/b_bnd02_loop_use_then_check/seed.ll -o work/m3/b_bnd02_loop_use_then_check/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/b_bnd02_loop_use_then_check/seed.ll -o work/m3/b_bnd02_loop_use_then_check/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd02_loop_use_then_check/sroa+instcombine.ll -o work/m3/b_bnd02_loop_use_then_check/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd02_loop_use_then_check/sroa+gvn.ll -o work/m3/b_bnd02_loop_use_then_check/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd02_loop_use_then_check/sroa+simplifycfg.ll -o work/m3/b_bnd02_loop_use_then_check/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd02_loop_use_then_check/sroa.ll -o work/m3/b_bnd02_loop_use_then_check/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd02_loop_use_then_check/O2.ll -o work/m3/b_bnd02_loop_use_then_check/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd02_loop_use_then_check/O3.ll -o work/m3/b_bnd02_loop_use_then_check/O3.o
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd02_loop_use_then_check/main_rest.o work/m3/b_bnd02_loop_use_then_check/harness.o work/m3/b_bnd02_loop_use_then_check/sroa+gvn.o -o work/m3/b_bnd02_loop_use_then_check/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd02_loop_use_then_check/main_rest.o work/m3/b_bnd02_loop_use_then_check/harness.o work/m3/b_bnd02_loop_use_then_check/sroa+instcombine.o -o work/m3/b_bnd02_loop_use_then_check/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd02_loop_use_then_check/main_rest.o work/m3/b_bnd02_loop_use_then_check/harness.o work/m3/b_bnd02_loop_use_then_check/sroa+simplifycfg.o -o work/m3/b_bnd02_loop_use_then_check/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd02_loop_use_then_check/main_rest.o work/m3/b_bnd02_loop_use_then_check/harness.o work/m3/b_bnd02_loop_use_then_check/sroa.o -o work/m3/b_bnd02_loop_use_then_check/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd02_loop_use_then_check/main_rest.o work/m3/b_bnd02_loop_use_then_check/harness.o work/m3/b_bnd02_loop_use_then_check/O3.o -o work/m3/b_bnd02_loop_use_then_check/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd02_loop_use_then_check/main_rest.o work/m3/b_bnd02_loop_use_then_check/harness.o work/m3/b_bnd02_loop_use_then_check/O2.o -o work/m3/b_bnd02_loop_use_then_check/O2.plain
+work/m3/b_bnd02_loop_use_then_check/sroa+gvn.plain 4 4
+work/m3/b_bnd02_loop_use_then_check/sroa+instcombine.plain 4 4
+work/m3/b_bnd02_loop_use_then_check/sroa.plain 4 4
+work/m3/b_bnd02_loop_use_then_check/sroa+gvn.plain 4 0
+work/m3/b_bnd02_loop_use_then_check/sroa+simplifycfg.plain 4 4
+work/m3/b_bnd02_loop_use_then_check/sroa+instcombine.plain 4 0
+work/m3/b_bnd02_loop_use_then_check/sroa.plain 4 0
+work/m3/b_bnd02_loop_use_then_check/sroa+simplifycfg.plain 4 0
+work/m3/b_bnd02_loop_use_then_check/sroa+instcombine.plain 4 5
+work/m3/b_bnd02_loop_use_then_check/sroa+gvn.plain 4 5
+work/m3/b_bnd02_loop_use_then_check/O2.plain 4 4
+work/m3/b_bnd02_loop_use_then_check/sroa.plain 4 5
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=6 --tgt-unroll=6 work/m3/b_bnd02_loop_use_then_check/seed.ll work/m3/b_bnd02_loop_use_then_check/sroa+instcombine.ll
+work/m3/b_bnd02_loop_use_then_check/sroa+simplifycfg.plain 4 5
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=6 --tgt-unroll=6 work/m3/b_bnd02_loop_use_then_check/seed.ll work/m3/b_bnd02_loop_use_then_check/sroa+gvn.ll
+work/m3/b_bnd02_loop_use_then_check/O3.plain 4 4
+work/m3/b_bnd02_loop_use_then_check/O2.plain 4 0
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=6 --tgt-unroll=6 work/m3/b_bnd02_loop_use_then_check/seed.ll work/m3/b_bnd02_loop_use_then_check/sroa.ll
+work/m3/b_bnd02_loop_use_then_check/O3.plain 4 0
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=6 --tgt-unroll=6 work/m3/b_bnd02_loop_use_then_check/seed.ll work/m3/b_bnd02_loop_use_then_check/sroa+simplifycfg.ll
+work/m3/b_bnd02_loop_use_then_check/O2.plain 4 5
+work/m3/b_bnd02_loop_use_then_check/O3.plain 4 5
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=6 --tgt-unroll=6 work/m3/b_bnd02_loop_use_then_check/seed.ll work/m3/b_bnd02_loop_use_then_check/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 --src-unroll=6 --tgt-unroll=6 work/m3/b_bnd02_loop_use_then_check/seed.ll work/m3/b_bnd02_loop_use_then_check/O3.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/b_bnd03_signed_range_end/seed.c -o work/m3/b_bnd03_signed_range_end/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/b_bnd03_signed_range_end/seed.c -o work/m3/b_bnd03_signed_range_end/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=range_end work/m3/b_bnd03_signed_range_end/full.ll -o work/m3/b_bnd03_signed_range_end/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd03_signed_range_end/main_rest.ll -o work/m3/b_bnd03_signed_range_end/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/b_bnd03_signed_range_end/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd03_signed_range_end/seed.ll -o work/m3/b_bnd03_signed_range_end/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd03_signed_range_end/main_rest.o work/m3/b_bnd03_signed_range_end/harness.o work/m3/b_bnd03_signed_range_end/O0ref.o -o work/m3/b_bnd03_signed_range_end/O0ref.plain
+work/m3/b_bnd03_signed_range_end/O0ref.plain 10 5 100
+work/m3/b_bnd03_signed_range_end/O0ref.plain 10 -1 100
+work/m3/b_bnd03_signed_range_end/O0ref.plain 90 20 100
+work/m3/b_bnd03_signed_range_end/O0ref.plain 2147483647 1 100
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/b_bnd03_signed_range_end/seed.c seeds/common/harness.c -o work/m3/b_bnd03_signed_range_end/seed_san
+work/m3/b_bnd03_signed_range_end/seed_san 10 5 100
+work/m3/b_bnd03_signed_range_end/seed_san 10 -1 100
+work/m3/b_bnd03_signed_range_end/seed_san 90 20 100
+work/m3/b_bnd03_signed_range_end/seed_san 2147483647 1 100
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/b_bnd03_signed_range_end/seed.ll -o work/m3/b_bnd03_signed_range_end/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/b_bnd03_signed_range_end/seed.ll -o work/m3/b_bnd03_signed_range_end/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/b_bnd03_signed_range_end/seed.ll -o work/m3/b_bnd03_signed_range_end/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/b_bnd03_signed_range_end/seed.ll -o work/m3/b_bnd03_signed_range_end/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/b_bnd03_signed_range_end/seed.ll -o work/m3/b_bnd03_signed_range_end/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/b_bnd03_signed_range_end/seed.ll -o work/m3/b_bnd03_signed_range_end/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd03_signed_range_end/sroa+simplifycfg.ll -o work/m3/b_bnd03_signed_range_end/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd03_signed_range_end/sroa.ll -o work/m3/b_bnd03_signed_range_end/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd03_signed_range_end/sroa+instcombine.ll -o work/m3/b_bnd03_signed_range_end/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd03_signed_range_end/O3.ll -o work/m3/b_bnd03_signed_range_end/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd03_signed_range_end/O2.ll -o work/m3/b_bnd03_signed_range_end/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd03_signed_range_end/sroa+gvn.ll -o work/m3/b_bnd03_signed_range_end/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd03_signed_range_end/main_rest.o work/m3/b_bnd03_signed_range_end/harness.o work/m3/b_bnd03_signed_range_end/O2.o -o work/m3/b_bnd03_signed_range_end/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd03_signed_range_end/main_rest.o work/m3/b_bnd03_signed_range_end/harness.o work/m3/b_bnd03_signed_range_end/sroa.o -o work/m3/b_bnd03_signed_range_end/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd03_signed_range_end/main_rest.o work/m3/b_bnd03_signed_range_end/harness.o work/m3/b_bnd03_signed_range_end/O3.o -o work/m3/b_bnd03_signed_range_end/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd03_signed_range_end/main_rest.o work/m3/b_bnd03_signed_range_end/harness.o work/m3/b_bnd03_signed_range_end/sroa+instcombine.o -o work/m3/b_bnd03_signed_range_end/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd03_signed_range_end/main_rest.o work/m3/b_bnd03_signed_range_end/harness.o work/m3/b_bnd03_signed_range_end/sroa+simplifycfg.o -o work/m3/b_bnd03_signed_range_end/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd03_signed_range_end/main_rest.o work/m3/b_bnd03_signed_range_end/harness.o work/m3/b_bnd03_signed_range_end/sroa+gvn.o -o work/m3/b_bnd03_signed_range_end/sroa+gvn.plain
+work/m3/b_bnd03_signed_range_end/O2.plain 10 5 100
+work/m3/b_bnd03_signed_range_end/sroa.plain 10 5 100
+work/m3/b_bnd03_signed_range_end/sroa+instcombine.plain 10 5 100
+work/m3/b_bnd03_signed_range_end/O3.plain 10 5 100
+work/m3/b_bnd03_signed_range_end/O2.plain 10 -1 100
+work/m3/b_bnd03_signed_range_end/sroa+gvn.plain 10 5 100
+work/m3/b_bnd03_signed_range_end/sroa.plain 10 -1 100
+work/m3/b_bnd03_signed_range_end/sroa+simplifycfg.plain 10 5 100
+work/m3/b_bnd03_signed_range_end/sroa+instcombine.plain 10 -1 100
+work/m3/b_bnd03_signed_range_end/O3.plain 10 -1 100
+work/m3/b_bnd03_signed_range_end/O2.plain 90 20 100
+work/m3/b_bnd03_signed_range_end/sroa+gvn.plain 10 -1 100
+work/m3/b_bnd03_signed_range_end/sroa+simplifycfg.plain 10 -1 100
+work/m3/b_bnd03_signed_range_end/sroa.plain 90 20 100
+work/m3/b_bnd03_signed_range_end/sroa+instcombine.plain 90 20 100
+work/m3/b_bnd03_signed_range_end/sroa+gvn.plain 90 20 100
+work/m3/b_bnd03_signed_range_end/O2.plain 2147483647 1 100
+work/m3/b_bnd03_signed_range_end/O3.plain 90 20 100
+work/m3/b_bnd03_signed_range_end/sroa+simplifycfg.plain 90 20 100
+work/m3/b_bnd03_signed_range_end/sroa.plain 2147483647 1 100
+work/m3/b_bnd03_signed_range_end/sroa+instcombine.plain 2147483647 1 100
+work/m3/b_bnd03_signed_range_end/sroa+gvn.plain 2147483647 1 100
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd03_signed_range_end/seed.ll work/m3/b_bnd03_signed_range_end/O2.ll
+work/m3/b_bnd03_signed_range_end/sroa+simplifycfg.plain 2147483647 1 100
+work/m3/b_bnd03_signed_range_end/O3.plain 2147483647 1 100
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd03_signed_range_end/seed.ll work/m3/b_bnd03_signed_range_end/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd03_signed_range_end/seed.ll work/m3/b_bnd03_signed_range_end/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd03_signed_range_end/seed.ll work/m3/b_bnd03_signed_range_end/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd03_signed_range_end/seed.ll work/m3/b_bnd03_signed_range_end/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd03_signed_range_end/seed.ll work/m3/b_bnd03_signed_range_end/O3.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/b_bnd04_signed_next_index/seed.c -o work/m3/b_bnd04_signed_next_index/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/b_bnd04_signed_next_index/seed.c -o work/m3/b_bnd04_signed_next_index/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=get_next work/m3/b_bnd04_signed_next_index/full.ll -o work/m3/b_bnd04_signed_next_index/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd04_signed_next_index/main_rest.ll -o work/m3/b_bnd04_signed_next_index/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/b_bnd04_signed_next_index/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd04_signed_next_index/seed.ll -o work/m3/b_bnd04_signed_next_index/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd04_signed_next_index/main_rest.o work/m3/b_bnd04_signed_next_index/harness.o work/m3/b_bnd04_signed_next_index/O0ref.o -o work/m3/b_bnd04_signed_next_index/O0ref.plain
+work/m3/b_bnd04_signed_next_index/O0ref.plain 4 1
+work/m3/b_bnd04_signed_next_index/O0ref.plain 4 -1
+work/m3/b_bnd04_signed_next_index/O0ref.plain 4 3
+work/m3/b_bnd04_signed_next_index/O0ref.plain 4 2147483647
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/b_bnd04_signed_next_index/seed.c seeds/common/harness.c -o work/m3/b_bnd04_signed_next_index/seed_san
+work/m3/b_bnd04_signed_next_index/seed_san 4 1
+work/m3/b_bnd04_signed_next_index/seed_san 4 -1
+work/m3/b_bnd04_signed_next_index/seed_san 4 3
+work/m3/b_bnd04_signed_next_index/seed_san 4 2147483647
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/b_bnd04_signed_next_index/seed.ll -o work/m3/b_bnd04_signed_next_index/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/b_bnd04_signed_next_index/seed.ll -o work/m3/b_bnd04_signed_next_index/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/b_bnd04_signed_next_index/seed.ll -o work/m3/b_bnd04_signed_next_index/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/b_bnd04_signed_next_index/seed.ll -o work/m3/b_bnd04_signed_next_index/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/b_bnd04_signed_next_index/seed.ll -o work/m3/b_bnd04_signed_next_index/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/b_bnd04_signed_next_index/seed.ll -o work/m3/b_bnd04_signed_next_index/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd04_signed_next_index/sroa+gvn.ll -o work/m3/b_bnd04_signed_next_index/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd04_signed_next_index/sroa.ll -o work/m3/b_bnd04_signed_next_index/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd04_signed_next_index/O3.ll -o work/m3/b_bnd04_signed_next_index/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd04_signed_next_index/O2.ll -o work/m3/b_bnd04_signed_next_index/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd04_signed_next_index/sroa+instcombine.ll -o work/m3/b_bnd04_signed_next_index/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_bnd04_signed_next_index/sroa+simplifycfg.ll -o work/m3/b_bnd04_signed_next_index/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd04_signed_next_index/main_rest.o work/m3/b_bnd04_signed_next_index/harness.o work/m3/b_bnd04_signed_next_index/O2.o -o work/m3/b_bnd04_signed_next_index/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd04_signed_next_index/main_rest.o work/m3/b_bnd04_signed_next_index/harness.o work/m3/b_bnd04_signed_next_index/sroa+gvn.o -o work/m3/b_bnd04_signed_next_index/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd04_signed_next_index/main_rest.o work/m3/b_bnd04_signed_next_index/harness.o work/m3/b_bnd04_signed_next_index/O3.o -o work/m3/b_bnd04_signed_next_index/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd04_signed_next_index/main_rest.o work/m3/b_bnd04_signed_next_index/harness.o work/m3/b_bnd04_signed_next_index/sroa.o -o work/m3/b_bnd04_signed_next_index/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd04_signed_next_index/main_rest.o work/m3/b_bnd04_signed_next_index/harness.o work/m3/b_bnd04_signed_next_index/sroa+instcombine.o -o work/m3/b_bnd04_signed_next_index/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_bnd04_signed_next_index/main_rest.o work/m3/b_bnd04_signed_next_index/harness.o work/m3/b_bnd04_signed_next_index/sroa+simplifycfg.o -o work/m3/b_bnd04_signed_next_index/sroa+simplifycfg.plain
+work/m3/b_bnd04_signed_next_index/sroa+gvn.plain 4 1
+work/m3/b_bnd04_signed_next_index/O2.plain 4 1
+work/m3/b_bnd04_signed_next_index/O3.plain 4 1
+work/m3/b_bnd04_signed_next_index/sroa+gvn.plain 4 -1
+work/m3/b_bnd04_signed_next_index/O2.plain 4 -1
+work/m3/b_bnd04_signed_next_index/O3.plain 4 -1
+work/m3/b_bnd04_signed_next_index/sroa+gvn.plain 4 3
+work/m3/b_bnd04_signed_next_index/sroa.plain 4 1
+work/m3/b_bnd04_signed_next_index/O2.plain 4 3
+work/m3/b_bnd04_signed_next_index/O3.plain 4 3
+work/m3/b_bnd04_signed_next_index/sroa+gvn.plain 4 2147483647
+work/m3/b_bnd04_signed_next_index/O2.plain 4 2147483647
+work/m3/b_bnd04_signed_next_index/sroa.plain 4 -1
+work/m3/b_bnd04_signed_next_index/O3.plain 4 2147483647
+work/m3/b_bnd04_signed_next_index/sroa+instcombine.plain 4 1
+work/m3/b_bnd04_signed_next_index/sroa+simplifycfg.plain 4 1
+work/m3/b_bnd04_signed_next_index/sroa.plain 4 3
+work/m3/b_bnd04_signed_next_index/sroa+instcombine.plain 4 -1
+work/m3/b_bnd04_signed_next_index/sroa+simplifycfg.plain 4 -1
+work/m3/b_bnd04_signed_next_index/sroa.plain 4 2147483647
+work/m3/b_bnd04_signed_next_index/sroa+simplifycfg.plain 4 3
+work/m3/b_bnd04_signed_next_index/sroa+instcombine.plain 4 3
+work/m3/b_bnd04_signed_next_index/sroa+simplifycfg.plain 4 2147483647
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd04_signed_next_index/seed.ll work/m3/b_bnd04_signed_next_index/sroa.ll
+work/m3/b_bnd04_signed_next_index/sroa+instcombine.plain 4 2147483647
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd04_signed_next_index/seed.ll work/m3/b_bnd04_signed_next_index/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd04_signed_next_index/seed.ll work/m3/b_bnd04_signed_next_index/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd04_signed_next_index/seed.ll work/m3/b_bnd04_signed_next_index/O3.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd04_signed_next_index/seed.ll work/m3/b_bnd04_signed_next_index/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_bnd04_signed_next_index/seed.ll work/m3/b_bnd04_signed_next_index/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/b_nul01_deref_then_check/seed.c -o work/m3/b_nul01_deref_then_check/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/b_nul01_deref_then_check/seed.c -o work/m3/b_nul01_deref_then_check/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=dev_poll work/m3/b_nul01_deref_then_check/full.ll -o work/m3/b_nul01_deref_then_check/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul01_deref_then_check/main_rest.ll -o work/m3/b_nul01_deref_then_check/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/b_nul01_deref_then_check/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul01_deref_then_check/seed.ll -o work/m3/b_nul01_deref_then_check/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/b_nul01_deref_then_check/main_rest.o work/m3/b_nul01_deref_then_check/harness.o work/m3/b_nul01_deref_then_check/O0ref.o -o work/m3/b_nul01_deref_then_check/O0ref.plain
+work/m3/b_nul01_deref_then_check/O0ref.plain ok
+work/m3/b_nul01_deref_then_check/O0ref.plain null
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/b_nul01_deref_then_check/seed.c seeds/common/harness.c -o work/m3/b_nul01_deref_then_check/seed_san
+work/m3/b_nul01_deref_then_check/seed_san ok
+work/m3/b_nul01_deref_then_check/seed_san null
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/b_nul01_deref_then_check/seed.ll -o work/m3/b_nul01_deref_then_check/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/b_nul01_deref_then_check/seed.ll -o work/m3/b_nul01_deref_then_check/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/b_nul01_deref_then_check/seed.ll -o work/m3/b_nul01_deref_then_check/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/b_nul01_deref_then_check/seed.ll -o work/m3/b_nul01_deref_then_check/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/b_nul01_deref_then_check/seed.ll -o work/m3/b_nul01_deref_then_check/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/b_nul01_deref_then_check/seed.ll -o work/m3/b_nul01_deref_then_check/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul01_deref_then_check/sroa.ll -o work/m3/b_nul01_deref_then_check/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul01_deref_then_check/sroa+gvn.ll -o work/m3/b_nul01_deref_then_check/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul01_deref_then_check/sroa+simplifycfg.ll -o work/m3/b_nul01_deref_then_check/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul01_deref_then_check/O3.ll -o work/m3/b_nul01_deref_then_check/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul01_deref_then_check/O2.ll -o work/m3/b_nul01_deref_then_check/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul01_deref_then_check/sroa+instcombine.ll -o work/m3/b_nul01_deref_then_check/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang work/m3/b_nul01_deref_then_check/main_rest.o work/m3/b_nul01_deref_then_check/harness.o work/m3/b_nul01_deref_then_check/sroa+gvn.o -o work/m3/b_nul01_deref_then_check/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_nul01_deref_then_check/main_rest.o work/m3/b_nul01_deref_then_check/harness.o work/m3/b_nul01_deref_then_check/sroa+simplifycfg.o -o work/m3/b_nul01_deref_then_check/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_nul01_deref_then_check/main_rest.o work/m3/b_nul01_deref_then_check/harness.o work/m3/b_nul01_deref_then_check/sroa.o -o work/m3/b_nul01_deref_then_check/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_nul01_deref_then_check/main_rest.o work/m3/b_nul01_deref_then_check/harness.o work/m3/b_nul01_deref_then_check/O3.o -o work/m3/b_nul01_deref_then_check/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_nul01_deref_then_check/main_rest.o work/m3/b_nul01_deref_then_check/harness.o work/m3/b_nul01_deref_then_check/O2.o -o work/m3/b_nul01_deref_then_check/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_nul01_deref_then_check/main_rest.o work/m3/b_nul01_deref_then_check/harness.o work/m3/b_nul01_deref_then_check/sroa+instcombine.o -o work/m3/b_nul01_deref_then_check/sroa+instcombine.plain
+work/m3/b_nul01_deref_then_check/sroa+gvn.plain ok
+work/m3/b_nul01_deref_then_check/sroa.plain ok
+work/m3/b_nul01_deref_then_check/sroa+gvn.plain null
+work/m3/b_nul01_deref_then_check/sroa.plain null
+work/m3/b_nul01_deref_then_check/sroa+simplifycfg.plain ok
+work/m3/b_nul01_deref_then_check/O3.plain ok
+work/m3/b_nul01_deref_then_check/sroa+simplifycfg.plain null
+work/m3/b_nul01_deref_then_check/O2.plain ok
+work/m3/b_nul01_deref_then_check/O3.plain null
+work/m3/b_nul01_deref_then_check/O2.plain null
+work/m3/b_nul01_deref_then_check/sroa+instcombine.plain ok
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_nul01_deref_then_check/seed.ll work/m3/b_nul01_deref_then_check/sroa+simplifycfg.ll
+work/m3/b_nul01_deref_then_check/sroa+instcombine.plain null
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_nul01_deref_then_check/seed.ll work/m3/b_nul01_deref_then_check/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_nul01_deref_then_check/seed.ll work/m3/b_nul01_deref_then_check/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_nul01_deref_then_check/seed.ll work/m3/b_nul01_deref_then_check/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_nul01_deref_then_check/seed.ll work/m3/b_nul01_deref_then_check/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_nul01_deref_then_check/seed.ll work/m3/b_nul01_deref_then_check/O3.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/b_nul02_store_then_check/seed.c -o work/m3/b_nul02_store_then_check/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/b_nul02_store_then_check/seed.c -o work/m3/b_nul02_store_then_check/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=store_then_check work/m3/b_nul02_store_then_check/full.ll -o work/m3/b_nul02_store_then_check/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul02_store_then_check/main_rest.ll -o work/m3/b_nul02_store_then_check/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/b_nul02_store_then_check/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul02_store_then_check/seed.ll -o work/m3/b_nul02_store_then_check/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/b_nul02_store_then_check/main_rest.o work/m3/b_nul02_store_then_check/harness.o work/m3/b_nul02_store_then_check/O0ref.o -o work/m3/b_nul02_store_then_check/O0ref.plain
+work/m3/b_nul02_store_then_check/O0ref.plain ok
+work/m3/b_nul02_store_then_check/O0ref.plain null
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/b_nul02_store_then_check/seed.c seeds/common/harness.c -o work/m3/b_nul02_store_then_check/seed_san
+work/m3/b_nul02_store_then_check/seed_san ok
+work/m3/b_nul02_store_then_check/seed_san null
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/b_nul02_store_then_check/seed.ll -o work/m3/b_nul02_store_then_check/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/b_nul02_store_then_check/seed.ll -o work/m3/b_nul02_store_then_check/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/b_nul02_store_then_check/seed.ll -o work/m3/b_nul02_store_then_check/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/b_nul02_store_then_check/seed.ll -o work/m3/b_nul02_store_then_check/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/b_nul02_store_then_check/seed.ll -o work/m3/b_nul02_store_then_check/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/b_nul02_store_then_check/seed.ll -o work/m3/b_nul02_store_then_check/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul02_store_then_check/sroa+instcombine.ll -o work/m3/b_nul02_store_then_check/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul02_store_then_check/sroa.ll -o work/m3/b_nul02_store_then_check/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul02_store_then_check/O2.ll -o work/m3/b_nul02_store_then_check/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul02_store_then_check/O3.ll -o work/m3/b_nul02_store_then_check/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul02_store_then_check/sroa+simplifycfg.ll -o work/m3/b_nul02_store_then_check/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_nul02_store_then_check/sroa+gvn.ll -o work/m3/b_nul02_store_then_check/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang work/m3/b_nul02_store_then_check/main_rest.o work/m3/b_nul02_store_then_check/harness.o work/m3/b_nul02_store_then_check/O2.o -o work/m3/b_nul02_store_then_check/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_nul02_store_then_check/main_rest.o work/m3/b_nul02_store_then_check/harness.o work/m3/b_nul02_store_then_check/sroa+instcombine.o -o work/m3/b_nul02_store_then_check/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_nul02_store_then_check/main_rest.o work/m3/b_nul02_store_then_check/harness.o work/m3/b_nul02_store_then_check/sroa.o -o work/m3/b_nul02_store_then_check/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_nul02_store_then_check/main_rest.o work/m3/b_nul02_store_then_check/harness.o work/m3/b_nul02_store_then_check/sroa+simplifycfg.o -o work/m3/b_nul02_store_then_check/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_nul02_store_then_check/main_rest.o work/m3/b_nul02_store_then_check/harness.o work/m3/b_nul02_store_then_check/O3.o -o work/m3/b_nul02_store_then_check/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_nul02_store_then_check/main_rest.o work/m3/b_nul02_store_then_check/harness.o work/m3/b_nul02_store_then_check/sroa+gvn.o -o work/m3/b_nul02_store_then_check/sroa+gvn.plain
+work/m3/b_nul02_store_then_check/sroa.plain ok
+work/m3/b_nul02_store_then_check/O2.plain ok
+work/m3/b_nul02_store_then_check/sroa+instcombine.plain ok
+work/m3/b_nul02_store_then_check/sroa+simplifycfg.plain ok
+work/m3/b_nul02_store_then_check/sroa.plain null
+work/m3/b_nul02_store_then_check/O3.plain ok
+work/m3/b_nul02_store_then_check/sroa+instcombine.plain null
+work/m3/b_nul02_store_then_check/O2.plain null
+work/m3/b_nul02_store_then_check/sroa+simplifycfg.plain null
+work/m3/b_nul02_store_then_check/O3.plain null
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_nul02_store_then_check/seed.ll work/m3/b_nul02_store_then_check/sroa+instcombine.ll
+work/m3/b_nul02_store_then_check/sroa+gvn.plain ok
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_nul02_store_then_check/seed.ll work/m3/b_nul02_store_then_check/sroa+simplifycfg.ll
+work/m3/b_nul02_store_then_check/sroa+gvn.plain null
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_nul02_store_then_check/seed.ll work/m3/b_nul02_store_then_check/O3.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_nul02_store_then_check/seed.ll work/m3/b_nul02_store_then_check/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_nul02_store_then_check/seed.ll work/m3/b_nul02_store_then_check/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_nul02_store_then_check/seed.ll work/m3/b_nul02_store_then_check/sroa+gvn.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/b_ovf01_sadd_check_after/seed.c -o work/m3/b_ovf01_sadd_check_after/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/b_ovf01_sadd_check_after/seed.c -o work/m3/b_ovf01_sadd_check_after/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=add_after work/m3/b_ovf01_sadd_check_after/full.ll -o work/m3/b_ovf01_sadd_check_after/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf01_sadd_check_after/main_rest.ll -o work/m3/b_ovf01_sadd_check_after/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/b_ovf01_sadd_check_after/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf01_sadd_check_after/seed.ll -o work/m3/b_ovf01_sadd_check_after/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf01_sadd_check_after/main_rest.o work/m3/b_ovf01_sadd_check_after/harness.o work/m3/b_ovf01_sadd_check_after/O0ref.o -o work/m3/b_ovf01_sadd_check_after/O0ref.plain
+work/m3/b_ovf01_sadd_check_after/O0ref.plain 1 2
+work/m3/b_ovf01_sadd_check_after/O0ref.plain 2147483647 1
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/b_ovf01_sadd_check_after/seed.c seeds/common/harness.c -o work/m3/b_ovf01_sadd_check_after/seed_san
+work/m3/b_ovf01_sadd_check_after/seed_san 1 2
+work/m3/b_ovf01_sadd_check_after/seed_san 2147483647 1
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/b_ovf01_sadd_check_after/seed.ll -o work/m3/b_ovf01_sadd_check_after/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/b_ovf01_sadd_check_after/seed.ll -o work/m3/b_ovf01_sadd_check_after/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/b_ovf01_sadd_check_after/seed.ll -o work/m3/b_ovf01_sadd_check_after/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/b_ovf01_sadd_check_after/seed.ll -o work/m3/b_ovf01_sadd_check_after/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/b_ovf01_sadd_check_after/seed.ll -o work/m3/b_ovf01_sadd_check_after/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/b_ovf01_sadd_check_after/seed.ll -o work/m3/b_ovf01_sadd_check_after/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf01_sadd_check_after/sroa+gvn.ll -o work/m3/b_ovf01_sadd_check_after/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf01_sadd_check_after/O3.ll -o work/m3/b_ovf01_sadd_check_after/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf01_sadd_check_after/sroa+simplifycfg.ll -o work/m3/b_ovf01_sadd_check_after/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf01_sadd_check_after/sroa+instcombine.ll -o work/m3/b_ovf01_sadd_check_after/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf01_sadd_check_after/O2.ll -o work/m3/b_ovf01_sadd_check_after/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf01_sadd_check_after/sroa.ll -o work/m3/b_ovf01_sadd_check_after/sroa.o
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf01_sadd_check_after/main_rest.o work/m3/b_ovf01_sadd_check_after/harness.o work/m3/b_ovf01_sadd_check_after/O3.o -o work/m3/b_ovf01_sadd_check_after/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf01_sadd_check_after/main_rest.o work/m3/b_ovf01_sadd_check_after/harness.o work/m3/b_ovf01_sadd_check_after/sroa+instcombine.o -o work/m3/b_ovf01_sadd_check_after/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf01_sadd_check_after/main_rest.o work/m3/b_ovf01_sadd_check_after/harness.o work/m3/b_ovf01_sadd_check_after/sroa+gvn.o -o work/m3/b_ovf01_sadd_check_after/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf01_sadd_check_after/main_rest.o work/m3/b_ovf01_sadd_check_after/harness.o work/m3/b_ovf01_sadd_check_after/sroa+simplifycfg.o -o work/m3/b_ovf01_sadd_check_after/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf01_sadd_check_after/main_rest.o work/m3/b_ovf01_sadd_check_after/harness.o work/m3/b_ovf01_sadd_check_after/sroa.o -o work/m3/b_ovf01_sadd_check_after/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf01_sadd_check_after/main_rest.o work/m3/b_ovf01_sadd_check_after/harness.o work/m3/b_ovf01_sadd_check_after/O2.o -o work/m3/b_ovf01_sadd_check_after/O2.plain
+work/m3/b_ovf01_sadd_check_after/sroa+instcombine.plain 1 2
+work/m3/b_ovf01_sadd_check_after/O3.plain 1 2
+work/m3/b_ovf01_sadd_check_after/sroa+simplifycfg.plain 1 2
+work/m3/b_ovf01_sadd_check_after/O3.plain 2147483647 1
+work/m3/b_ovf01_sadd_check_after/sroa+instcombine.plain 2147483647 1
+work/m3/b_ovf01_sadd_check_after/sroa+simplifycfg.plain 2147483647 1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ovf01_sadd_check_after/seed.ll work/m3/b_ovf01_sadd_check_after/O3.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ovf01_sadd_check_after/seed.ll work/m3/b_ovf01_sadd_check_after/sroa+instcombine.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ovf01_sadd_check_after/seed.ll work/m3/b_ovf01_sadd_check_after/sroa+simplifycfg.ll
+work/m3/b_ovf01_sadd_check_after/sroa+gvn.plain 1 2
+work/m3/b_ovf01_sadd_check_after/O2.plain 1 2
+work/m3/b_ovf01_sadd_check_after/sroa.plain 1 2
+work/m3/b_ovf01_sadd_check_after/sroa+gvn.plain 2147483647 1
+work/m3/b_ovf01_sadd_check_after/O2.plain 2147483647 1
+work/m3/b_ovf01_sadd_check_after/sroa.plain 2147483647 1
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ovf01_sadd_check_after/seed.ll work/m3/b_ovf01_sadd_check_after/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ovf01_sadd_check_after/seed.ll work/m3/b_ovf01_sadd_check_after/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ovf01_sadd_check_after/seed.ll work/m3/b_ovf01_sadd_check_after/sroa.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/b_ovf02_inc_wrap/seed.c -o work/m3/b_ovf02_inc_wrap/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/b_ovf02_inc_wrap/seed.c -o work/m3/b_ovf02_inc_wrap/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=inc_checked work/m3/b_ovf02_inc_wrap/full.ll -o work/m3/b_ovf02_inc_wrap/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf02_inc_wrap/main_rest.ll -o work/m3/b_ovf02_inc_wrap/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/b_ovf02_inc_wrap/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf02_inc_wrap/seed.ll -o work/m3/b_ovf02_inc_wrap/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf02_inc_wrap/main_rest.o work/m3/b_ovf02_inc_wrap/harness.o work/m3/b_ovf02_inc_wrap/O0ref.o -o work/m3/b_ovf02_inc_wrap/O0ref.plain
+work/m3/b_ovf02_inc_wrap/O0ref.plain 5
+work/m3/b_ovf02_inc_wrap/O0ref.plain 2147483647
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/b_ovf02_inc_wrap/seed.c seeds/common/harness.c -o work/m3/b_ovf02_inc_wrap/seed_san
+work/m3/b_ovf02_inc_wrap/seed_san 5
+work/m3/b_ovf02_inc_wrap/seed_san 2147483647
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/b_ovf02_inc_wrap/seed.ll -o work/m3/b_ovf02_inc_wrap/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/b_ovf02_inc_wrap/seed.ll -o work/m3/b_ovf02_inc_wrap/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/b_ovf02_inc_wrap/seed.ll -o work/m3/b_ovf02_inc_wrap/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/b_ovf02_inc_wrap/seed.ll -o work/m3/b_ovf02_inc_wrap/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/b_ovf02_inc_wrap/seed.ll -o work/m3/b_ovf02_inc_wrap/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/b_ovf02_inc_wrap/seed.ll -o work/m3/b_ovf02_inc_wrap/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf02_inc_wrap/O3.ll -o work/m3/b_ovf02_inc_wrap/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf02_inc_wrap/O2.ll -o work/m3/b_ovf02_inc_wrap/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf02_inc_wrap/sroa+gvn.ll -o work/m3/b_ovf02_inc_wrap/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf02_inc_wrap/sroa+simplifycfg.ll -o work/m3/b_ovf02_inc_wrap/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf02_inc_wrap/sroa.ll -o work/m3/b_ovf02_inc_wrap/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ovf02_inc_wrap/sroa+instcombine.ll -o work/m3/b_ovf02_inc_wrap/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf02_inc_wrap/main_rest.o work/m3/b_ovf02_inc_wrap/harness.o work/m3/b_ovf02_inc_wrap/O2.o -o work/m3/b_ovf02_inc_wrap/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf02_inc_wrap/main_rest.o work/m3/b_ovf02_inc_wrap/harness.o work/m3/b_ovf02_inc_wrap/O3.o -o work/m3/b_ovf02_inc_wrap/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf02_inc_wrap/main_rest.o work/m3/b_ovf02_inc_wrap/harness.o work/m3/b_ovf02_inc_wrap/sroa+simplifycfg.o -o work/m3/b_ovf02_inc_wrap/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf02_inc_wrap/main_rest.o work/m3/b_ovf02_inc_wrap/harness.o work/m3/b_ovf02_inc_wrap/sroa+gvn.o -o work/m3/b_ovf02_inc_wrap/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf02_inc_wrap/main_rest.o work/m3/b_ovf02_inc_wrap/harness.o work/m3/b_ovf02_inc_wrap/sroa.o -o work/m3/b_ovf02_inc_wrap/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ovf02_inc_wrap/main_rest.o work/m3/b_ovf02_inc_wrap/harness.o work/m3/b_ovf02_inc_wrap/sroa+instcombine.o -o work/m3/b_ovf02_inc_wrap/sroa+instcombine.plain
+work/m3/b_ovf02_inc_wrap/sroa+gvn.plain 5
+work/m3/b_ovf02_inc_wrap/O3.plain 5
+work/m3/b_ovf02_inc_wrap/O2.plain 5
+work/m3/b_ovf02_inc_wrap/sroa+simplifycfg.plain 5
+work/m3/b_ovf02_inc_wrap/O2.plain 2147483647
+work/m3/b_ovf02_inc_wrap/O3.plain 2147483647
+work/m3/b_ovf02_inc_wrap/sroa+gvn.plain 2147483647
+work/m3/b_ovf02_inc_wrap/sroa+simplifycfg.plain 2147483647
+work/m3/b_ovf02_inc_wrap/sroa.plain 5
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ovf02_inc_wrap/seed.ll work/m3/b_ovf02_inc_wrap/O3.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ovf02_inc_wrap/seed.ll work/m3/b_ovf02_inc_wrap/sroa+simplifycfg.ll
+work/m3/b_ovf02_inc_wrap/sroa+instcombine.plain 5
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ovf02_inc_wrap/seed.ll work/m3/b_ovf02_inc_wrap/O2.ll
+work/m3/b_ovf02_inc_wrap/sroa.plain 2147483647
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ovf02_inc_wrap/seed.ll work/m3/b_ovf02_inc_wrap/sroa+gvn.ll
+work/m3/b_ovf02_inc_wrap/sroa+instcombine.plain 2147483647
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ovf02_inc_wrap/seed.ll work/m3/b_ovf02_inc_wrap/sroa.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ovf02_inc_wrap/seed.ll work/m3/b_ovf02_inc_wrap/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/b_ptr01_wrap_check/seed.c -o work/m3/b_ptr01_wrap_check/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/b_ptr01_wrap_check/seed.c -o work/m3/b_ptr01_wrap_check/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=range_ok work/m3/b_ptr01_wrap_check/full.ll -o work/m3/b_ptr01_wrap_check/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr01_wrap_check/main_rest.ll -o work/m3/b_ptr01_wrap_check/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/b_ptr01_wrap_check/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr01_wrap_check/seed.ll -o work/m3/b_ptr01_wrap_check/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr01_wrap_check/main_rest.o work/m3/b_ptr01_wrap_check/harness.o work/m3/b_ptr01_wrap_check/O0ref.o -o work/m3/b_ptr01_wrap_check/O0ref.plain
+work/m3/b_ptr01_wrap_check/O0ref.plain 8
+work/m3/b_ptr01_wrap_check/O0ref.plain 0xffffffffffffffff
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/b_ptr01_wrap_check/seed.c seeds/common/harness.c -o work/m3/b_ptr01_wrap_check/seed_san
+work/m3/b_ptr01_wrap_check/seed_san 8
+work/m3/b_ptr01_wrap_check/seed_san 0xffffffffffffffff
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/b_ptr01_wrap_check/seed.ll -o work/m3/b_ptr01_wrap_check/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/b_ptr01_wrap_check/seed.ll -o work/m3/b_ptr01_wrap_check/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/b_ptr01_wrap_check/seed.ll -o work/m3/b_ptr01_wrap_check/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/b_ptr01_wrap_check/seed.ll -o work/m3/b_ptr01_wrap_check/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/b_ptr01_wrap_check/seed.ll -o work/m3/b_ptr01_wrap_check/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/b_ptr01_wrap_check/seed.ll -o work/m3/b_ptr01_wrap_check/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr01_wrap_check/sroa+simplifycfg.ll -o work/m3/b_ptr01_wrap_check/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr01_wrap_check/sroa.ll -o work/m3/b_ptr01_wrap_check/sroa.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr01_wrap_check/sroa+instcombine.ll -o work/m3/b_ptr01_wrap_check/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr01_wrap_check/O2.ll -o work/m3/b_ptr01_wrap_check/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr01_wrap_check/O3.ll -o work/m3/b_ptr01_wrap_check/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr01_wrap_check/sroa+gvn.ll -o work/m3/b_ptr01_wrap_check/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr01_wrap_check/main_rest.o work/m3/b_ptr01_wrap_check/harness.o work/m3/b_ptr01_wrap_check/O2.o -o work/m3/b_ptr01_wrap_check/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr01_wrap_check/main_rest.o work/m3/b_ptr01_wrap_check/harness.o work/m3/b_ptr01_wrap_check/O3.o -o work/m3/b_ptr01_wrap_check/O3.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr01_wrap_check/main_rest.o work/m3/b_ptr01_wrap_check/harness.o work/m3/b_ptr01_wrap_check/sroa+gvn.o -o work/m3/b_ptr01_wrap_check/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr01_wrap_check/main_rest.o work/m3/b_ptr01_wrap_check/harness.o work/m3/b_ptr01_wrap_check/sroa.o -o work/m3/b_ptr01_wrap_check/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr01_wrap_check/main_rest.o work/m3/b_ptr01_wrap_check/harness.o work/m3/b_ptr01_wrap_check/sroa+instcombine.o -o work/m3/b_ptr01_wrap_check/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr01_wrap_check/main_rest.o work/m3/b_ptr01_wrap_check/harness.o work/m3/b_ptr01_wrap_check/sroa+simplifycfg.o -o work/m3/b_ptr01_wrap_check/sroa+simplifycfg.plain
+work/m3/b_ptr01_wrap_check/sroa.plain 8
+work/m3/b_ptr01_wrap_check/sroa+gvn.plain 8
+work/m3/b_ptr01_wrap_check/O3.plain 8
+work/m3/b_ptr01_wrap_check/O2.plain 8
+work/m3/b_ptr01_wrap_check/sroa.plain 0xffffffffffffffff
+work/m3/b_ptr01_wrap_check/sroa+instcombine.plain 8
+work/m3/b_ptr01_wrap_check/sroa+gvn.plain 0xffffffffffffffff
+work/m3/b_ptr01_wrap_check/O3.plain 0xffffffffffffffff
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ptr01_wrap_check/seed.ll work/m3/b_ptr01_wrap_check/sroa.ll
+work/m3/b_ptr01_wrap_check/O2.plain 0xffffffffffffffff
+work/m3/b_ptr01_wrap_check/sroa+instcombine.plain 0xffffffffffffffff
+work/m3/b_ptr01_wrap_check/sroa+simplifycfg.plain 8
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ptr01_wrap_check/seed.ll work/m3/b_ptr01_wrap_check/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ptr01_wrap_check/seed.ll work/m3/b_ptr01_wrap_check/O3.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ptr01_wrap_check/seed.ll work/m3/b_ptr01_wrap_check/O2.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ptr01_wrap_check/seed.ll work/m3/b_ptr01_wrap_check/sroa+instcombine.ll
+work/m3/b_ptr01_wrap_check/sroa+simplifycfg.plain 0xffffffffffffffff
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ptr01_wrap_check/seed.ll work/m3/b_ptr01_wrap_check/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm seeds/b_ptr02_wrap_or_end/seed.c -o work/m3/b_ptr02_wrap_or_end/seed.ll
+/usr/lib/llvm-23/bin/clang -O1 -Xclang -disable-llvm-passes -Xclang -disable-lifetime-markers -fno-strict-aliasing -S -emit-llvm -DSEED_MAIN seeds/b_ptr02_wrap_or_end/seed.c -o work/m3/b_ptr02_wrap_or_end/full.ll
+/usr/lib/llvm-23/bin/llvm-extract --delete -S --func=copy_region work/m3/b_ptr02_wrap_or_end/full.ll -o work/m3/b_ptr02_wrap_or_end/main_rest.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr02_wrap_or_end/main_rest.ll -o work/m3/b_ptr02_wrap_or_end/main_rest.o
+/usr/lib/llvm-23/bin/clang -O0 -c seeds/common/harness.c -o work/m3/b_ptr02_wrap_or_end/harness.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr02_wrap_or_end/seed.ll -o work/m3/b_ptr02_wrap_or_end/O0ref.o
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr02_wrap_or_end/main_rest.o work/m3/b_ptr02_wrap_or_end/harness.o work/m3/b_ptr02_wrap_or_end/O0ref.o -o work/m3/b_ptr02_wrap_or_end/O0ref.plain
+work/m3/b_ptr02_wrap_or_end/O0ref.plain 0 8
+work/m3/b_ptr02_wrap_or_end/O0ref.plain 8 8
+work/m3/b_ptr02_wrap_or_end/O0ref.plain 0 0xffffffffffffffff
+work/m3/b_ptr02_wrap_or_end/O0ref.plain 0 17
+/usr/lib/llvm-23/bin/clang -O0 -g -fsanitize=address,undefined -DSEED_MAIN seeds/b_ptr02_wrap_or_end/seed.c seeds/common/harness.c -o work/m3/b_ptr02_wrap_or_end/seed_san
+work/m3/b_ptr02_wrap_or_end/seed_san 0 8
+work/m3/b_ptr02_wrap_or_end/seed_san 8 8
+work/m3/b_ptr02_wrap_or_end/seed_san 0 0xffffffffffffffff
+work/m3/b_ptr02_wrap_or_end/seed_san 0 17
+/usr/lib/llvm-23/bin/opt -S -passes=sroa work/m3/b_ptr02_wrap_or_end/seed.ll -o work/m3/b_ptr02_wrap_or_end/sroa.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,instcombine work/m3/b_ptr02_wrap_or_end/seed.ll -o work/m3/b_ptr02_wrap_or_end/sroa+instcombine.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,simplifycfg work/m3/b_ptr02_wrap_or_end/seed.ll -o work/m3/b_ptr02_wrap_or_end/sroa+simplifycfg.ll
+/usr/lib/llvm-23/bin/opt -S -passes=sroa,gvn work/m3/b_ptr02_wrap_or_end/seed.ll -o work/m3/b_ptr02_wrap_or_end/sroa+gvn.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O2>' work/m3/b_ptr02_wrap_or_end/seed.ll -o work/m3/b_ptr02_wrap_or_end/O2.ll
+/usr/lib/llvm-23/bin/opt -S '-passes=default<O3>' work/m3/b_ptr02_wrap_or_end/seed.ll -o work/m3/b_ptr02_wrap_or_end/O3.ll
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr02_wrap_or_end/sroa+simplifycfg.ll -o work/m3/b_ptr02_wrap_or_end/sroa+simplifycfg.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr02_wrap_or_end/sroa+gvn.ll -o work/m3/b_ptr02_wrap_or_end/sroa+gvn.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr02_wrap_or_end/sroa+instcombine.ll -o work/m3/b_ptr02_wrap_or_end/sroa+instcombine.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr02_wrap_or_end/O2.ll -o work/m3/b_ptr02_wrap_or_end/O2.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr02_wrap_or_end/O3.ll -o work/m3/b_ptr02_wrap_or_end/O3.o
+/usr/lib/llvm-23/bin/clang -O0 -c work/m3/b_ptr02_wrap_or_end/sroa.ll -o work/m3/b_ptr02_wrap_or_end/sroa.o
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr02_wrap_or_end/main_rest.o work/m3/b_ptr02_wrap_or_end/harness.o work/m3/b_ptr02_wrap_or_end/sroa+simplifycfg.o -o work/m3/b_ptr02_wrap_or_end/sroa+simplifycfg.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr02_wrap_or_end/main_rest.o work/m3/b_ptr02_wrap_or_end/harness.o work/m3/b_ptr02_wrap_or_end/sroa.o -o work/m3/b_ptr02_wrap_or_end/sroa.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr02_wrap_or_end/main_rest.o work/m3/b_ptr02_wrap_or_end/harness.o work/m3/b_ptr02_wrap_or_end/O2.o -o work/m3/b_ptr02_wrap_or_end/O2.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr02_wrap_or_end/main_rest.o work/m3/b_ptr02_wrap_or_end/harness.o work/m3/b_ptr02_wrap_or_end/sroa+gvn.o -o work/m3/b_ptr02_wrap_or_end/sroa+gvn.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr02_wrap_or_end/main_rest.o work/m3/b_ptr02_wrap_or_end/harness.o work/m3/b_ptr02_wrap_or_end/sroa+instcombine.o -o work/m3/b_ptr02_wrap_or_end/sroa+instcombine.plain
+/usr/lib/llvm-23/bin/clang work/m3/b_ptr02_wrap_or_end/main_rest.o work/m3/b_ptr02_wrap_or_end/harness.o work/m3/b_ptr02_wrap_or_end/O3.o -o work/m3/b_ptr02_wrap_or_end/O3.plain
+work/m3/b_ptr02_wrap_or_end/O2.plain 0 8
+work/m3/b_ptr02_wrap_or_end/sroa+simplifycfg.plain 0 8
+work/m3/b_ptr02_wrap_or_end/sroa+gvn.plain 0 8
+work/m3/b_ptr02_wrap_or_end/sroa.plain 0 8
+work/m3/b_ptr02_wrap_or_end/sroa+instcombine.plain 0 8
+work/m3/b_ptr02_wrap_or_end/sroa+simplifycfg.plain 8 8
+work/m3/b_ptr02_wrap_or_end/sroa+gvn.plain 8 8
+work/m3/b_ptr02_wrap_or_end/sroa.plain 8 8
+work/m3/b_ptr02_wrap_or_end/sroa+instcombine.plain 8 8
+work/m3/b_ptr02_wrap_or_end/O2.plain 8 8
+work/m3/b_ptr02_wrap_or_end/O3.plain 0 8
+work/m3/b_ptr02_wrap_or_end/sroa+simplifycfg.plain 0 0xffffffffffffffff
+work/m3/b_ptr02_wrap_or_end/sroa+gvn.plain 0 0xffffffffffffffff
+work/m3/b_ptr02_wrap_or_end/sroa.plain 0 0xffffffffffffffff
+work/m3/b_ptr02_wrap_or_end/O2.plain 0 0xffffffffffffffff
+work/m3/b_ptr02_wrap_or_end/sroa+instcombine.plain 0 0xffffffffffffffff
+work/m3/b_ptr02_wrap_or_end/O3.plain 8 8
+work/m3/b_ptr02_wrap_or_end/sroa+simplifycfg.plain 0 17
+work/m3/b_ptr02_wrap_or_end/sroa+gvn.plain 0 17
+work/m3/b_ptr02_wrap_or_end/sroa.plain 0 17
+work/m3/b_ptr02_wrap_or_end/O3.plain 0 0xffffffffffffffff
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ptr02_wrap_or_end/seed.ll work/m3/b_ptr02_wrap_or_end/sroa+simplifycfg.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ptr02_wrap_or_end/seed.ll work/m3/b_ptr02_wrap_or_end/sroa+gvn.ll
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ptr02_wrap_or_end/seed.ll work/m3/b_ptr02_wrap_or_end/sroa.ll
+work/m3/b_ptr02_wrap_or_end/O2.plain 0 17
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ptr02_wrap_or_end/seed.ll work/m3/b_ptr02_wrap_or_end/O2.ll
+work/m3/b_ptr02_wrap_or_end/sroa+instcombine.plain 0 17
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ptr02_wrap_or_end/seed.ll work/m3/b_ptr02_wrap_or_end/sroa+instcombine.ll
+work/m3/b_ptr02_wrap_or_end/O3.plain 0 17
+/opt/alive2/build/alive-tv --smt-to=10000 work/m3/b_ptr02_wrap_or_end/seed.ll work/m3/b_ptr02_wrap_or_end/O3.ll

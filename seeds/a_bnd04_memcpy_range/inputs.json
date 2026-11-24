@@ -63,6 +63,42 @@
       "expect_reports": [],
       "expect_guard_output": true,
       "note": "off+len wraps; a naive off+len>cap check would pass it"
+    },
+    {
+      "args": [
+        "16",
+        "16",
+        "0"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false,
+      "boundary": true,
+      "note": "off == cap, len 0"
+    },
+    {
+      "args": [
+        "16",
+        "0",
+        "17"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true,
+      "boundary": true,
+      "note": "len == cap + 1"
+    },
+    {
+      "args": [
+        "0",
+        "0",
+        "0"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false,
+      "boundary": true,
+      "note": "zero capacity"
     }
   ]
 }

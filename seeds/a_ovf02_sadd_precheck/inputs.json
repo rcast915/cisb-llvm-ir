@@ -48,6 +48,50 @@
       "guard": "trip",
       "expect_reports": [],
       "expect_guard_output": true
+    },
+    {
+      "args": [
+        "-2147483647",
+        "-1"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false,
+      "boundary": true,
+      "note": "sum == INT_MIN exactly"
+    },
+    {
+      "args": [
+        "0",
+        "2147483647"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false,
+      "boundary": true,
+      "note": "sum == INT_MAX"
+    },
+    {
+      "args": [
+        "1",
+        "2147483647"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true,
+      "boundary": true,
+      "note": "swapped positive overflow"
+    },
+    {
+      "args": [
+        "-2147483648",
+        "0"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false,
+      "boundary": true,
+      "note": "INT_MIN + 0"
     }
   ]
 }
