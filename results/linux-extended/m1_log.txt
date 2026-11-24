@@ -1,0 +1,112 @@
+date: 2026-11-24T11:02:51Z
+host: Linux x86_64 Ubuntu 24.04.5 LTS (Docker on Windows 11)
+clang: /usr/lib/llvm-23/bin/clang | Ubuntu clang version 23.1.6 (++20261116013850+5b10d2d74929-1~exp1~20261116133903.98)
+opt: /usr/lib/llvm-23/bin/opt | Ubuntu LLVM version 23.1.6
+alive-tv: /opt/alive2/build/alive-tv | built from: b4e43ee6 remove Os and Oz pipelines (#1309);f7eee11c PassPlugin.h moved upstream (#1265);913e1556 Add missing dependency to docker file (#1219);5581ba7f Handle padding in `FpUnaryOpVerticalZip::toSMT` (#1218);z3 5.3.2 (pip z3-solver);
+z3: Z3 version 5.3.2 - 64 bit
+python: Python 3.12.3
+triple: x86_64-pc-linux-gnu
+===== alive-tv good.ll (exit 0) =====
+
+----------------------------------------
+define i32 @src(i32 %x) {
+#0:
+  %r = mul i32 %x, 2
+  ret i32 %r
+}
+=>
+define i32 @tgt(i32 %x) {
+#0:
+  %r = shl i32 %x, 1
+  ret i32 %r
+}
+Transformation seems to be correct!
+===== alive-tv bad.ll (exit 0) =====
+
+----------------------------------------
+define i1 @src(i32 %x) {
+#0:
+  %a = add i32 %x, 1
+  %c = icmp sgt i32 %a, %x
+  ret i1 %c
+}
+=>
+define i1 @tgt(i32 %x) {
+#0:
+  ret i1 1
+}
+Transformation doesn't verify!
+
+ERROR: Value mismatch
+
+Example:
+i32 %x = #x7fffffff (2147483647)
+
+Source:
+i32 %a = #x80000000 (2147483648, -2147483648)
+i1 %c = #x0 (0)
+
+Target:
+Source value: #x0 (0)
+Target value: #x1 (1)
+===== alive-tv ub_legal.ll (exit 0) =====
+
+----------------------------------------
+define i1 @src(i32 %x) {
+#0:
+  %a = add nsw i32 %x, 1
+  %c = icmp sgt i32 %a, %x
+  ret i1 %c
+}
+=>
+define i1 @tgt(i32 %x) {
+#0:
+  ret i1 1
+}
+Transformation seems to be correct!
+===== opt -passes=instcombine ub_legal src =====
+; ModuleID = '<stdin>'
+source_filename = "<stdin>"
+
+define i1 @src(i32 %x) {
+  ret i1 true
+}
+===== alive-tv roundtrip before.ll after.ll (exit 0) =====
+=>
+define i32 @get(ptr noundef %#0, i32 noundef %#1, i32 noundef %#2) {
+#3:
+  %.not = icmp ult i32 noundef %#2, noundef %#1
+  br i1 %.not, label %#5, label %#4
+
+#4:
+  br label %#6
+
+#5:
+  %#7 = zext i32 noundef %#2 to i64
+  %#8 = gep inbounds nuw ptr noundef %#0, 4 x i64 %#7
+  %#9 = load i32, ptr %#8, align 4
+  br label %#6
+
+#6:
+  %.0 = phi i32 [ 4294967295, %#4 ], [ %#9, %#5 ]
+  ret i32 %.0
+}
+Transformation seems to be correct!
+
+Summary:
+  1 correct transformations
+  0 incorrect transformations
+  0 failed-to-prove transformations
+  0 Alive2 errors
+M1: PASS
+validate/m1/run_sanitizers.sh: line 11: otool: command not found
+binary links: 
+===== san_smoke clean (exit 0) =====
+mode=clean y=2
+===== san_smoke asan (exit 1) =====
+==82==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x7c0e145e0020 at pc 0x5589be819969 bp 0x7ffde94b2680 sp 0x7ffde94b2678
+SUMMARY: AddressSanitizer: heap-buffer-overflow san_smoke.c:10:12 in main
+===== san_smoke ubsan (exit 1) =====
+san_smoke.c:12:22: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior san_smoke.c:12:22 
+SANITIZERS: PASS

@@ -1,0 +1,8 @@
+date: 2026-11-24T10:41:08Z
+host: Linux x86_64 Ubuntu 24.04.5 LTS (Docker on Windows 11)
+clang: /usr/lib/llvm-23/bin/clang | Ubuntu clang version 23.1.6 (++20261116013850+5b10d2d74929-1~exp1~20261116133903.98)
+opt: /usr/lib/llvm-23/bin/opt | Ubuntu LLVM version 23.1.6
+alive-tv: /opt/alive2/build/alive-tv | built from: b4e43ee6 remove Os and Oz pipelines (#1309);f7eee11c PassPlugin.h moved upstream (#1265);913e1556 Add missing dependency to docker file (#1219);5581ba7f Handle padding in `FpUnaryOpVerticalZip::toSMT` (#1218);z3 5.3.2 (pip z3-solver);
+z3: Z3 version 5.3.2 - 64 bit
+python: Python 3.12.3
+triple: x86_64-pc-linux-gnu

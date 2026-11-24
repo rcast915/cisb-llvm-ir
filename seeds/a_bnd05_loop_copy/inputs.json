@@ -57,6 +57,50 @@
       "guard": "trip",
       "expect_reports": [],
       "expect_guard_output": true
+    },
+    {
+      "args": [
+        "8",
+        "8"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false,
+      "boundary": true,
+      "note": "n == Alive2 unroll bound"
+    },
+    {
+      "args": [
+        "8",
+        "9"
+      ],
+      "guard": "trip",
+      "expect_reports": [],
+      "expect_guard_output": true,
+      "boundary": true,
+      "note": "trip one past unroll bound"
+    },
+    {
+      "args": [
+        "12",
+        "12"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false,
+      "boundary": true,
+      "note": "beyond unroll bound: differential only"
+    },
+    {
+      "args": [
+        "0",
+        "0"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false,
+      "boundary": true,
+      "note": "empty"
     }
   ]
 }

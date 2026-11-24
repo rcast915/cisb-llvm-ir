@@ -48,6 +48,27 @@
       "guard": "trip",
       "expect_reports": [],
       "expect_guard_output": true
+    },
+    {
+      "args": [
+        "0",
+        "0"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false,
+      "boundary": true
+    },
+    {
+      "args": [
+        "0xffffffffffffffff",
+        "0xffffffffffffffff"
+      ],
+      "guard": "pass",
+      "expect_reports": [],
+      "expect_guard_output": false,
+      "boundary": true,
+      "note": "SIZE_MAX - SIZE_MAX"
     }
   ]
 }
