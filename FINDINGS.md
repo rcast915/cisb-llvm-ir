@@ -174,17 +174,3 @@ table above is the second platform for comparison.
      Push it or cite `6fca16b`.
   3. "SIZE_MAX / sz ... (7 UNKNOWN rows)": 6 are `a_ovf03`, 1 is `a_ovf06` (see Task 3).
   4. Report timeline dates (Nov 8–20) have passed.
-
-## Suggested lines for the final report
-
-* *Reproducibility.* "We reproduced the full pipeline in a Linux Docker container (Ubuntu 24.04, LLVM
-  23.1.6, Alive2 v21.0 with the same backports, Z3 5.3.2, x86-64). 193/198 baseline rows and 201/210 mutant
-  rows matched the macOS run exactly; every difference was an SMT timeout, and no guard, divergence or
-  candidate decision changed."
-* *Validator limits.* "Alive2 v21 cannot parse attributes inferred at -O2/-O3 and LLVM 23's `ptrtoaddr`.
-  Stripping caller-facing attributes resolved all 22 Arm B UNKNOWN candidates to valid refinements. One
-  apparent counterexample (a_nul03 at -O2/-O3) is an artefact of inlining, since Alive2 rejects the
-  inlining step alone."
-* *Coverage.* "Five pointer-wrap seeds and 54 new inputs (32 boundary values on existing seeds) were added. UB-free rewrites of the wrap
-  checks keep their guards under every pipeline, while the UB-dependent forms are removed or rewritten; for
-  the signed-offset form the rewrite makes the optimized build safer than -O0."
