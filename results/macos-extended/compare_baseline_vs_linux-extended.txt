@@ -1,0 +1,11 @@
+rows: 228 vs 228; only in A: 0; only in B: 0
+  a_bnd08_matrix/sroa+instcombine | alive2_verdict: 'CORRECT' -> 'UNKNOWN' | secs 0.81 -> 10.27
+  a_nul04_list_walk/sroa+simplifycfg | alive2_verdict: 'CORRECT' -> 'UNKNOWN' | secs 11.10 -> 14.29
+  a_ovf07_signed_len/sroa+simplifycfg | alive2_verdict: 'CORRECT' -> 'UNKNOWN' | secs 0.08 -> 10.56
+  b_ptr02_wrap_or_end/sroa+instcombine | alive2_verdict: 'CORRECT' -> 'UNKNOWN'; classification: 'LEGAL_UB' -> 'UNKNOWN:smt-timeout' | secs 5.49 -> 17.50
+  b_ptr02_wrap_or_end/sroa+simplifycfg | alive2_verdict: 'CORRECT' -> 'UNKNOWN' | secs 0.41 -> 11.55
+  b_ptr04_wrap_signed_off/O2 | divergent_inputs: '1' -> '0'; candidate: 'True' -> 'False'; classification: 'UNKNOWN:unsupported-attribute:nofree' -> '-' | secs 0.02 -> 0.04
+  b_ptr04_wrap_signed_off/O3 | divergent_inputs: '1' -> '0'; candidate: 'True' -> 'False'; classification: 'UNKNOWN:unsupported-attribute:nofree' -> '-' | secs 0.02 -> 0.05
+  b_ptr04_wrap_signed_off/sroa+instcombine | divergent_inputs: '1' -> '0'; candidate: 'True' -> 'False'; classification: 'LEGAL_UB' -> '-' | secs 0.33 -> 1.24
+  b_ptr05_wrap_int_len/sroa+instcombine | alive2_verdict: 'CORRECT' -> 'UNKNOWN' | secs 15.45 -> 17.19
+identical on guard_ids_after, removed_ids, weakened_ids, divergent_inputs, candidate, alive2_verdict, classification: 219

@@ -24,6 +24,8 @@ have_alive=$(brew list --versions alive2 | awk '{print $2}')
 {
   echo "date: $(date -u +%FT%TZ)"
   echo "host: $(uname -sm) $(sw_vers -productVersion)"
+  echo "chip: $(sysctl -n machdep.cpu.brand_string) ($(sysctl -n hw.ncpu) cores, $(( $(sysctl -n hw.memsize) / 1073741824 )) GB)"
+  echo "xcode: $(xcodebuild -version 2>/dev/null | tr '\n' ' ' | xargs)"
   echo "clang: $(realpath "$CLANG") | $("$CLANG" --version | head -1)"
   echo "opt: $(realpath "$OPT") | $("$OPT" --version | grep -m1 version | xargs)"
   echo "alive-tv: $(realpath "$ALIVE_TV") | brew alive2 $have_alive | $("$ALIVE_TV" --version | head -1 | xargs) (banner from build headers)"

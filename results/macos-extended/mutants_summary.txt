@@ -1,0 +1,36 @@
+
+=== Arm A mutants ===
+generated 32; accepted 23; rejected: dynamic-ub=9
+by operator (generated/accepted): pred_flip=22/16, const_pm1=10/7
+by class (generated/accepted): bounds=17/10, overflow=15/13, null=0/0
+pipeline rows: 138
+pipeline           rm  wk  div div_ub div_noub cand  alive2
+sroa                0   0    0      0        0    0  CORRECT=22, UNKNOWN:smt-timeout=1
+sroa+instcombine    0   0    0      0        0    0  CORRECT=21, UNKNOWN:smt-timeout=2
+sroa+simplifycfg    0   0    0      0        0    0  CORRECT=22, UNKNOWN:smt-timeout=1
+sroa+gvn            0   0    0      0        0    0  CORRECT=22, UNKNOWN:smt-timeout=1
+O2                  0   0    0      0        0    0  CORRECT=3, UNKNOWN:approximated=2, UNKNOWN:smt-timeout=1, UNKNOWN:unsupported-attribute:nofree=17
+O3                  0   0    0      0        0    0  CORRECT=3, UNKNOWN:approximated=2, UNKNOWN:smt-timeout=1, UNKNOWN:unsupported-attribute:nofree=17
+alive2 (all rows): CORRECT=93, UNKNOWN:approximated=4, UNKNOWN:smt-timeout=7, UNKNOWN:unsupported-attribute:nofree=34
+candidates: 0 rows from 0 mutants; classification: none
+time: opt 2.4s, alive2 121.4s
+unattributed divergences: 0 rows; explained by known monitor gap (seed input has source-level ubsan:pointer-overflow): 0; unexplained: 0
+Arm A candidates (each is a potential miscompile lead):
+  none
+
+=== Arm B mutants ===
+generated 18; accepted 18; rejected: none
+by operator (generated/accepted): pred_flip=16/16, const_pm1=2/2
+by class (generated/accepted): bounds=16/16, overflow=2/2, null=0/0
+pipeline rows: 108
+pipeline           rm  wk  div div_ub div_noub cand  alive2
+sroa                0   0    0      0        0    0  CORRECT=18
+sroa+instcombine    2  10   13      8        5   13  CORRECT=17, UNKNOWN:smt-timeout=1
+sroa+simplifycfg    0   0    0      0        0    0  CORRECT=18
+sroa+gvn            2   5    7      7        0    7  CORRECT=18
+O2                  2  10   13      8        5   13  CORRECT=6, UNKNOWN:unsupported-attribute:nofree=12
+O3                  2  10   13      8        5   13  CORRECT=6, UNKNOWN:unsupported-attribute:nofree=12
+alive2 (all rows): CORRECT=83, UNKNOWN:smt-timeout=1, UNKNOWN:unsupported-attribute:nofree=24
+candidates: 46 rows from 14 mutants; classification: LEGAL_UB=32, UNKNOWN:unsupported-attribute:nofree=14
+time: opt 1.9s, alive2 66.2s
+unattributed divergences: 15 rows; explained by known monitor gap (seed input has source-level ubsan:pointer-overflow): 15; unexplained: 0
